@@ -111,7 +111,7 @@ assign curr_pix = (
 				// (abs_Control==3'b101)?(reg_next_pix_CB2_2):(
 				// (abs_Control==3'b110)?(reg_next_pix_CB2_3):(
 				// (abs_Control==3'b111)?(reg_next_pix_CB2_4):0
-)))
+))
 );
 
 //selcet one CB block to decrease ref_pix
@@ -125,7 +125,7 @@ assign next_pix=((CB_select==3'b000)?reg_next_pix_CB1_1:(
 				 // (CB_select==3'b101)?reg_next_pix_CB2_2:(
 				 // (CB_select==3'b110)?reg_next_pix_CB2_3:(
 				 // (CB_select==3'b111)?reg_next_pix_CB2_4:0			 
-)))
+))
 );
 
 

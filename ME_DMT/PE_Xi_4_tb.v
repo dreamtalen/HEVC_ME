@@ -1,3 +1,5 @@
+`define PIXEL 8
+
 module PE_Xi_4_tb;
 reg					clk;
 reg					rst_n;

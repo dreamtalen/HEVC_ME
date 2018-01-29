@@ -96,8 +96,8 @@ begin
 				reg_next_pix_CB1_2 <= in_curr2;
 			end
 			else begin
-				reg_next_pix_CB1_3 <= in_curr3;
-				reg_next_pix_CB1_4 <= in_curr4;
+				reg_next_pix_CB1_3 <= in_curr1;
+				reg_next_pix_CB1_4 <= in_curr2;
 			end
 
 		// case(CB_select)
@@ -135,9 +135,6 @@ assign next_pix2=(CB_select)?(reg_next_pix_CB1_3):(reg_next_pix_CB1_4);
 				 // (CB_select==3'b101)?reg_next_pix_CB2_2:(
 				 // (CB_select==3'b110)?reg_next_pix_CB2_3:(
 				 // (CB_select==3'b111)?reg_next_pix_CB2_4:0			 
-)))
-);
-
 
 endmodule
 

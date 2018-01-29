@@ -7,7 +7,7 @@ input					rst_n,
 input	[`PIXEL-1:0]	in_curr1,         //1st pixel input
 input	[`PIXEL-1:0]	in_curr2,         //2nd pixel input
 input					in_curr_enable,  //transfer to next PE;norm 1
-input					change_curr,     //change current PE  ;norm 1
+// input					change_curr,     //change current PE  ;norm 1 
 input					CB_select,       //choose Current Block 1&2 or 3&4
 // input	[1:0]			CB_select,       //exist to different register as different CB,values:0~3
     //差值控制

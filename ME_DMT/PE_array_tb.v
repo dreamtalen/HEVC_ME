@@ -35,7 +35,7 @@ begin
 	rst_n = 1'b0;
 	#10 rst_n = 1'b1;
 	#5 in_curr_enable = 1'b1;
-	current_64pixels = { 16{4'b0011} };
+	current_64pixels = { 64{8'b00110101} };
 	ref_8R_32 = { 256{8'b01010101} };
 	CB_select = 1'b1;
 	abs_Control = 2'b00;

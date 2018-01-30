@@ -16,10 +16,10 @@ input	[1:0]			abs_Control,      //decide which CB block to decrease,          va
 	//参考帧
 input	[`PIXEL-1:0]	up_ref_adajecent_1,  
 input	[`PIXEL-1:0]	up_ref_adajecent_8,
-input	[`PIXEL-1:0]	down_ref_adajecent_1,
-input	[`PIXEL-1:0]	down_ref_adajecent_8,
+// input	[`PIXEL-1:0]	down_ref_adajecent_1,
+// input	[`PIXEL-1:0]	down_ref_adajecent_8,
 input                   change_ref,      //change reference PE;norm 1
-input	[1:0]			ref_input_Control,   //this control signal decide the input of PE of reference frame values:0~3
+input				ref_input_Control,   //改为1bit，因为把down删了
     //差值输出
 output	[`PIXEL-1:0]	abs_out,
     //当前帧输出
@@ -55,10 +55,8 @@ begin
 	  if(change_ref)
 	  begin
 	    case(ref_input_Control)
-		  2'b00: ref_pix<= up_ref_adajecent_1;
-		  2'b01: ref_pix<= up_ref_adajecent_8;          		  
-		  2'b10: ref_pix<= down_ref_adajecent_1;
-		  2'b11: ref_pix<= down_ref_adajecent_8; 				
+		  1'b0: ref_pix<= up_ref_adajecent_1;
+		  1'b1: ref_pix<= up_ref_adajecent_8;			
 	    endcase
 	  end
 	end

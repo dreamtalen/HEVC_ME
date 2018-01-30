@@ -15,8 +15,10 @@ reg CB_select;
 reg [1:0] abs_Control;
 reg [`BAND_WIDTH_X*8-1:0] ref_8R_32;
 reg change_ref;
-reg [1:0] ref_input_Control;
+reg ref_input_Control;
 wire [`ARRAY_PIXELS-1:0] abs_outs;
+	reg [3:0] A = 4'b0001;
+	reg [3:0] B = 4'b0010;
 
 PE_array pe_array(.clk(clk), .rst_n(rst_n), .current_64pixels(current_64pixels), .in_curr_enable(in_curr_enable),
 	.CB_select(CB_select), .abs_Control(abs_Control), .ref_8R_32(ref_8R_32), .change_ref(change_ref),
@@ -34,8 +36,7 @@ begin
 	#10 rst_n = 1'b1;
 	#5 in_curr_enable = 1'b1;
 	current_64pixels = { 16{4'b0011} };
-	ref_8R_32 = { 32{8'b00000001}, 32{8'b00000010}, 32{8'b00000100}, 32{8'b00001000},
-				  32{8'b00010000}, 32{8'b00100000}, 32{8'b01000000}, 32{8'b10000000}};
+	ref_8R_32 = { 256{8'b01010101} };
 	CB_select = 1'b1;
 	abs_Control = 2'b00;
 	change_ref = 1'b1;
@@ -44,6 +45,6 @@ begin
 end
 
 initial
-	$monitor($time, " abs_out = %b", abs_out);
+	$monitor($time, " abs_outs = %b", abs_outs);
 
 endmodule

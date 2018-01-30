@@ -27,7 +27,7 @@ module PE_array(            //need to remove the horizontal connections
   input [`BAND_WIDTH_X*8-1:0] ref_8R_32,
   // input [`BAND_WIDTH_X*8-1:0] down_ref_adajecent_8,
   input change_ref,        //current PE  reference PIXEL change
-  input [1:0] ref_input_Control,   //this control signal decide the input of PE of reference frame values:0~3
+  input ref_input_Control,   //this control signal decide the input of PE of reference frame values:0~3
   output [`ARRAY_PIXELS-1:0] abs_outs
 );
 
@@ -50,7 +50,7 @@ generate for(i=0;i<`X;i=i+1)
             .clk(clk), 
             .rst_n(rst_n),
             .in_curr1(current_64pixels[ (j+1)*`PIXEL-1:j*`PIXEL]),
-            .in_curr2(current_64pixels[ (32+j+1)*`PIXEL-1:(32+j)*`PIXEL]]),
+            .in_curr2(current_64pixels[(32+j+1)*`PIXEL-1:(32+j)*`PIXEL]),
             .in_curr_enable(in_curr_enable),
             .CB_select(CB_select), 
             .abs_Control(abs_Control), 
@@ -65,7 +65,7 @@ generate for(i=0;i<`X;i=i+1)
             .ref_pix(ref_pixs[(32*i+j+1)*`PIXEL-1:(32*i+j)*`PIXEL])
           );
         end
-        else if (i >= 24 and i < 31) begin
+        else if (i >= 24 && i < 31) begin
           PE_Xi_4 pe_xi_4(
             .clk(clk), 
             .rst_n(rst_n),

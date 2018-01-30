@@ -14,8 +14,8 @@ input					CB_select,       //choose Current Block 1&2 or 3&4
 input	[1:0]			abs_Control,      //decide which CB block to decrease,          values:0~3
 
 	//参考帧
-input	[`PIXEL-1:0]	up_ref_adajecent_1,  
-input	[`PIXEL-1:0]	up_ref_adajecent_8,
+input	[`PIXEL-1:0]	down_ref_adajecent_1,  
+input	[`PIXEL-1:0]	down_ref_adajecent_8,
 // input	[`PIXEL-1:0]	down_ref_adajecent_1,
 // input	[`PIXEL-1:0]	down_ref_adajecent_8,
 input                   change_ref,      //change reference PE;norm 1
@@ -55,8 +55,8 @@ begin
 	  if(change_ref)
 	  begin
 	    case(ref_input_Control)
-		  1'b0: ref_pix<= up_ref_adajecent_1;
-		  1'b1: ref_pix<= up_ref_adajecent_8;			
+		  1'b0: ref_pix<= down_ref_adajecent_1;
+		  1'b1: ref_pix<= down_ref_adajecent_8;			
 	    endcase
 	  end
 	end

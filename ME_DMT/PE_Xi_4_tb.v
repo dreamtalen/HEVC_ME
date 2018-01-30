@@ -8,12 +8,10 @@ reg	[`PIXEL-1:0]	in_curr2;
 reg					in_curr_enable;      
 reg					CB_select;       
 reg	[1:0]			abs_Control;      
-reg	[`PIXEL-1:0]	up_ref_adajecent_1;  
-reg	[`PIXEL-1:0]	up_ref_adajecent_8;
 reg	[`PIXEL-1:0]	down_ref_adajecent_1;
 reg	[`PIXEL-1:0]	down_ref_adajecent_8;
 reg                 change_ref;     
-reg	[1:0]			ref_input_Control;  
+reg					ref_input_Control;  
 
 wire [`PIXEL-1:0]	abs_out;
 wire [`PIXEL-1:0] 	next_pix1;
@@ -40,15 +38,13 @@ begin
 	in_curr2 = 8'b00000111;
 	CB_select = 1'b1;
 	abs_Control = 2'b00;
-	up_ref_adajecent_1 = 8'b00000001;
-	up_ref_adajecent_8 = 8'b00000010;
-	down_ref_adajecent_1 = 8'b00000011;
-	down_ref_adajecent_8 = 8'b00000100;
+	down_ref_adajecent_1 = 8'b00000001;
+	down_ref_adajecent_8 = 8'b00000010;
 	change_ref = 1'b1;
-	ref_input_Control = 2'b00;
+	ref_input_Control = 1'b0;
 	#10 abs_Control = 2'b01;
-	#10 ref_input_Control = 2'b01;
-	#10 ref_input_Control = 2'b10;
+	#10 ref_input_Control = 1'b1;
+	#10 ref_input_Control = 1'b0;
 end
 
 initial

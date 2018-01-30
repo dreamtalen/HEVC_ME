@@ -14,12 +14,12 @@ input					CB_select,       //choose Current Block 1&2 or 3&4
 input	[1:0]			abs_Control,      //decide which CB block to decrease,          values:0~3
 
 	//参考帧
-input	[`PIXEL-1:0]	down_ref_adajecent_1,  
+input	[`PIXEL-1:0]	down_ref_adajecent_1,   
 input	[`PIXEL-1:0]	down_ref_adajecent_8,
 // input	[`PIXEL-1:0]	down_ref_adajecent_1,
 // input	[`PIXEL-1:0]	down_ref_adajecent_8,
 input                   change_ref,      //change reference PE;norm 1
-input				ref_input_Control,   //改为1bit，因为把down删了
+input					ref_input_Control,   //改为1bit，因为把down删了
     //差值输出
 output	[`PIXEL-1:0]	abs_out,
     //当前帧输出

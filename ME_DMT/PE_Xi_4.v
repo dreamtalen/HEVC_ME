@@ -127,8 +127,8 @@ assign curr_pix = (
 //selcet one CB block to decrease ref_pix
 assign abs_out=(curr_pix > ref_pix)?(curr_pix-ref_pix):(ref_pix-curr_pix);
 
-assign next_pix1=(CB_select)?(reg_next_pix_CB1_1):(reg_next_pix_CB1_2);
-assign next_pix2=(CB_select)?(reg_next_pix_CB1_3):(reg_next_pix_CB1_4);
+assign next_pix1=(CB_select)?(reg_next_pix_CB1_1):(reg_next_pix_CB1_3);
+assign next_pix2=(CB_select)?(reg_next_pix_CB1_2):(reg_next_pix_CB1_4);
 				 // (CB_select==3'b100)?reg_next_pix_CB2_1:(
 				 // (CB_select==3'b101)?reg_next_pix_CB2_2:(
 				 // (CB_select==3'b110)?reg_next_pix_CB2_3:(

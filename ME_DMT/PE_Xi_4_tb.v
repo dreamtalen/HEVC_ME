@@ -19,8 +19,8 @@ wire [`PIXEL-1:0] 	next_pix2;
 wire [`PIXEL-1:0] 	ref_pix;
 
 PE_Xi_4 pe_xi_1(.clk(clk), .rst_n(rst_n), .in_curr1(in_curr1), .in_curr2(in_curr2), .in_curr_enable(in_curr_enable),
-				.CB_select(CB_select), .abs_Control(abs_Control), .up_ref_adajecent_1(up_ref_adajecent_1),
-				.up_ref_adajecent_8(up_ref_adajecent_8), .down_ref_adajecent_1(down_ref_adajecent_1), .down_ref_adajecent_8(down_ref_adajecent_8),
+				.CB_select(CB_select), .abs_Control(abs_Control), 
+				.down_ref_adajecent_1(down_ref_adajecent_1), .down_ref_adajecent_8(down_ref_adajecent_8),
 				.change_ref(change_ref), .ref_input_Control(ref_input_Control), .abs_out(abs_out), .next_pix1(next_pix1),
 				.next_pix2(next_pix2), .ref_pix(ref_pix));
 

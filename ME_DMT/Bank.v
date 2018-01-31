@@ -54,7 +54,7 @@ S65NLLHSDPH_X40Y4D64 i_ram(
   .CLKB(clk),
   .CENA(rd_en),
   .CENB(Bank_sel),
-  .WENA(1'b0),
+  .WENA(1'b1),
   .WENB(Bank_sel),
   .AA({1'b0,address}),
   .AB({1'b0,me_cnt }),

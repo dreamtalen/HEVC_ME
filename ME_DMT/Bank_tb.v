@@ -26,13 +26,18 @@ initial
 begin
 	rst_n = 1'b0;
 	#10 rst_n = 1'b1;
+	// 先从B端口写入一些数据
 	beg_en = 1'b1;
+	Bank_sel = 1'b0;
 	ref_in = { 8{8'b00001111} };
-	Bank_sel = 1'b1;
-	address = 7'b0;
-	rd_en = 1'b0;
 	#30 ref_in = { 8{8'b01010101} };
 	#30 ref_in = { 8{8'b00110011} };
+	// 再从A端口读出来
+	#10 address = 7'b0000000;
+	rd_en = 1'b0;
+	#10 address = 7'b0000001;
+	#10 address = 7'b0000010;
+	#10 address = 7'b0000100;
 end
 
 initial

@@ -13,7 +13,7 @@ module Bank(
 input clk,
 input rst_n,
 input beg_en,               	 	 //input enable,synchronization with data 
-input [8*`PIXEL-1:0]ref_in, 	     //reference input,8 pixels=64bit
+input [8*`PIXEL-1:0] ref_in, 	     //reference input,8 pixels=64bit
 input Bank_sel,     				 //if Bank_sel=1,enable to storage
 input [6:0] address,			      //according address to select 1 data(8 pixels)
 input rd_en,	
@@ -63,4 +63,3 @@ S65NLLHSDPH_X40Y4D64 i_ram(
 );
 
 endmodule
-

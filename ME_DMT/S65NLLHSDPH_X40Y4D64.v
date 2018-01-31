@@ -66,7 +66,7 @@ module S65NLLHSDPH_X40Y4D64 (
 
 // 这个参数有疑问，word应该是96，address width应该是7（补到8了）
   parameter	Bits = 64;
-  parameter	Word_Depth = 96;
+  parameter	Word_Depth = 160;
   parameter	Add_Width = 8;
 
   output          [Bits-1:0]      	QA;

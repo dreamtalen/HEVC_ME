@@ -17,7 +17,7 @@ input [8*`PIXEL-1:0] ref_in, 	     //reference input,8 pixels=64bit
 input Bank_sel,     				 //if Bank_sel=1,enable to storage
 input [6:0] address,			      //according address to select 1 data(8 pixels)
 input rd_en,	
-output reg [8*`PIXEL-1:0] ref_ou	     //output 1 data(8 pixels) of Bank
+output [8*`PIXEL-1:0] ref_ou	     //output 1 data(8 pixels) of Bank
 //output reg da_va                 	 //data valid,synchronization with ref_ou
 );
 

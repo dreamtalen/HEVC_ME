@@ -1,3 +1,4 @@
+`timescale 1ns/1ps
 `define PIXEL 8
 `define X 32
 `define Y 32
@@ -29,7 +30,7 @@ begin
 	ref_in = { 8{8'b00001111} };
 	Bank_sel = 1'b1;
 	address = 7'b0;
-	rd_en = 1'b1;
+	rd_en = 1'b0;
 	#30 ref_in = { 8{8'b01010101} };
 	#30 ref_in = { 8{8'b00110011} };
 end

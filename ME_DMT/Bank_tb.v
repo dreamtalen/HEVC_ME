@@ -33,11 +33,14 @@ begin
 	#30 ref_in = { 8{8'b01010101} };
 	#30 ref_in = { 8{8'b00110011} };
 	// 再从A端口读出来
-	#10 address = 7'b0000000;
+	#900 address = 7'b0000000;
 	rd_en = 1'b0;
 	#10 address = 7'b0000001;
 	#10 address = 7'b0000010;
+	#10 address = 7'b0000011;
 	#10 address = 7'b0000100;
+	#10 address = 7'b0000101;
+	#10 address = 7'b0001000;
 end
 
 initial

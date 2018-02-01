@@ -16,21 +16,7 @@ output reg            Oda8R_va,      //data vlid for 1 clk if get only one 8 row
 output reg            da1R_va        //valid for 8 clk,enough to read 8 rows,synchronization with ref_1R_32
 );
 
-genvar j;
-generate for(j=0;j<32;j=j+1)
-     begin:Bank_32     
-      Bank in_Bank(
-        .clk(clk),
-        .rst_n(rst_n),
-        .beg_en(beg_en_delay2),
-        .ref_in(ref_input_delay2[64*(j%4+1)-1:64*(j%4)]),  //reference input,8 pixels=64bit
-        .Bank_sel(~Bank_sel[j]),                    //if Bank_sel=1,enable to storage
-        .address(rd_address),                       //according address to select 1 data(8 pixels)
-        .rd_en(rd8R_en),                                      //read_enable
-        .ref_ou(ref_ou[8*`PIXEL*(j+1)-1:8*`PIXEL*j])   //output 1 data(8 pixels) of Bank
-        );
-    end   
-endgenerate
+
 
 reg [31:0] Bank_sel;         //select one Bank (total is 32 Bank) to store, 32'b1-Bank1,32'b2-Bank2,....,32'b1000 0000_0000 0000_0000 0000_0000 0000-Bank32
 
@@ -197,7 +183,22 @@ else //if(rd8R_en)                                                   //although 
   rdR_sel_dlay<=rdR_sel;
 end
 
-        
+genvar j;
+generate for(j=0;j<32;j=j+1)
+     begin:Bank_32     
+      Bank in_Bank(
+        .clk(clk),
+        .rst_n(rst_n),
+        .beg_en(beg_en_delay2),
+        .ref_in(ref_input_delay2[64*(j%4+1)-1:64*(j%4)]),  //reference input,8 pixels=64bit
+        .Bank_sel(~Bank_sel[j]),                    //if Bank_sel=1,enable to storage
+        .address(rd_address),                       //according address to select 1 data(8 pixels)
+        .rd_en(rd8R_en),                                      //read_enable
+        .ref_ou(ref_ou[8*`PIXEL*(j+1)-1:8*`PIXEL*j])   //output 1 data(8 pixels) of Bank
+        );
+    end   
+endgenerate
+
 //-----------------------------------instance row(8 rows)
 wire [32*`PIXEL-1:0] ref_row1;
 wire [32*`PIXEL-1:0] ref_row2;

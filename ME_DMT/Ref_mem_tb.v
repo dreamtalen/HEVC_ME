@@ -1,3 +1,4 @@
+`timescale 1ns/1ps
 `define PIXEL 8
 `define X 32
 `define Y 32

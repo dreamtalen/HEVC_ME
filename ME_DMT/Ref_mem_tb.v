@@ -28,15 +28,20 @@ initial
 begin
 	rst_n = 1'b0;
 	#10 rst_n = 1'b1;
+	// 先给mem写入足够的数据，写入的地址是自动生成的
 	ref_input = { 32{8'b00001111} };
 	beg_en = 1'b1;
 	rd_address = 7'b0000000;
 	rd8R_en = 1'b0;
 	rdR_sel = 4'b0000;
 	#5 rd_address = 7'b0000001;
+	#8000 rdR_sel = 4'b0001;
+	#100 rdR_sel = 4'b0010;
+	#100 rdR_sel = 4'b0100;
+
 end
 
 initial
-	$monitor($time, " ref_8R_32 = %h", ref_8R_32);
+	$monitor($time, " ref_8R_32 = %h", ref_8R_32[255:0]);
 
 endmodule

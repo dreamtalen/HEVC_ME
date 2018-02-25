@@ -29,16 +29,20 @@ begin
 	// 已修改，（先从B端口写入一些数据，地址由bank自动生成1，2，..96）
 	Bank_sel = 1'b0;
 	write_address = 7'b0000000;
-	ref_in = { 8{8'b00001111} };
-	#30 ref_in = { 8{8'b01010101} };
+	ref_in = { 8{8'b00000000} };
+	#30 ref_in = { 8{8'b00000001} };
 	write_address = 7'b0000001;
-	#30 ref_in = { 8{8'b00110011} };
+	#30 ref_in = { 8{8'b00000011} };
 	write_address = 7'b0000011;
-	// 再从A端口读出来，地址由用户指定
+	#30 ref_in = { 8{8'b00000100} };
+	write_address = 7'b0000100;
+	#30 ref_in = { 8{8'b00000101} };
+	write_address = 7'b0000101;
+	
+
 	#100 address = 7'b0000000;
 	rd_en = 1'b0;
 	#10 address = 7'b0000001;
-	#10 address = 7'b0000010;
 	#10 address = 7'b0000011;
 	#10 address = 7'b0000100;
 	#10 address = 7'b0000101;

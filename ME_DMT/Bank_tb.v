@@ -40,6 +40,8 @@ begin
 	#10 address = 7'b0000001;
 	#10 address = 7'b0000010;
 	#10 address = 7'b0000011;
+	#10 address = 7'b0000100;
+	#10 address = 7'b0000101;
 end
 
 initial

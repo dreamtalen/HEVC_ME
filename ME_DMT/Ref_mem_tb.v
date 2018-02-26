@@ -46,6 +46,9 @@ begin
 	#10 rd_address = 7'b0000001;
 	#10 rd_address = 7'b0000010;
 	#10 rd_address = 7'b0000011;
+	rdR_sel = 4'b0001;
+	#10 rd_address = 7'b0000001;
+	#10 rd_address = 7'b0000010;
 end
 
 initial

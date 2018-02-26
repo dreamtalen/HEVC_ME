@@ -38,11 +38,12 @@ begin
 	#100 rd_address = 7'b0000000;
 	rd8R_en = 1'b0;
 	rdR_sel = 4'b0000;
-	#5 rd_address = 7'b0000000;
-
+	#10 rd_address = 7'b0000001;
+	#10 rd_address = 7'b0000010;
+	#10 rd_address = 7'b0000011;
 end
 
 initial
-	$monitor($time, " ref_8R_32 = %h", ref_8R_32[255:0]);
+	$monitor($time, " ref_8R_32 = %h", ref_8R_32[511:0]);
 
 endmodule

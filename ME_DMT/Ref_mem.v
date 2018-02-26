@@ -7,7 +7,7 @@ module Ref_mem(               //need to modify : 只需实现从8行选择一行
 input    	 		        clk,
 input 				        rst_n,
 input [32*`PIXEL-1:0] ref_input,     //input 4*8pixels, which is 32pixels*8bit=256bit
-input [31:0]          Bank_sel;      //select one Bank (total is 32 Bank) to store, 32'b1-Bank1,32'b2-Bank2,....,32'b1000 0000_0000 0000_0000 0000_0000 0000-Bank32
+input [31:0]          Bank_sel,      //select one Bank (total is 32 Bank) to store, 32'b1-Bank1,32'b2-Bank2,....,32'b1000 0000_0000 0000_0000 0000_0000 0000-Bank32
 input [6:0] 	        rd_address,    //控制读的是96行的哪一行address is the depth of Bank,value:0-95
 input [7*32-1:0]      write_address_all, //32个ram的写地址集合
 input 				        rd8R_en,       //read enable,read 8 rows from 32Bank, rd_en = 0 begin read
@@ -17,6 +17,7 @@ output reg            Oda8R_va,      //data vlid for 1 clk if get only one 8 row
 output reg            da1R_va        //valid for 8 clk,enough to read 8 rows,synchronization with ref_1R_32
 );
 
+wire [8*32*`PIXEL-1:0] ref_ou; 
 genvar j;
 generate for(j=0;j<32;j=j+1)
      begin:Bank_32     
@@ -32,6 +33,17 @@ generate for(j=0;j<32;j=j+1)
         );
     end   
 endgenerate
+
+//wire data_valid=&da8R_va;                                              //due to read data is according to row, combine all data_valid to one bit      
+//-----------------------------------data_valid
+reg da8R_va;                                                             //data_valid from Bank(8 rows)
+always@(posedge clk or negedge rst_n)
+begin
+if(!rst_n) 
+  da8R_va<=0;
+else
+  da8R_va<=rd8R_en;    
+end
 
 //-----------------------------------instance row(8 rows)
 wire [32*`PIXEL-1:0] ref_row1;

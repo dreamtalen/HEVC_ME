@@ -42,7 +42,7 @@ begin
 if(!rst_n) 
   da8R_va<=0;
 else
-  da8R_va<=rd8R_en;    
+  da8R_va<=~rd8R_en;    
 end
 
 //-----------------------------------instance row(8 rows)

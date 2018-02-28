@@ -5,7 +5,7 @@ input rst_n,
 input begin_prepare, //刚加 开始准备数据
 //output
 output reg [31:0] Bank_sel,
-output reg [[7*32-1:0] rd_address_all,
+output reg [7*32-1:0] rd_address_all,
 output reg [7*32-1:0] write_address_all,
 output reg rd8R_en,
 output reg [3:0] rdR_sel

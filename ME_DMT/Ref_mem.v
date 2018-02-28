@@ -8,7 +8,7 @@ input    	 		        clk,
 input 				        rst_n,
 input [32*`PIXEL-1:0] ref_input,     //input 4*8pixels, which is 32pixels*8bit=256bit
 input [31:0]          Bank_sel,      //select one Bank (total is 32 Bank) to store, 32'b1-Bank1,32'b2-Bank2,....,32'b1000 0000_0000 0000_0000 0000_0000 0000-Bank32
-input [6:0] 	        rd_address,    //控制读的是96行的哪一行address is the depth of Bank,value:0-95
+input [7*32-1:0] 	    rd_address_all,    //控制读的是96行的哪一行address is the depth of Bank,value:0-95
 input [7*32-1:0]      write_address_all, //32个ram的写地址集合
 input 				        rd8R_en,       //read enable,read 8 rows from 32Bank, rd_en = 0 begin read
 input [3:0]			      rdR_sel,       //控制读这一行(8小行像素)的第几小行read mode select(called:read rows select),it can select one row(row1~row8) or 8 rows output,synchronization with address,read_en.value：0-8 
@@ -26,7 +26,7 @@ generate for(j=0;j<32;j=j+1)
         .rst_n(rst_n),
         .ref_in(ref_input[64*(j%4+1)-1:64*(j%4)]),  //reference input,8 pixels=64bit
         .Bank_sel(~Bank_sel[j]),                    //if Bank_sel=1,enable to storage
-        .address(rd_address),                       //according address to select 1 data(8 pixels)
+        .address(rd_address_all[7*(j+1)-1:7*j]),                       //according address to select 1 data(8 pixels)
         .write_address(write_address_all[7*(j+1)-1:7*j]),
         .rd_en(rd8R_en),                                      //read_enable
         .ref_ou(ref_ou[8*`PIXEL*(j+1)-1:8*`PIXEL*j])   //output 1 data(8 pixels) of Bank

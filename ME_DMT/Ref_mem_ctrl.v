@@ -23,7 +23,7 @@ always@(posedge clk or negedge rst_n)
 begin
 if(!rst_n)
 	begin
-		current_state <= IDLE
+		current_state <= IDLE;
 		Bank_sel <= 32'b0;
 		rd_address <= 7'b0;
 		write_address_all <= 224'b0;
@@ -53,7 +53,7 @@ begin
 		pre_count <= pre_count + 1'd1;
 		if (pre_count < 96) begin
 			Bank_sel <= 32'b00000000000000000000000000001111;
-			write_address_all <= 32{ {pre_count[6:0]} };
+			write_address_all <= { 32{pre_count[6:0]} };
 		end
 		else if (pre_count >= 96 & pre_count < 192) begin
 			Bank_sel <= 32'b00000000000000000000000011110000;

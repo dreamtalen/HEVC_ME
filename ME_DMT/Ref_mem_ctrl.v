@@ -18,6 +18,7 @@ SUB_AERA1 = 3'b010;
 
 reg [3:0] current_state, next_state;
 reg [9:0] pre_count;
+reg [6:0] pre_line_count;
 
 always@(posedge clk or negedge rst_n)
 begin
@@ -57,7 +58,9 @@ begin
 		end
 		else if (pre_count >= 96 & pre_count < 192) begin
 			Bank_sel <= 32'b00000000000000000000000011110000;
-			write_address_all <= { 32{pre_count%96[6:0]} };
+			pre_line_count <= pre_count - 96;
+			write_address_all <= { 32{pre_line_count} };
+//write_address_all <= { 32{(pre_count-96)[6:0]} };
 		end
 		else if (pre_count >= 192 & pre_count < 288) begin
 			Bank_sel <= 32'b00000000000000000000111100000000;

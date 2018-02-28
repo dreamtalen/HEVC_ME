@@ -14,7 +14,7 @@ output reg [3:0] rdR_sel
 parameter [2:0]
 IDLE = 3'b000, 
 DATA_PRE = 3'b001,
-SUB_AERA1 = 3'b010,
+SUB_AERA1 = 3'b010;
 
 reg [3:0] current_state, next_state;
 reg [9:0] pre_count;
@@ -49,6 +49,7 @@ begin
 		pre_count <= 10'd0;
 	end
 	DATA_PRE: begin
+		// 初始化，缓存好初始数据
 		pre_count <= pre_count + 1'd1;
 		if (pre_count < 96) begin
 			Bank_sel <= 32'b00000000000000000000000000001111;
@@ -82,6 +83,15 @@ begin
 			Bank_sel <= 32'b11110000000000000000000000000000;
 			write_address_all <= 32{ {pre_count%96[6:0]} };
 		end
+		// 在最后四个周期 给PE输出好第一个搜索点需要的参考帧数据: 32个ram的前四行
+		if (pre_count >= 764 & pre_count < 768) begin
+			rd_address <= pre_count - 764;
+			rd8R_en <= 0;
+			rdR_sel <= 4;
+		end
+	end
+	SUB_AERA1: begin
+		
 	end
 	default: begin
 		Bank_sel <= 32'b0;

@@ -5,7 +5,7 @@ input rst_n,
 input begin_prepare, //刚加 开始准备数据
 //output
 output reg [31:0] Bank_sel,
-output reg [6:0] rd_address,
+output reg [[7*32-1:0] rd_address_all,
 output reg [7*32-1:0] write_address_all,
 output reg rd8R_en,
 output reg [3:0] rdR_sel
@@ -19,6 +19,7 @@ SUB_AERA1 = 3'b010;
 reg [3:0] current_state, next_state;
 reg [9:0] pre_count;
 reg [6:0] pre_line_count;
+reg [6:0] pre_rd_count;
 
 always@(posedge clk or negedge rst_n)
 begin
@@ -26,7 +27,7 @@ if(!rst_n)
 	begin
 		current_state <= IDLE;
 		Bank_sel <= 32'b0;
-		rd_address <= 7'b0;
+		rd_address_all <= 224'b0;
 		write_address_all <= 224'b0;
 		rd8R_en <= 1'b1;
 		rdR_sel <= 4'b0;
@@ -43,11 +44,13 @@ begin
 	case(current_state)
 	IDLE: begin
 		Bank_sel <= 32'b0;
-		rd_address <= 7'b0;
+		rd_address_all <= 224'b0;
 		write_address_all <= 224'b0;
 		rd8R_en <= 1'b1;
 		rdR_sel <= 4'b0;
 		pre_count <= 10'd0;
+		pre_rd_count <= 7'b0;
+		pre_line_count <= 7'b0;
 	end
 	DATA_PRE: begin
 		// 初始化，缓存好初始数据
@@ -93,7 +96,8 @@ begin
 		end
 		// 在最后四个周期 给PE输出好第一个搜索点需要的参考帧数据: 32个ram的前四行
 		if (pre_count >= 764 & pre_count < 768) begin
-			rd_address <= pre_count - 764;
+			pre_rd_count <= pre_count - 764;
+			rd_address_all <= { 32{pre_rd_count} };
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
 		end
@@ -103,7 +107,7 @@ begin
 	end
 	default: begin
 		Bank_sel <= 32'b0;
-		rd_address <= 7'b0;
+		rd_address_all <= 224'b0;
 		write_address_all <= 224'b0;
 		rd8R_en <= 1'b1;
 		rdR_sel <= 4'b0;

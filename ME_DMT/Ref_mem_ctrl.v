@@ -57,31 +57,31 @@ begin
 		end
 		else if (pre_count >= 96 & pre_count < 192) begin
 			Bank_sel <= 32'b00000000000000000000000011110000;
-			write_address_all <= 32{ {pre_count%96[6:0]} };
+			write_address_all <= { 32{pre_count%96[6:0]} };
 		end
 		else if (pre_count >= 192 & pre_count < 288) begin
 			Bank_sel <= 32'b00000000000000000000111100000000;
-			write_address_all <= 32{ {pre_count%96[6:0]} };
+			write_address_all <= { 32{pre_count%96[6:0]} };
 		end
 		else if (pre_count >= 288 & pre_count < 384) begin
 			Bank_sel <= 32'b00000000000000001111000000000000;
-			write_address_all <= 32{ {pre_count%96[6:0]} };
+			write_address_all <= { 32{pre_count%96[6:0]} };
 		end
 		else if (pre_count >= 384 & pre_count < 480) begin
 			Bank_sel <= 32'b00000000000011110000000000000000;
-			write_address_all <= 32{ {pre_count%96[6:0]} };
+			write_address_all <= { 32{pre_count%96[6:0]} };
 		end
 		else if (pre_count >= 480 & pre_count < 576) begin
 			Bank_sel <= 32'b00000000111100000000000000000000;
-			write_address_all <= 32{ {pre_count%96[6:0]} };
+			write_address_all <= { 32{pre_count%96[6:0]} };
 		end
 		else if (pre_count >= 576 & pre_count < 672) begin
 			Bank_sel <= 32'b00001111000000000000000000000000;
-			write_address_all <= 32{ {pre_count%96[6:0]} };
+			write_address_all <= { 32{pre_count%96[6:0]} };
 		end
 		else if (pre_count >= 672 & pre_count < 768) begin
 			Bank_sel <= 32'b11110000000000000000000000000000;
-			write_address_all <= 32{ {pre_count%96[6:0]} };
+			write_address_all <= { 32{pre_count%96[6:0]} };
 		end
 		// 在最后四个周期 给PE输出好第一个搜索点需要的参考帧数据: 32个ram的前四行
 		if (pre_count >= 764 & pre_count < 768) begin

@@ -8,7 +8,8 @@ output reg [31:0] Bank_sel,
 output reg [7*32-1:0] rd_address_all,
 output reg [7*32-1:0] write_address_all,
 output reg rd8R_en,
-output reg [3:0] rdR_sel
+output reg [3:0] rdR_sel,
+output reg [4:0] shift_value
 );
 
 parameter [2:0]
@@ -34,6 +35,7 @@ if(!rst_n)
 		write_address_all <= 224'b0;
 		rd8R_en <= 1'b1;
 		rdR_sel <= 4'b0;
+		shift_value <= 5'b0;
 	end
 else
 	begin
@@ -148,6 +150,7 @@ begin
 				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
 					sub_area1_row_count <= sub_area1_row_count - 1'd1;
 					read_stall <= 1'b1;
+					shift_value <= 8;
 				end
 			end
 			else begin
@@ -155,6 +158,7 @@ begin
 				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
 					sub_area1_row_count <= sub_area1_row_count - 1'd1;
 					read_stall <= 1'b1;
+					shift_value <= 8;
 				end
 			end
 			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
@@ -176,6 +180,7 @@ begin
 				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
 					sub_area1_row_count <= sub_area1_row_count - 1'd1;
 					read_stall <= 1'b1;
+					shift_value <= 16;
 				end
 			end
 			else begin
@@ -183,6 +188,7 @@ begin
 				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
 					sub_area1_row_count <= sub_area1_row_count - 1'd1;
 					read_stall <= 1'b1;
+					shift_value <= 16;
 				end
 			end
 			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
@@ -204,6 +210,7 @@ begin
 				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
 					sub_area1_row_count <= sub_area1_row_count - 1'd1;
 					read_stall <= 1'b1;
+					shift_value <= 24;
 				end
 			end
 			else begin
@@ -211,6 +218,7 @@ begin
 				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
 					sub_area1_row_count <= sub_area1_row_count - 1'd1;
 					read_stall <= 1'b1;
+					shift_value <= 24;
 				end
 			end
 			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
@@ -260,6 +268,7 @@ begin
 				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
 					sub_area1_row_count <= sub_area1_row_count - 1'd1;
 					read_stall <= 1'b1;
+					shift_value <= 8;
 				end
 			end
 			else begin
@@ -267,6 +276,7 @@ begin
 				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
 					sub_area1_row_count <= sub_area1_row_count - 1'd1;
 					read_stall <= 1'b1;
+					shift_value <= 8;
 				end
 			end
 			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
@@ -288,6 +298,7 @@ begin
 				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
 					sub_area1_row_count <= sub_area1_row_count - 1'd1;
 					read_stall <= 1'b1;
+					shift_value <= 16;
 				end
 			end
 			else begin
@@ -295,6 +306,7 @@ begin
 				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
 					sub_area1_row_count <= sub_area1_row_count - 1'd1;
 					read_stall <= 1'b1;
+					shift_value <= 16;
 				end
 			end
 			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
@@ -327,12 +339,14 @@ begin
 		next_state = DATA_PRE;
 		else
 		next_state = IDLE;
-	DATA_PRE: begin
-		if (pre_count < 768)
+	DATA_PRE: if (pre_count < 768)
 		next_state = DATA_PRE;
 		else
-		next_state = SUB_AERA1;  	
-	end
+		next_state = SUB_AERA1;
+	SUB_AERA1: if (sub_area1_column_count < 7)
+		next_state = SUB_AERA1
+		else 
+		next_state = SUB_AERA2
 	default: next_state = IDLE;
 	endcase
 end

@@ -140,7 +140,32 @@ begin
 			end
 			end
 		1: begin
-			
+			rd8R_en <= 0;
+			rdR_sel <= 4'b0;
+			sub_area1_row_count <= sub_area1_row_count + 1'd1;
+			if (CB12or34 == 0) begin
+				rd_address_all <= {24{sub_area1_row_count}, 8{sub_area1_row_count+24}};
+				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+					sub_area1_row_count <= sub_area1_row_count - 1'd1;
+					read_stall <= 1'b1;
+				end
+			end
+			else begin
+				rd_address_all <= {24{sub_area1_row_count+24}， 8{sub_area1_row_count+48}};
+				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+					sub_area1_row_count <= sub_area1_row_count - 1'd1;
+					read_stall <= 1'b1;
+				end
+			end
+			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
+				CB12or34 <= 1'b1;
+				sub_area1_row_count <= 0;
+			end
+			if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+				CB12or34 <= 1'b0;	
+				sub_area1_row_count <= 0;
+				sub_area1_column_count <= sub_area1_column_count + 1;
+			end
 			end
 		endcase
 	end

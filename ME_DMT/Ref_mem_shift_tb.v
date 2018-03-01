@@ -11,10 +11,10 @@ Ref_mem_shift ref_mem_shift(
 
 initial
 begin
-	ref_input = {24{64'b1}, 8{64'b0}};
-	shift_value = 8;
-	#50 shift_value = 0;
-	#50 shift_value = 16;
+	ref_input = {512{4'b1100}};
+	shift_value = 1;
+	#50 shift_value = 2;
+	#50 shift_value = 7;
 end
 
 initial

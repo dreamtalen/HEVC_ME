@@ -15,8 +15,9 @@ output reg [4:0] shift_value
 parameter [2:0]
 IDLE = 3'b000, 
 DATA_PRE = 3'b001,
-SUB_AERA1 = 3'b010;
-SUB_AERA2 = 3'b011;
+SUB_AERA1 = 3'b010,
+SUB_AERA2 = 3'b011,
+SUB_AERA3 = 3'b100;
 
 reg [3:0] current_state, next_state;
 reg [9:0] pre_count;

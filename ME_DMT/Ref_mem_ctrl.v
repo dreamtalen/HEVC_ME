@@ -16,6 +16,7 @@ parameter [2:0]
 IDLE = 3'b000, 
 DATA_PRE = 3'b001,
 SUB_AERA1 = 3'b010;
+SUB_AERA2 = 3'b011;
 
 reg [3:0] current_state, next_state;
 reg [9:0] pre_count;
@@ -171,7 +172,7 @@ begin
 				end
 			end
 			else begin
-				rd_address_all <= {{24{sub_area1_row_count+24}}， {8{sub_area1_row_count+48}}};
+				rd_address_all <= {{24{sub_area1_row_count+24}}, {8{sub_area1_row_count+48}}};
 				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
 					read_stall <= 1'b1;
 					shift_value <= 8;
@@ -409,6 +410,7 @@ begin
 				else begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 1;
+				end
 			end
 			else if (sub_area2_row_count >= 12 && sub_area2_row_count < 19) begin
 				rd8R_en <= 0;
@@ -430,6 +432,7 @@ begin
 				else begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 1;
+				end
 			end
 			else if (sub_area2_row_count >= 20 && sub_area2_row_count < 27) begin
 				rd8R_en <= 0;
@@ -465,6 +468,7 @@ begin
 					if (CB12or34 == 1'b0) rd_address_all <= {{8{sub_area2_row_count+10}}, {24{sub_area2_row_count+34}}};
 					else rd_address_all <= {{8{sub_area2_row_count+34}}, {24{sub_area2_row_count+58}}};
 					sub_area2_row_count <= sub_area2_row_count + 1;
+				end
 			end
 			else if (sub_area2_row_count >= 30 && sub_area2_row_count < 37) begin
 				rd8R_en <= 0;
@@ -486,6 +490,7 @@ begin
 				else begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 1;
+				end
 			end
 			else if (sub_area2_row_count >= 38 && sub_area2_row_count < 45) begin
 				rd8R_en <= 0;
@@ -560,13 +565,13 @@ begin
 		else
 		next_state = SUB_AERA1;
 	SUB_AERA1: if (search_column_count < 7)
-		next_state = SUB_AERA1
+		next_state = SUB_AERA1;
 		else 
-		next_state = SUB_AERA2
+		next_state = SUB_AERA2;
 	SUB_AERA2: if (search_column_count == 8 | search_column_count == 16)
-		next_state = SUB_AERA3
+		next_state = SUB_AERA3;
 		else 
-		next_state = SUB_AERA1
+		next_state = SUB_AERA1;
 	default: next_state = IDLE;
 	endcase
 end

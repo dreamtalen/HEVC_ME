@@ -3,17 +3,22 @@ reg [2:0] a;
 reg clk;
 reg sign;
 
-initial
+initial begin
 	clk = 1'b0;
 	sign = 1'b0;
+	a = 3'b0;
+end
 always
 	#5 clk = ~clk;
 
 always @(posedge clk) begin
-	a <= a + 1'd1;
+	
 	if (sign == 0) begin
-		a <= a - 1'd1;
-		sing <= 1;
+		sign <= 1;
+	end
+	if (sign == 1) begin
+		a <= a + 1'd1;	
+		sign <= 0;
 	end
 end
 endmodule

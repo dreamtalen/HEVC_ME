@@ -554,7 +554,7 @@ begin
 			shift_value <= 25;
 			if (sub_area3_row_count < 4) begin
 				rdR_sel <= 4'b0;
-				case CB1or2or3or4:
+				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{7{sub_area3_row_count+25}}, {25{sub_area3_row_count+49}}};
 				2'b01: rd_address_all <= {{7{sub_area3_row_count+29}}, {25{sub_area3_row_count+53}}};
 				2'b10: rd_address_all <= {{7{sub_area3_row_count+49}}, {25{sub_area3_row_count+73}}};
@@ -564,7 +564,7 @@ begin
 			end
 			else if (sub_area3_row_count < 12) begin
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
-				case CB1or2or3or4:
+				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{7{7'b0011101}}, {25{7'b0110101}}};
 				2'b01: rd_address_all <= {{7{7'b0011101+4}}, {25{7'b0110101+4}}};
 				2'b10: rd_address_all <= {{7{7'b0011101+24}}, {25{7'b0110101+24}}};
@@ -574,7 +574,7 @@ begin
 			end
 			else if (sub_area3_row_count < 20) begin
 				sub_area3_row_count <= 7'b0;
-				case CB1or2or3or4:
+				case (CB1or2or3or4)
 				2'b00: CB1or2or3or4 <= 2'b01;
 				2'b01: CB1or2or3or4 <= 2'b10;
 				2'b10: CB1or2or3or4 <= 2'b11;
@@ -586,7 +586,7 @@ begin
 				endcase
 			end
 			else begin
-				case CB1or2or3or4:
+				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{7{7'b0011110}}, {25{7'b0110110}}};
 				2'b01: rd_address_all <= {{7{7'b0011110+4}}, {25{7'b0110110+4}}};
 				2'b10: rd_address_all <= {{7{7'b0011110+24}}, {25{7'b0110110+24}}};

@@ -25,8 +25,10 @@ reg [6:0] pre_rd_count;
 // reg [2:0] sub_area1_column_count; //每组搜索子区间1有7列，共两组，不用了，直接用整体的列计数器
 reg [6:0] sub_area1_row_count;
 reg [6:0] sub_area2_row_count;
+reg [6:0] sub_area3_row_count;
 reg read_stall; //标志位，用来控制参考帧复用时输出地址停止+1
 reg CB12or34; //标志位，记录在降采样区间当前计算的是子块12还是子块34
+reg [1:0] CB1or2or3or4; //标志位，记录在全采样区间当前计算的子块是1或2或3或4
 reg [4:0] search_column_count;
 
 always@(posedge clk or negedge rst_n)
@@ -64,8 +66,10 @@ begin
 		// sub_area1_column_count <= 3'b0;
 		sub_area1_row_count <= 7'b0;
 		sub_area2_row_count <= 7'b0;
+		sub_area3_row_count <= 7'b0;
 		CB12or34 <= 1'b0;
 		search_column_count <= 5'b0;
+		CB1or2or3or4 <= 2'b00;
 	end
 	DATA_PRE: begin
 		// 初始化，缓存好初始数据
@@ -119,7 +123,7 @@ begin
 	end
 	SUB_AERA1: begin
 		case(search_column_count)
-		0: begin
+		1: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
 			// sub_area1_row_count <= sub_area1_row_count + 1'd1;
@@ -157,7 +161,7 @@ begin
 				search_column_count <= search_column_count + 1;
 			end
 			end
-		1: begin
+		2: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
 			if (CB12or34 == 0) begin
@@ -192,8 +196,8 @@ begin
 				// sub_area1_column_count <= sub_area1_column_count + 1;
 				search_column_count <= search_column_count + 1;
 			end
-			end
-		2: begin
+		end
+		3: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
 			if (CB12or34 == 0) begin
@@ -229,7 +233,7 @@ begin
 				search_column_count <= search_column_count + 1;
 			end
 			end
-		3: begin
+		4: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
 			if (CB12or34 == 0) begin
@@ -265,7 +269,7 @@ begin
 				search_column_count <= search_column_count + 1;
 			end
 			end
-		4: begin
+		5: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
 			if (CB12or34 == 0) begin
@@ -299,7 +303,7 @@ begin
 				search_column_count <= search_column_count + 1;
 			end
 			end
-		5: begin
+		6: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
 			if (CB12or34 == 0) begin
@@ -335,7 +339,7 @@ begin
 				search_column_count <= search_column_count + 1;
 			end
 			end
-		6: begin
+		7: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
 			if (CB12or34 == 0) begin
@@ -542,6 +546,55 @@ begin
 		end
 		endcase
 	end
+	SUB_AERA3: begin
+		if (search_column_count == 9) begin
+		 	rd8R_en <= 0;
+			sub_area3_row_count <= sub_area3_row_count + 1;
+			shift_value <= 25;
+			if (sub_area3_row_count < 4) begin
+				rdR_sel <= 4'b0;
+				case CB1or2or3or4:
+				2'b00: rd_address_all <= {{7{sub_area3_row_count+25}}, {25{sub_area3_row_count+49}}};
+				2'b01: rd_address_all <= {{7{sub_area3_row_count+29}}, {25{sub_area3_row_count+53}}};
+				2'b10: rd_address_all <= {{7{sub_area3_row_count+49}}, {25{sub_area3_row_count+73}}};
+				2'b11: rd_address_all <= {{7{sub_area3_row_count+53}}, {25{sub_area3_row_count+77}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else if (sub_area3_row_count < 12) begin
+				rdR_sel <= sub_area3_row_count[3:0] - 3;
+				case CB1or2or3or4:
+				2'b00: rd_address_all <= {{7{7'b0011101}}, {25{7'b0110101}}};
+				2'b01: rd_address_all <= {{7{7'b0011101+4}}, {25{7'b0110101+4}}};
+				2'b10: rd_address_all <= {{7{7'b0011101+24}}, {25{7'b0110101+24}}};
+				2'b11: rd_address_all <= {{7{7'b0011101+28}}, {25{7'b0110101+28}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else if (sub_area3_row_count < 20) begin
+				sub_area3_row_count <= 7'b0;
+				case CB1or2or3or4:
+				2'b00: CB1or2or3or4 <= 2'b01;
+				2'b01: CB1or2or3or4 <= 2'b10;
+				2'b10: CB1or2or3or4 <= 2'b11;
+				2'b11: begin
+					CB1or2or3or4 <= 2'b00;
+					search_column_count <= search_column_count + 1;
+				end
+				default: CB1or2or3or4 <= 2'b00;
+				endcase
+			end
+			else begin
+				case CB1or2or3or4:
+				2'b00: rd_address_all <= {{7{7'b0011110}}, {25{7'b0110110}}};
+				2'b01: rd_address_all <= {{7{7'b0011110+4}}, {25{7'b0110110+4}}};
+				2'b10: rd_address_all <= {{7{7'b0011110+24}}, {25{7'b0110110+24}}};
+				2'b11: rd_address_all <= {{7{7'b0011110+28}}, {25{7'b0110110+28}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+		end
+	end
 	default: begin
 		Bank_sel <= 32'b0;
 		rd_address_all <= 224'b0;
@@ -562,8 +615,10 @@ begin
 		next_state = IDLE;
 	DATA_PRE: if (pre_count < 768)
 		next_state = DATA_PRE;
-		else
+		else begin
 		next_state = SUB_AERA1;
+		search_column_count = 1;
+		end
 	SUB_AERA1: if (search_column_count < 7)
 		next_state = SUB_AERA1;
 		else 

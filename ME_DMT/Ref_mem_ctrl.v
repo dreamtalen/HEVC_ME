@@ -573,6 +573,16 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
+				rdR_sel <= sub_area3_row_count[3:0] - 11;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{7{7'b0011110}}, {25{7'b0110110}}};
+				2'b01: rd_address_all <= {{7{7'b0011110+4}}, {25{7'b0110110+4}}};
+				2'b10: rd_address_all <= {{7{7'b0011110+24}}, {25{7'b0110110+24}}};
+				2'b11: rd_address_all <= {{7{7'b0011110+28}}, {25{7'b0110110+28}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else begin
 				sub_area3_row_count <= 7'b0;
 				case (CB1or2or3or4)
 				2'b00: CB1or2or3or4 <= 2'b01;
@@ -585,16 +595,9 @@ begin
 				default: CB1or2or3or4 <= 2'b00;
 				endcase
 			end
-			else begin
-				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{7{7'b0011110}}, {25{7'b0110110}}};
-				2'b01: rd_address_all <= {{7{7'b0011110+4}}, {25{7'b0110110+4}}};
-				2'b10: rd_address_all <= {{7{7'b0011110+24}}, {25{7'b0110110+24}}};
-				2'b11: rd_address_all <= {{7{7'b0011110+28}}, {25{7'b0110110+28}}};
-				default: rd_address_all <= 0;
-				endcase
-			end
 		end
+
+
 	end
 	default: begin
 		Bank_sel <= 32'b0;

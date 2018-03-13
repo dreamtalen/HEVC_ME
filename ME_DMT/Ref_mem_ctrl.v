@@ -545,7 +545,7 @@ begin
 				rdR_sel <= 4'b0;
 				if (CB12or34 == 1'b0) rd_address_all <= {32{sub_area2_row_count+48}};
 				else rd_address_all <= {32{sub_area2_row_count+72}};
-				shift_value <= 0
+				shift_value <= 0;
 				sub_area2_row_count <= sub_area2_row_count + 1;
 			end
 			else if (sub_area2_row_count >= 8 && sub_area2_row_count < 11) begin

@@ -885,7 +885,6 @@ begin
 				endcase
 			end
 		end
-		default:
 		endcase
 	end
 	default: begin

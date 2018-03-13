@@ -540,7 +540,163 @@ begin
 			end
 		end
 		16: begin
-			
+			if (sub_area2_row_count < 8) begin
+				rd8R_en <= 0;
+				rdR_sel <= 4'b0;
+				if (CB12or34 == 1'b0) rd_address_all <= {32{sub_area2_row_count+48}};
+				else rd_address_all <= {32{sub_area2_row_count+72}};
+				shift_value <= 0
+				sub_area2_row_count <= sub_area2_row_count + 1;
+			end
+			else if (sub_area2_row_count >= 8 && sub_area2_row_count < 11) begin
+				rd8R_en <= 0;
+				rdR_sel <= 4'b0;
+				if (CB12or34 == 1'b0) rd_address_all <= {32{sub_area2_row_count+48}};
+				else rd_address_all <= {32{sub_area2_row_count+72}};
+				shift_value <= 0;
+				if (read_stall == 0) begin
+					read_stall <= 1'b1;
+				end
+				else begin
+					read_stall <= 1'b0;
+					sub_area2_row_count <= sub_area2_row_count + 1;
+				end
+			end
+			else if (sub_area2_row_count == 11) begin
+				rd8R_en <= 0;
+				rdR_sel <= 4'b0001;
+				if (CB12or34 == 1'b0) rd_address_all <= {32{sub_area2_row_count+48}};
+				else rd_address_all <= {32{sub_area2_row_count+72}};
+				shift_value <= 0;
+				if (read_stall == 0) begin
+					read_stall <= 1'b1;
+				end
+				else begin
+					read_stall <= 1'b0;
+					sub_area2_row_count <= sub_area2_row_count + 1;
+				end
+			end
+			else if (sub_area2_row_count >= 12 && sub_area2_row_count < 19) begin
+				rd8R_en <= 0;
+				rdR_sel <= sub_area2_row_count[3:0] - 10;
+				sub_area2_row_count <= sub_area2_row_count + 1;
+				if (CB12or34 == 1'b0) rd_address_all <= {32{7'b0111011}};
+				else rd_address_all <= {32{7'b0111011 + 24}};
+				shift_value <= 0;
+			end
+			else if (sub_area2_row_count == 19) begin
+				rd8R_en <= 0;
+				rdR_sel <= 4'b0001;
+				if (CB12or34 == 1'b0) rd_address_all <= {32{sub_area2_row_count+41}};
+				else rd_address_all <= {32{sub_area2_row_count+65}};
+				shift_value <= 0;
+				if (read_stall == 0) begin
+					read_stall <= 1'b1;
+				end
+				else begin
+					read_stall <= 1'b0;
+					sub_area2_row_count <= sub_area2_row_count + 1;
+				end
+			end
+			else if (sub_area2_row_count >= 20 && sub_area2_row_count < 27) begin
+				rd8R_en <= 0;
+				rdR_sel <= sub_area2_row_count[3:0] - 18;
+				sub_area2_row_count <= sub_area2_row_count + 1;
+				if (CB12or34 == 1'b0) rd_address_all <= {32{7'b0111100}};
+				else rd_address_all <= {32{7'b0111100+24}};
+				shift_value <= 0;
+			end
+			else if (sub_area2_row_count >= 27 && sub_area2_row_count < 29) begin
+				rd8R_en <= 0;
+				rdR_sel <= 4'b0;
+				if (CB12or34 == 1'b0) rd_address_all <= {32{sub_area2_row_count+34}};
+				else rd_address_all <= {32{sub_area2_row_count+58}};
+				shift_value <= 0;
+				if (read_stall == 0) begin
+					read_stall <= 1'b1;
+				end
+				else begin
+					read_stall <= 1'b0;
+					sub_area2_row_count <= sub_area2_row_count + 1;
+				end
+			end
+			else if (sub_area2_row_count == 29) begin
+				rd8R_en <= 0;
+				shift_value <= 0;
+				if (read_stall == 0) begin
+					read_stall <= 1'b1;
+				end
+				else begin
+					read_stall <= 1'b0;
+					rdR_sel <= 4'b0001;
+					if (CB12or34 == 1'b0) rd_address_all <= {32{sub_area2_row_count+34}};
+					else rd_address_all <= {32{sub_area2_row_count+58}};
+					sub_area2_row_count <= sub_area2_row_count + 1;
+				end
+			end
+			else if (sub_area2_row_count >= 30 && sub_area2_row_count < 37) begin
+				rd8R_en <= 0;
+				rdR_sel <= sub_area2_row_count[3:0] - 28;
+				sub_area2_row_count <= sub_area2_row_count + 1;
+				if (CB12or34 == 1'b0) rd_address_all <= {32{7'b0111111}};
+				else rd_address_all <= {32{7'b0111111+24}};
+				shift_value <= 0;
+			end
+			else if (sub_area2_row_count == 37) begin
+				rd8R_en <= 0;
+				rdR_sel <= 4'b0001;
+				if (CB12or34 == 1'b0) rd_address_all <= {32{sub_area2_row_count+27}};
+				else rd_address_all <= {32{sub_area2_row_count+51}};
+				shift_value <= 0;
+				if (read_stall == 0) begin
+					read_stall <= 1'b1;
+				end
+				else begin
+					read_stall <= 1'b0;
+					sub_area2_row_count <= sub_area2_row_count + 1;
+				end
+			end
+			else if (sub_area2_row_count >= 38 && sub_area2_row_count < 45) begin
+				rd8R_en <= 0;
+				rdR_sel <= sub_area2_row_count[3:0] - 36;
+				sub_area2_row_count <= sub_area2_row_count + 1;
+				if (CB12or34 == 1'b0) rd_address_all <= {32{7'b1000000}};
+				else rd_address_all <= {32{7'b1000000+24}};
+				shift_value <= 0;
+			end
+			else if (sub_area2_row_count >= 45 && sub_area2_row_count < 49) begin
+				rd8R_en <= 0;
+				rdR_sel <= 4'b0;
+				if (CB12or34 == 1'b0) rd_address_all <= {32{sub_area2_row_count+20}};
+				else rd_address_all <= {32{sub_area2_row_count+44}};
+				shift_value <= 0;
+				if (read_stall == 0) begin
+					read_stall <= 1'b1;
+				end
+				else begin
+					read_stall <= 1'b0;
+					sub_area2_row_count <= sub_area2_row_count + 1;
+				end
+			end
+			else if (sub_area2_row_count >= 49 && sub_area2_row_count < 52) begin
+				rd8R_en <= 0;
+				rdR_sel <= 4'b0;
+				if (CB12or34 == 1'b0) rd_address_all <= {32{sub_area2_row_count+20}};
+				else rd_address_all <= {32{sub_area2_row_count+44}};
+				shift_value <= 0;
+				sub_area2_row_count <= sub_area2_row_count + 1;
+			end
+			else begin
+				if (CB12or34 == 1'b0) begin
+					CB12or34 <= 1'b1;
+					sub_area2_row_count <= 0;
+				end
+				else begin
+					CB12or34 <= 1'b0;	
+					sub_area2_row_count <= 0;
+					search_column_count <= search_column_count + 1;
+				end
+			end
 		end
 		24: begin
 			
@@ -920,6 +1076,10 @@ begin
 		next_state = SUB_AERA3;
 		else 
 		next_state = SUB_AERA1;
+	SUB_AERA3: if (search_column_count == 15 | search_column_count == 23)
+		next_state = SUB_AERA2;
+		else 
+		next_state = SUB_AERA3;
 	default: next_state = IDLE;
 	endcase
 end

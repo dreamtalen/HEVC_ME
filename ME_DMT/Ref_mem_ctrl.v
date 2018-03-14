@@ -712,30 +712,30 @@ begin
 			if (sub_area3_row_count < 4) begin
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{7{sub_area3_row_count+25}}, {25{sub_area3_row_count+49}}};
-				2'b01: rd_address_all <= {{7{sub_area3_row_count+29}}, {25{sub_area3_row_count+53}}};
-				2'b10: rd_address_all <= {{7{sub_area3_row_count+49}}, {25{sub_area3_row_count+73}}};
-				2'b11: rd_address_all <= {{7{sub_area3_row_count+53}}, {25{sub_area3_row_count+77}}};
+				2'b00: rd_address_all <= {{7{sub_area3_row_count+31}}, {25{sub_area3_row_count+55}}};
+				2'b01: rd_address_all <= {{7{sub_area3_row_count+35}}, {25{sub_area3_row_count+59}}};
+				2'b10: rd_address_all <= {{7{sub_area3_row_count+55}}, {25{sub_area3_row_count+79}}};
+				2'b11: rd_address_all <= {{7{sub_area3_row_count+59}}, {25{sub_area3_row_count+83}}};
 				default: rd_address_all <= 0;
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{7{7'b0011101}}, {25{7'b0110101}}};
-				2'b01: rd_address_all <= {{7{7'b0011101+4}}, {25{7'b0110101+4}}};
-				2'b10: rd_address_all <= {{7{7'b0011101+24}}, {25{7'b0110101+24}}};
-				2'b11: rd_address_all <= {{7{7'b0011101+28}}, {25{7'b0110101+28}}};
+				2'b00: rd_address_all <= {{7{7'b0100011}}, {25{7'b0111011}}};
+				2'b01: rd_address_all <= {{7{7'b0100011+4}}, {25{7'b0111011+4}}};
+				2'b10: rd_address_all <= {{7{7'b0100011+24}}, {25{7'b0111011+24}}};
+				2'b11: rd_address_all <= {{7{7'b0100011+28}}, {25{7'b0111011+28}}};
 				default: rd_address_all <= 0;
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{7{7'b0011110}}, {25{7'b0110110}}};
-				2'b01: rd_address_all <= {{7{7'b0011110+4}}, {25{7'b0110110+4}}};
-				2'b10: rd_address_all <= {{7{7'b0011110+24}}, {25{7'b0110110+24}}};
-				2'b11: rd_address_all <= {{7{7'b0011110+28}}, {25{7'b0110110+28}}};
+				2'b00: rd_address_all <= {{7{7'b0100100}}, {25{7'b0111100}}};
+				2'b01: rd_address_all <= {{7{7'b0100100+4}}, {25{7'b0111100+4}}};
+				2'b10: rd_address_all <= {{7{7'b0100100+24}}, {25{7'b0111100+24}}};
+				2'b11: rd_address_all <= {{7{7'b0100100+28}}, {25{7'b0111100+28}}};
 				default: rd_address_all <= 0;
 				endcase
 			end
@@ -760,30 +760,30 @@ begin
 			if (sub_area3_row_count < 4) begin
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{6{sub_area3_row_count+25}}, {26{sub_area3_row_count+49}}};
-				2'b01: rd_address_all <= {{6{sub_area3_row_count+29}}, {26{sub_area3_row_count+53}}};
-				2'b10: rd_address_all <= {{6{sub_area3_row_count+49}}, {26{sub_area3_row_count+73}}};
-				2'b11: rd_address_all <= {{6{sub_area3_row_count+53}}, {26{sub_area3_row_count+77}}};
+				2'b00: rd_address_all <= {{6{sub_area3_row_count+31}}, {26{sub_area3_row_count+55}}};
+				2'b01: rd_address_all <= {{6{sub_area3_row_count+35}}, {26{sub_area3_row_count+59}}};
+				2'b10: rd_address_all <= {{6{sub_area3_row_count+55}}, {26{sub_area3_row_count+79}}};
+				2'b11: rd_address_all <= {{6{sub_area3_row_count+59}}, {26{sub_area3_row_count+83}}};
 				default: rd_address_all <= 0;
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{6{7'b0011101}}, {26{7'b0110101}}};
-				2'b01: rd_address_all <= {{6{7'b0011101+4}}, {26{7'b0110101+4}}};
-				2'b10: rd_address_all <= {{6{7'b0011101+24}}, {26{7'b0110101+24}}};
-				2'b11: rd_address_all <= {{6{7'b0011101+28}}, {26{7'b0110101+28}}};
+				2'b00: rd_address_all <= {{6{7'b0100011}}, {26{7'b0111011}}};
+				2'b01: rd_address_all <= {{6{7'b0100011+4}}, {26{7'b0111011+4}}};
+				2'b10: rd_address_all <= {{6{7'b0100011+24}}, {26{7'b0111011+24}}};
+				2'b11: rd_address_all <= {{6{7'b0100011+28}}, {26{7'b0111011+28}}};
 				default: rd_address_all <= 0;
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{6{7'b0011110}}, {26{7'b0110110}}};
-				2'b01: rd_address_all <= {{6{7'b0011110+4}}, {26{7'b0110110+4}}};
-				2'b10: rd_address_all <= {{6{7'b0011110+24}}, {26{7'b0110110+24}}};
-				2'b11: rd_address_all <= {{6{7'b0011110+28}}, {26{7'b0110110+28}}};
+				2'b00: rd_address_all <= {{6{7'b0100100}}, {26{7'b0111100}}};
+				2'b01: rd_address_all <= {{6{7'b0100100+4}}, {26{7'b0111100+4}}};
+				2'b10: rd_address_all <= {{6{7'b0100100+24}}, {26{7'b0111100+24}}};
+				2'b11: rd_address_all <= {{6{7'b0100100+28}}, {26{7'b0111100+28}}};
 				default: rd_address_all <= 0;
 				endcase
 			end
@@ -808,30 +808,30 @@ begin
 			if (sub_area3_row_count < 4) begin
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{5{sub_area3_row_count+25}}, {27{sub_area3_row_count+49}}};
-				2'b01: rd_address_all <= {{5{sub_area3_row_count+29}}, {27{sub_area3_row_count+53}}};
-				2'b10: rd_address_all <= {{5{sub_area3_row_count+49}}, {27{sub_area3_row_count+73}}};
-				2'b11: rd_address_all <= {{5{sub_area3_row_count+53}}, {27{sub_area3_row_count+77}}};
+				2'b00: rd_address_all <= {{5{sub_area3_row_count+31}}, {27{sub_area3_row_count+55}}};
+				2'b01: rd_address_all <= {{5{sub_area3_row_count+35}}, {27{sub_area3_row_count+59}}};
+				2'b10: rd_address_all <= {{5{sub_area3_row_count+55}}, {27{sub_area3_row_count+79}}};
+				2'b11: rd_address_all <= {{5{sub_area3_row_count+59}}, {27{sub_area3_row_count+83}}};
 				default: rd_address_all <= 0;
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{5{7'b0011101}}, {27{7'b0110101}}};
-				2'b01: rd_address_all <= {{5{7'b0011101+4}}, {27{7'b0110101+4}}};
-				2'b10: rd_address_all <= {{5{7'b0011101+24}}, {27{7'b0110101+24}}};
-				2'b11: rd_address_all <= {{5{7'b0011101+28}}, {27{7'b0110101+28}}};
+				2'b00: rd_address_all <= {{5{7'b0100011}}, {27{7'b0111011}}};
+				2'b01: rd_address_all <= {{5{7'b0100011+4}}, {27{7'b0111011+4}}};
+				2'b10: rd_address_all <= {{5{7'b0100011+24}}, {27{7'b0111011+24}}};
+				2'b11: rd_address_all <= {{5{7'b0100011+28}}, {27{7'b0111011+28}}};
 				default: rd_address_all <= 0;
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{5{7'b0011110}}, {27{7'b0110110}}};
-				2'b01: rd_address_all <= {{5{7'b0011110+4}}, {27{7'b0110110+4}}};
-				2'b10: rd_address_all <= {{5{7'b0011110+24}}, {27{7'b0110110+24}}};
-				2'b11: rd_address_all <= {{5{7'b0011110+28}}, {27{7'b0110110+28}}};
+				2'b00: rd_address_all <= {{5{7'b0100100}}, {27{7'b0111100}}};
+				2'b01: rd_address_all <= {{5{7'b0100100+4}}, {27{7'b0111100+4}}};
+				2'b10: rd_address_all <= {{5{7'b0100100+24}}, {27{7'b0111100+24}}};
+				2'b11: rd_address_all <= {{5{7'b0100100+28}}, {27{7'b0111100+28}}};
 				default: rd_address_all <= 0;
 				endcase
 			end
@@ -856,30 +856,30 @@ begin
 			if (sub_area3_row_count < 4) begin
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{4{sub_area3_row_count+25}}, {28{sub_area3_row_count+49}}};
-				2'b01: rd_address_all <= {{4{sub_area3_row_count+29}}, {28{sub_area3_row_count+53}}};
-				2'b10: rd_address_all <= {{4{sub_area3_row_count+49}}, {28{sub_area3_row_count+73}}};
-				2'b11: rd_address_all <= {{4{sub_area3_row_count+53}}, {28{sub_area3_row_count+77}}};
+				2'b00: rd_address_all <= {{4{sub_area3_row_count+31}}, {28{sub_area3_row_count+55}}};
+				2'b01: rd_address_all <= {{4{sub_area3_row_count+35}}, {28{sub_area3_row_count+59}}};
+				2'b10: rd_address_all <= {{4{sub_area3_row_count+55}}, {28{sub_area3_row_count+79}}};
+				2'b11: rd_address_all <= {{4{sub_area3_row_count+59}}, {28{sub_area3_row_count+83}}};
 				default: rd_address_all <= 0;
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{4{7'b0011101}}, {28{7'b0110101}}};
-				2'b01: rd_address_all <= {{4{7'b0011101+4}}, {28{7'b0110101+4}}};
-				2'b10: rd_address_all <= {{4{7'b0011101+24}}, {28{7'b0110101+24}}};
-				2'b11: rd_address_all <= {{4{7'b0011101+28}}, {28{7'b0110101+28}}};
+				2'b00: rd_address_all <= {{4{7'b0100011}}, {28{7'b0111011}}};
+				2'b01: rd_address_all <= {{4{7'b0100011+4}}, {28{7'b0111011+4}}};
+				2'b10: rd_address_all <= {{4{7'b0100011+24}}, {28{7'b0111011+24}}};
+				2'b11: rd_address_all <= {{4{7'b0100011+28}}, {28{7'b0111011+28}}};
 				default: rd_address_all <= 0;
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{4{7'b0011110}}, {28{7'b0110110}}};
-				2'b01: rd_address_all <= {{4{7'b0011110+4}}, {28{7'b0110110+4}}};
-				2'b10: rd_address_all <= {{4{7'b0011110+24}}, {28{7'b0110110+24}}};
-				2'b11: rd_address_all <= {{4{7'b0011110+28}}, {28{7'b0110110+28}}};
+				2'b00: rd_address_all <= {{4{7'b0100100}}, {28{7'b0111100}}};
+				2'b01: rd_address_all <= {{4{7'b0100100+4}}, {28{7'b0111100+4}}};
+				2'b10: rd_address_all <= {{4{7'b0100100+24}}, {28{7'b0111100+24}}};
+				2'b11: rd_address_all <= {{4{7'b0100100+28}}, {28{7'b0111100+28}}};
 				default: rd_address_all <= 0;
 				endcase
 			end
@@ -904,30 +904,30 @@ begin
 			if (sub_area3_row_count < 4) begin
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{3{sub_area3_row_count+25}}, {29{sub_area3_row_count+49}}};
-				2'b01: rd_address_all <= {{3{sub_area3_row_count+29}}, {29{sub_area3_row_count+53}}};
-				2'b10: rd_address_all <= {{3{sub_area3_row_count+49}}, {29{sub_area3_row_count+73}}};
-				2'b11: rd_address_all <= {{3{sub_area3_row_count+53}}, {29{sub_area3_row_count+77}}};
+				2'b00: rd_address_all <= {{3{sub_area3_row_count+31}}, {29{sub_area3_row_count+55}}};
+				2'b01: rd_address_all <= {{3{sub_area3_row_count+35}}, {29{sub_area3_row_count+59}}};
+				2'b10: rd_address_all <= {{3{sub_area3_row_count+55}}, {29{sub_area3_row_count+79}}};
+				2'b11: rd_address_all <= {{3{sub_area3_row_count+59}}, {29{sub_area3_row_count+83}}};
 				default: rd_address_all <= 0;
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{3{7'b0011101}}, {29{7'b0110101}}};
-				2'b01: rd_address_all <= {{3{7'b0011101+4}}, {29{7'b0110101+4}}};
-				2'b10: rd_address_all <= {{3{7'b0011101+24}}, {29{7'b0110101+24}}};
-				2'b11: rd_address_all <= {{3{7'b0011101+28}}, {29{7'b0110101+28}}};
+				2'b00: rd_address_all <= {{3{7'b0100011}}, {29{7'b0111011}}};
+				2'b01: rd_address_all <= {{3{7'b0100011+4}}, {29{7'b0111011+4}}};
+				2'b10: rd_address_all <= {{3{7'b0100011+24}}, {29{7'b0111011+24}}};
+				2'b11: rd_address_all <= {{3{7'b0100011+28}}, {29{7'b0111011+28}}};
 				default: rd_address_all <= 0;
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{3{7'b0011110}}, {29{7'b0110110}}};
-				2'b01: rd_address_all <= {{3{7'b0011110+4}}, {29{7'b0110110+4}}};
-				2'b10: rd_address_all <= {{3{7'b0011110+24}}, {29{7'b0110110+24}}};
-				2'b11: rd_address_all <= {{3{7'b0011110+28}}, {29{7'b0110110+28}}};
+				2'b00: rd_address_all <= {{3{7'b0100100}}, {29{7'b0111100}}};
+				2'b01: rd_address_all <= {{3{7'b0100100+4}}, {29{7'b0111100+4}}};
+				2'b10: rd_address_all <= {{3{7'b0100100+24}}, {29{7'b0111100+24}}};
+				2'b11: rd_address_all <= {{3{7'b0100100+28}}, {29{7'b0111100+28}}};
 				default: rd_address_all <= 0;
 				endcase
 			end
@@ -952,30 +952,30 @@ begin
 			if (sub_area3_row_count < 4) begin
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{2{sub_area3_row_count+25}}, {30{sub_area3_row_count+49}}};
-				2'b01: rd_address_all <= {{2{sub_area3_row_count+29}}, {30{sub_area3_row_count+53}}};
-				2'b10: rd_address_all <= {{2{sub_area3_row_count+49}}, {30{sub_area3_row_count+73}}};
-				2'b11: rd_address_all <= {{2{sub_area3_row_count+53}}, {30{sub_area3_row_count+77}}};
+				2'b00: rd_address_all <= {{2{sub_area3_row_count+31}}, {30{sub_area3_row_count+55}}};
+				2'b01: rd_address_all <= {{2{sub_area3_row_count+35}}, {30{sub_area3_row_count+59}}};
+				2'b10: rd_address_all <= {{2{sub_area3_row_count+55}}, {30{sub_area3_row_count+79}}};
+				2'b11: rd_address_all <= {{2{sub_area3_row_count+59}}, {30{sub_area3_row_count+83}}};
 				default: rd_address_all <= 0;
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{2{7'b0011101}}, {30{7'b0110101}}};
-				2'b01: rd_address_all <= {{2{7'b0011101+4}}, {30{7'b0110101+4}}};
-				2'b10: rd_address_all <= {{2{7'b0011101+24}}, {30{7'b0110101+24}}};
-				2'b11: rd_address_all <= {{2{7'b0011101+28}}, {30{7'b0110101+28}}};
+				2'b00: rd_address_all <= {{2{7'b0100011}}, {30{7'b0111011}}};
+				2'b01: rd_address_all <= {{2{7'b0100011+4}}, {30{7'b0111011+4}}};
+				2'b10: rd_address_all <= {{2{7'b0100011+24}}, {30{7'b0111011+24}}};
+				2'b11: rd_address_all <= {{2{7'b0100011+28}}, {30{7'b0111011+28}}};
 				default: rd_address_all <= 0;
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{2{7'b0011110}}, {30{7'b0110110}}};
-				2'b01: rd_address_all <= {{2{7'b0011110+4}}, {30{7'b0110110+4}}};
-				2'b10: rd_address_all <= {{2{7'b0011110+24}}, {30{7'b0110110+24}}};
-				2'b11: rd_address_all <= {{2{7'b0011110+28}}, {30{7'b0110110+28}}};
+				2'b00: rd_address_all <= {{2{7'b0100100}}, {30{7'b0111100}}};
+				2'b01: rd_address_all <= {{2{7'b0100100+4}}, {30{7'b0111100+4}}};
+				2'b10: rd_address_all <= {{2{7'b0100100+24}}, {30{7'b0111100+24}}};
+				2'b11: rd_address_all <= {{2{7'b0100100+28}}, {30{7'b0111100+28}}};
 				default: rd_address_all <= 0;
 				endcase
 			end
@@ -1000,30 +1000,78 @@ begin
 			if (sub_area3_row_count < 4) begin
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{sub_area3_row_count+25}, {31{sub_area3_row_count+49}}};
-				2'b01: rd_address_all <= {{sub_area3_row_count+29}, {31{sub_area3_row_count+53}}};
-				2'b10: rd_address_all <= {{sub_area3_row_count+49}, {31{sub_area3_row_count+73}}};
-				2'b11: rd_address_all <= {{sub_area3_row_count+53}, {31{sub_area3_row_count+77}}};
+				2'b00: rd_address_all <= {{sub_area3_row_count+31}, {31{sub_area3_row_count+55}}};
+				2'b01: rd_address_all <= {{sub_area3_row_count+35}, {31{sub_area3_row_count+59}}};
+				2'b10: rd_address_all <= {{sub_area3_row_count+55}, {31{sub_area3_row_count+79}}};
+				2'b11: rd_address_all <= {{sub_area3_row_count+59}, {31{sub_area3_row_count+83}}};
 				default: rd_address_all <= 0;
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{7'b0011101}, {31{7'b0110101}}};
-				2'b01: rd_address_all <= {{7'b0011101+4}, {31{7'b0110101+4}}};
-				2'b10: rd_address_all <= {{7'b0011101+24}, {31{7'b0110101+24}}};
-				2'b11: rd_address_all <= {{7'b0011101+28}, {31{7'b0110101+28}}};
+				2'b00: rd_address_all <= {{7'b0100011}, {31{7'b0111011}}};
+				2'b01: rd_address_all <= {{7'b0100011+4}, {31{7'b0111011+4}}};
+				2'b10: rd_address_all <= {{7'b0100011+24}, {31{7'b0111011+24}}};
+				2'b11: rd_address_all <= {{7'b0100011+28}, {31{7'b0111011+28}}};
 				default: rd_address_all <= 0;
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{7'b0011110}, {31{7'b0110110}}};
-				2'b01: rd_address_all <= {{7'b0011110+4}, {31{7'b0110110+4}}};
-				2'b10: rd_address_all <= {{7'b0011110+24}, {31{7'b0110110+24}}};
-				2'b11: rd_address_all <= {{7'b0011110+28}, {31{7'b0110110+28}}};
+				2'b00: rd_address_all <= {{7'b0100100}, {31{7'b0111100}}};
+				2'b01: rd_address_all <= {{7'b0100100+4}, {31{7'b0111100+4}}};
+				2'b10: rd_address_all <= {{7'b0100100+24}, {31{7'b0111100+24}}};
+				2'b11: rd_address_all <= {{7'b0100100+28}, {31{7'b0111100+28}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else begin
+				sub_area3_row_count <= 7'b0;
+				case (CB1or2or3or4)
+				2'b00: CB1or2or3or4 <= 2'b01;
+				2'b01: CB1or2or3or4 <= 2'b10;
+				2'b10: CB1or2or3or4 <= 2'b11;
+				2'b11: begin
+					CB1or2or3or4 <= 2'b00;
+					search_column_count <= search_column_count + 1;
+				end
+				default: CB1or2or3or4 <= 2'b00;
+				endcase
+			end
+		end
+		17: begin
+		 	rd8R_en <= 0;
+			sub_area3_row_count <= sub_area3_row_count + 1;
+			shift_value <= 1;
+			if (sub_area3_row_count < 4) begin
+				rdR_sel <= 4'b0;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{31{sub_area3_row_count+55}}, {sub_area3_row_count+79};
+				2'b01: rd_address_all <= {{31{sub_area3_row_count+59}}, {sub_area3_row_count+83}};
+				2'b10: rd_address_all <= {{31{sub_area3_row_count+79}}, {sub_area3_row_count+7}};
+				2'b11: rd_address_all <= {{31{sub_area3_row_count+83}}, {sub_area3_row_count+11}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else if (sub_area3_row_count < 12) begin
+				rdR_sel <= sub_area3_row_count[3:0] - 3;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{7'b0111011}, {31{7'b1010011}}};
+				2'b01: rd_address_all <= {{7'b0111011+4}, {31{7'b1010011+4}}};
+				2'b10: rd_address_all <= {{7'b0111011+24}, {31{7'b1010011-72}}};
+				2'b11: rd_address_all <= {{7'b0111011+28}, {31{7'b1010011-68}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else if (sub_area3_row_count < 20) begin
+				rdR_sel <= sub_area3_row_count[3:0] - 11;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{7'b0111100}, {31{7'b1010100}}};
+				2'b01: rd_address_all <= {{7'b0111100+4}, {31{7'b1010100+4}}};
+				2'b10: rd_address_all <= {{7'b0111100+24}, {31{7'b1010100-72}}};
+				2'b11: rd_address_all <= {{7'b0111100+28}, {31{7'b1010100-68}}};
 				default: rd_address_all <= 0;
 				endcase
 			end

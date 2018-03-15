@@ -1048,7 +1048,7 @@ begin
 			if (sub_area3_row_count < 4) begin
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{31{sub_area3_row_count+55}}, {sub_area3_row_count+79};
+				2'b00: rd_address_all <= {{31{sub_area3_row_count+55}}, {sub_area3_row_count+79}};
 				2'b01: rd_address_all <= {{31{sub_area3_row_count+59}}, {sub_area3_row_count+83}};
 				2'b10: rd_address_all <= {{31{sub_area3_row_count+79}}, {sub_area3_row_count+7}};
 				2'b11: rd_address_all <= {{31{sub_area3_row_count+83}}, {sub_area3_row_count+11}};
@@ -1058,20 +1058,308 @@ begin
 			else if (sub_area3_row_count < 12) begin
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{7'b0111011}, {31{7'b1010011}}};
-				2'b01: rd_address_all <= {{7'b0111011+4}, {31{7'b1010011+4}}};
-				2'b10: rd_address_all <= {{7'b0111011+24}, {31{7'b1010011-72}}};
-				2'b11: rd_address_all <= {{7'b0111011+28}, {31{7'b1010011-68}}};
+				2'b00: rd_address_all <= {{31{7'b0111011}}, {7'b1010011}};
+				2'b01: rd_address_all <= {{31{7'b0111011+4}}, {7'b1010011+4}};
+				2'b10: rd_address_all <= {{31{7'b0111011+24}}, {7'b1010011-72}};
+				2'b11: rd_address_all <= {{31{7'b0111011+28}}, {7'b1010011-68}};
 				default: rd_address_all <= 0;
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
-				2'b00: rd_address_all <= {{7'b0111100}, {31{7'b1010100}}};
-				2'b01: rd_address_all <= {{7'b0111100+4}, {31{7'b1010100+4}}};
-				2'b10: rd_address_all <= {{7'b0111100+24}, {31{7'b1010100-72}}};
-				2'b11: rd_address_all <= {{7'b0111100+28}, {31{7'b1010100-68}}};
+				2'b00: rd_address_all <= {{31{7'b0111100}}, {7'b1010100}};
+				2'b01: rd_address_all <= {{31{7'b0111100+4}}, {7'b1010100+4}};
+				2'b10: rd_address_all <= {{31{7'b0111100+24}}, {7'b1010100-72}};
+				2'b11: rd_address_all <= {{31{7'b0111100+28}}, {7'b1010100-68}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else begin
+				sub_area3_row_count <= 7'b0;
+				case (CB1or2or3or4)
+				2'b00: CB1or2or3or4 <= 2'b01;
+				2'b01: CB1or2or3or4 <= 2'b10;
+				2'b10: CB1or2or3or4 <= 2'b11;
+				2'b11: begin
+					CB1or2or3or4 <= 2'b00;
+					search_column_count <= search_column_count + 1;
+				end
+				default: CB1or2or3or4 <= 2'b00;
+				endcase
+			end
+		end
+		18: begin
+		 	rd8R_en <= 0;
+			sub_area3_row_count <= sub_area3_row_count + 1;
+			shift_value <= 2;
+			if (sub_area3_row_count < 4) begin
+				rdR_sel <= 4'b0;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{30{sub_area3_row_count+55}}, {2{sub_area3_row_count+79}}};
+				2'b01: rd_address_all <= {{30{sub_area3_row_count+59}}, {2{sub_area3_row_count+83}}};
+				2'b10: rd_address_all <= {{30{sub_area3_row_count+79}}, {2{sub_area3_row_count+7}}};
+				2'b11: rd_address_all <= {{30{sub_area3_row_count+83}}, {2{sub_area3_row_count+11}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else if (sub_area3_row_count < 12) begin
+				rdR_sel <= sub_area3_row_count[3:0] - 3;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{30{7'b0111011}}, {2{7'b1010011}}};
+				2'b01: rd_address_all <= {{30{7'b0111011+4}}, {2{7'b1010011+4}}};
+				2'b10: rd_address_all <= {{30{7'b0111011+24}}, {2{7'b1010011-72}}};
+				2'b11: rd_address_all <= {{30{7'b0111011+28}}, {2{7'b1010011-68}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else if (sub_area3_row_count < 20) begin
+				rdR_sel <= sub_area3_row_count[3:0] - 11;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{30{7'b0111100}}, {2{7'b1010100}}};
+				2'b01: rd_address_all <= {{30{7'b0111100+4}}, {2{7'b1010100+4}}};
+				2'b10: rd_address_all <= {{30{7'b0111100+24}}, {2{7'b1010100-72}}};
+				2'b11: rd_address_all <= {{30{7'b0111100+28}}, {2{7'b1010100-68}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else begin
+				sub_area3_row_count <= 7'b0;
+				case (CB1or2or3or4)
+				2'b00: CB1or2or3or4 <= 2'b01;
+				2'b01: CB1or2or3or4 <= 2'b10;
+				2'b10: CB1or2or3or4 <= 2'b11;
+				2'b11: begin
+					CB1or2or3or4 <= 2'b00;
+					search_column_count <= search_column_count + 1;
+				end
+				default: CB1or2or3or4 <= 2'b00;
+				endcase
+			end
+		end
+		19: begin
+		 	rd8R_en <= 0;
+			sub_area3_row_count <= sub_area3_row_count + 1;
+			shift_value <= 3;
+			if (sub_area3_row_count < 4) begin
+				rdR_sel <= 4'b0;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{29{sub_area3_row_count+55}}, {3{sub_area3_row_count+79}}};
+				2'b01: rd_address_all <= {{29{sub_area3_row_count+59}}, {3{sub_area3_row_count+83}}};
+				2'b10: rd_address_all <= {{29{sub_area3_row_count+79}}, {3{sub_area3_row_count+7}}};
+				2'b11: rd_address_all <= {{29{sub_area3_row_count+83}}, {3{sub_area3_row_count+11}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else if (sub_area3_row_count < 12) begin
+				rdR_sel <= sub_area3_row_count[3:0] - 3;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{29{7'b0111011}}, {3{7'b1010011}}};
+				2'b01: rd_address_all <= {{29{7'b0111011+4}}, {3{7'b1010011+4}}};
+				2'b10: rd_address_all <= {{29{7'b0111011+24}}, {3{7'b1010011-72}}};
+				2'b11: rd_address_all <= {{29{7'b0111011+28}}, {3{7'b1010011-68}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else if (sub_area3_row_count < 20) begin
+				rdR_sel <= sub_area3_row_count[3:0] - 11;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{29{7'b0111100}}, {3{7'b1010100}}};
+				2'b01: rd_address_all <= {{29{7'b0111100+4}}, {3{7'b1010100+4}}};
+				2'b10: rd_address_all <= {{29{7'b0111100+24}}, {3{7'b1010100-72}}};
+				2'b11: rd_address_all <= {{29{7'b0111100+28}}, {3{7'b1010100-68}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else begin
+				sub_area3_row_count <= 7'b0;
+				case (CB1or2or3or4)
+				2'b00: CB1or2or3or4 <= 2'b01;
+				2'b01: CB1or2or3or4 <= 2'b10;
+				2'b10: CB1or2or3or4 <= 2'b11;
+				2'b11: begin
+					CB1or2or3or4 <= 2'b00;
+					search_column_count <= search_column_count + 1;
+				end
+				default: CB1or2or3or4 <= 2'b00;
+				endcase
+			end
+		end
+		20: begin
+		 	rd8R_en <= 0;
+			sub_area3_row_count <= sub_area3_row_count + 1;
+			shift_value <= 4;
+			if (sub_area3_row_count < 4) begin
+				rdR_sel <= 4'b0;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{28{sub_area3_row_count+55}}, {4{sub_area3_row_count+79}}};
+				2'b01: rd_address_all <= {{28{sub_area3_row_count+59}}, {4{sub_area3_row_count+83}}};
+				2'b10: rd_address_all <= {{28{sub_area3_row_count+79}}, {4{sub_area3_row_count+7}}};
+				2'b11: rd_address_all <= {{28{sub_area3_row_count+83}}, {4{sub_area3_row_count+11}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else if (sub_area3_row_count < 12) begin
+				rdR_sel <= sub_area3_row_count[3:0] - 3;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{28{7'b0111011}}, {4{7'b1010011}}};
+				2'b01: rd_address_all <= {{28{7'b0111011+4}}, {4{7'b1010011+4}}};
+				2'b10: rd_address_all <= {{28{7'b0111011+24}}, {4{7'b1010011-72}}};
+				2'b11: rd_address_all <= {{28{7'b0111011+28}}, {4{7'b1010011-68}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else if (sub_area3_row_count < 20) begin
+				rdR_sel <= sub_area3_row_count[3:0] - 11;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{28{7'b0111100}}, {4{7'b1010100}}};
+				2'b01: rd_address_all <= {{28{7'b0111100+4}}, {4{7'b1010100+4}}};
+				2'b10: rd_address_all <= {{28{7'b0111100+24}}, {4{7'b1010100-72}}};
+				2'b11: rd_address_all <= {{28{7'b0111100+28}}, {4{7'b1010100-68}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else begin
+				sub_area3_row_count <= 7'b0;
+				case (CB1or2or3or4)
+				2'b00: CB1or2or3or4 <= 2'b01;
+				2'b01: CB1or2or3or4 <= 2'b10;
+				2'b10: CB1or2or3or4 <= 2'b11;
+				2'b11: begin
+					CB1or2or3or4 <= 2'b00;
+					search_column_count <= search_column_count + 1;
+				end
+				default: CB1or2or3or4 <= 2'b00;
+				endcase
+			end
+		end
+		21: begin
+		 	rd8R_en <= 0;
+			sub_area3_row_count <= sub_area3_row_count + 1;
+			shift_value <= 5;
+			if (sub_area3_row_count < 4) begin
+				rdR_sel <= 4'b0;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{27{sub_area3_row_count+55}}, {5{sub_area3_row_count+79}}};
+				2'b01: rd_address_all <= {{27{sub_area3_row_count+59}}, {5{sub_area3_row_count+83}}};
+				2'b10: rd_address_all <= {{27{sub_area3_row_count+79}}, {5{sub_area3_row_count+7}}};
+				2'b11: rd_address_all <= {{27{sub_area3_row_count+83}}, {5{sub_area3_row_count+11}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else if (sub_area3_row_count < 12) begin
+				rdR_sel <= sub_area3_row_count[3:0] - 3;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{27{7'b0111011}}, {5{7'b1010011}}};
+				2'b01: rd_address_all <= {{27{7'b0111011+4}}, {5{7'b1010011+4}}};
+				2'b10: rd_address_all <= {{27{7'b0111011+24}}, {5{7'b1010011-72}}};
+				2'b11: rd_address_all <= {{27{7'b0111011+28}}, {5{7'b1010011-68}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else if (sub_area3_row_count < 20) begin
+				rdR_sel <= sub_area3_row_count[3:0] - 11;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{27{7'b0111100}}, {5{7'b1010100}}};
+				2'b01: rd_address_all <= {{27{7'b0111100+4}}, {5{7'b1010100+4}}};
+				2'b10: rd_address_all <= {{27{7'b0111100+24}}, {5{7'b1010100-72}}};
+				2'b11: rd_address_all <= {{27{7'b0111100+28}}, {5{7'b1010100-68}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else begin
+				sub_area3_row_count <= 7'b0;
+				case (CB1or2or3or4)
+				2'b00: CB1or2or3or4 <= 2'b01;
+				2'b01: CB1or2or3or4 <= 2'b10;
+				2'b10: CB1or2or3or4 <= 2'b11;
+				2'b11: begin
+					CB1or2or3or4 <= 2'b00;
+					search_column_count <= search_column_count + 1;
+				end
+				default: CB1or2or3or4 <= 2'b00;
+				endcase
+			end
+		end
+		22: begin
+		 	rd8R_en <= 0;
+			sub_area3_row_count <= sub_area3_row_count + 1;
+			shift_value <= 6;
+			if (sub_area3_row_count < 4) begin
+				rdR_sel <= 4'b0;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{26{sub_area3_row_count+55}}, {6{sub_area3_row_count+79}}};
+				2'b01: rd_address_all <= {{26{sub_area3_row_count+59}}, {6{sub_area3_row_count+83}}};
+				2'b10: rd_address_all <= {{26{sub_area3_row_count+79}}, {6{sub_area3_row_count+7}}};
+				2'b11: rd_address_all <= {{26{sub_area3_row_count+83}}, {6{sub_area3_row_count+11}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else if (sub_area3_row_count < 12) begin
+				rdR_sel <= sub_area3_row_count[3:0] - 3;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{26{7'b0111011}}, {6{7'b1010011}}};
+				2'b01: rd_address_all <= {{26{7'b0111011+4}}, {6{7'b1010011+4}}};
+				2'b10: rd_address_all <= {{26{7'b0111011+24}}, {6{7'b1010011-72}}};
+				2'b11: rd_address_all <= {{26{7'b0111011+28}}, {6{7'b1010011-68}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else if (sub_area3_row_count < 20) begin
+				rdR_sel <= sub_area3_row_count[3:0] - 11;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{26{7'b0111100}}, {6{7'b1010100}}};
+				2'b01: rd_address_all <= {{26{7'b0111100+4}}, {6{7'b1010100+4}}};
+				2'b10: rd_address_all <= {{26{7'b0111100+24}}, {6{7'b1010100-72}}};
+				2'b11: rd_address_all <= {{26{7'b0111100+28}}, {6{7'b1010100-68}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else begin
+				sub_area3_row_count <= 7'b0;
+				case (CB1or2or3or4)
+				2'b00: CB1or2or3or4 <= 2'b01;
+				2'b01: CB1or2or3or4 <= 2'b10;
+				2'b10: CB1or2or3or4 <= 2'b11;
+				2'b11: begin
+					CB1or2or3or4 <= 2'b00;
+					search_column_count <= search_column_count + 1;
+				end
+				default: CB1or2or3or4 <= 2'b00;
+				endcase
+			end
+		end
+		23: begin
+		 	rd8R_en <= 0;
+			sub_area3_row_count <= sub_area3_row_count + 1;
+			shift_value <= 7;
+			if (sub_area3_row_count < 4) begin
+				rdR_sel <= 4'b0;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{25{sub_area3_row_count+55}}, {7{sub_area3_row_count+79}}};
+				2'b01: rd_address_all <= {{25{sub_area3_row_count+59}}, {7{sub_area3_row_count+83}}};
+				2'b10: rd_address_all <= {{25{sub_area3_row_count+79}}, {7{sub_area3_row_count+7}}};
+				2'b11: rd_address_all <= {{25{sub_area3_row_count+83}}, {7{sub_area3_row_count+11}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else if (sub_area3_row_count < 12) begin
+				rdR_sel <= sub_area3_row_count[3:0] - 3;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{25{7'b0111011}}, {7{7'b1010011}}};
+				2'b01: rd_address_all <= {{25{7'b0111011+4}}, {7{7'b1010011+4}}};
+				2'b10: rd_address_all <= {{25{7'b0111011+24}}, {7{7'b1010011-72}}};
+				2'b11: rd_address_all <= {{25{7'b0111011+28}}, {7{7'b1010011-68}}};
+				default: rd_address_all <= 0;
+				endcase
+			end
+			else if (sub_area3_row_count < 20) begin
+				rdR_sel <= sub_area3_row_count[3:0] - 11;
+				case (CB1or2or3or4)
+				2'b00: rd_address_all <= {{25{7'b0111100}}, {7{7'b1010100}}};
+				2'b01: rd_address_all <= {{25{7'b0111100+4}}, {7{7'b1010100+4}}};
+				2'b10: rd_address_all <= {{25{7'b0111100+24}}, {7{7'b1010100-72}}};
+				2'b11: rd_address_all <= {{25{7'b0111100+28}}, {7{7'b1010100-68}}};
 				default: rd_address_all <= 0;
 				endcase
 			end

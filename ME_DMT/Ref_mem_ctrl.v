@@ -376,6 +376,42 @@ begin
 				search_column_count <= search_column_count + 1;
 			end
 			end
+		25: begin
+			rd8R_en <= 0;
+			rdR_sel <= 4'b0;
+			if (CB12or34 == 0) begin
+				rd_address_all <= {{16{sub_area1_row_count+48}}, {16{sub_area1_row_count+72}}};
+				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+					read_stall <= 1'b1;
+					shift_value <= 16;
+				end
+				else begin
+					sub_area1_row_count <= sub_area1_row_count + 1'd1;
+					read_stall <= 1'b0;
+				end
+			end
+			else begin
+				rd_address_all <= {{16{sub_area1_row_count+72}}, {16{sub_area1_row_count}}};
+				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+					read_stall <= 1'b1;
+					shift_value <= 16;
+				end
+				else begin
+					sub_area1_row_count <= sub_area1_row_count + 1'd1;
+					read_stall <= 1'b0;
+				end
+			end
+			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
+				CB12or34 <= 1'b1;
+				sub_area1_row_count <= 0;
+			end
+			if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+				CB12or34 <= 1'b0;	
+				sub_area1_row_count <= 0;
+				// sub_area1_column_count <= sub_area1_column_count + 1;
+				search_column_count <= search_column_count + 1;
+			end
+			end
 		endcase
 	end
 	SUB_AERA2: begin
@@ -1559,10 +1595,10 @@ begin
 		next_state = SUB_AERA1;
 		search_column_count = 1;
 		end
-	SUB_AERA1: if (search_column_count < 7)
-		next_state = SUB_AERA1;
-		else 
+	SUB_AERA1: if (search_column_count == 7)
 		next_state = SUB_AERA2;
+		else 
+		next_state = SUB_AERA1;
 	SUB_AERA2: if (search_column_count == 8 | search_column_count == 16)
 		next_state = SUB_AERA3;
 		else 

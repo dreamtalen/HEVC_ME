@@ -699,7 +699,163 @@ begin
 			end
 		end
 		24: begin
-			
+			if (sub_area2_row_count < 8) begin
+				rd8R_en <= 0;
+				rdR_sel <= 4'b0;
+				if (CB12or34 == 1'b0) rd_address_all <= {{24{sub_area2_row_count+48}}, {8{sub_area2_row_count+72}}};
+				else rd_address_all <= {{24{sub_area2_row_count+72}}, {8{sub_area2_row_count}}};
+				shift_value <= 8;
+				sub_area2_row_count <= sub_area2_row_count + 1;
+			end
+			else if (sub_area2_row_count >= 8 && sub_area2_row_count < 11) begin
+				rd8R_en <= 0;
+				rdR_sel <= 4'b0;
+				if (CB12or34 == 1'b0) rd_address_all <= {{24{sub_area2_row_count+48}}, {8{sub_area2_row_count+72}}};
+				else rd_address_all <= {{24{sub_area2_row_count+72}}, {8{sub_area2_row_count}}};
+				shift_value <= 8;
+				if (read_stall == 0) begin
+					read_stall <= 1'b1;
+				end
+				else begin
+					read_stall <= 1'b0;
+					sub_area2_row_count <= sub_area2_row_count + 1;
+				end
+			end
+			else if (sub_area2_row_count == 11) begin
+				rd8R_en <= 0;
+				rdR_sel <= 4'b0001;
+				if (CB12or34 == 1'b0) rd_address_all <= {{24{sub_area2_row_count+48}}, {8{sub_area2_row_count+72}}};
+				else rd_address_all <= {{24{sub_area2_row_count+72}}, {8{sub_area2_row_count}}};
+				shift_value <= 8;
+				if (read_stall == 0) begin
+					read_stall <= 1'b1;
+				end
+				else begin
+					read_stall <= 1'b0;
+					sub_area2_row_count <= sub_area2_row_count + 1;
+				end
+			end
+			else if (sub_area2_row_count >= 12 && sub_area2_row_count < 19) begin
+				rd8R_en <= 0;
+				rdR_sel <= sub_area2_row_count[3:0] - 10;
+				sub_area2_row_count <= sub_area2_row_count + 1;
+				if (CB12or34 == 1'b0) rd_address_all <= {{24{7'b0111011}}, {8{7'b1010011}}}; //59, 83
+				else rd_address_all <= {{24{7'b0111011 + 24}}, {8{7'b0001011}}}; // 83, 11
+				shift_value <= 8;
+			end
+			else if (sub_area2_row_count == 19) begin
+				rd8R_en <= 0;
+				rdR_sel <= 4'b0001;
+				if (CB12or34 == 1'b0) rd_address_all <= {{24{sub_area2_row_count+41}}, {8{sub_area2_row_count+65}}}; //60. 84
+				else rd_address_all <= {{24{sub_area2_row_count+65}}, {8{sub_area2_row_count-7}}}; //84, 12
+				shift_value <= 8;
+				if (read_stall == 0) begin
+					read_stall <= 1'b1;
+				end
+				else begin
+					read_stall <= 1'b0;
+					sub_area2_row_count <= sub_area2_row_count + 1;
+				end
+			end
+			else if (sub_area2_row_count >= 20 && sub_area2_row_count < 27) begin
+				rd8R_en <= 0;
+				rdR_sel <= sub_area2_row_count[3:0] - 18;
+				sub_area2_row_count <= sub_area2_row_count + 1;
+				if (CB12or34 == 1'b0) rd_address_all <= {{24{7'b0111100}}, {8{7'b1010100}}};
+				else rd_address_all <= {{24{7'b1010100}}, {8{7'b0001100}}};
+				shift_value <= 8;
+			end
+			else if (sub_area2_row_count >= 27 && sub_area2_row_count < 29) begin
+				rd8R_en <= 0;
+				rdR_sel <= 4'b0;
+				if (CB12or34 == 1'b0) rd_address_all <= {{24{sub_area2_row_count+34}}, {8{sub_area2_row_count+58}}};
+				else rd_address_all <= {{24{sub_area2_row_count+58}}, {8{sub_area2_row_count-14}}};
+				shift_value <= 8;
+				if (read_stall == 0) begin
+					read_stall <= 1'b1;
+				end
+				else begin
+					read_stall <= 1'b0;
+					sub_area2_row_count <= sub_area2_row_count + 1;
+				end
+			end
+			else if (sub_area2_row_count == 29) begin
+				rd8R_en <= 0;
+				shift_value <= 8;
+				if (read_stall == 0) begin
+					read_stall <= 1'b1;
+				end
+				else begin
+					read_stall <= 1'b0;
+					rdR_sel <= 4'b0001;
+					if (CB12or34 == 1'b0) rd_address_all <= {{24{sub_area2_row_count+34}}, {8{sub_area2_row_count+58}}};
+					else rd_address_all <= {{24{sub_area2_row_count+58}}, {8{sub_area2_row_count-14}}};
+					sub_area2_row_count <= sub_area2_row_count + 1;
+				end
+			end
+			else if (sub_area2_row_count >= 30 && sub_area2_row_count < 37) begin
+				rd8R_en <= 0;
+				rdR_sel <= sub_area2_row_count[3:0] - 28;
+				sub_area2_row_count <= sub_area2_row_count + 1;
+				if (CB12or34 == 1'b0) rd_address_all <= {{24{7'b0111111}}, {8{7'b1010111}}}; //63, 87
+				else rd_address_all <= {{24{7'b1010111}}, {8{7'b0001111}}}; //87, 15
+				shift_value <= 8;
+			end
+			else if (sub_area2_row_count == 37) begin
+				rd8R_en <= 0;
+				rdR_sel <= 4'b0001;
+				if (CB12or34 == 1'b0) rd_address_all <= {{24{sub_area2_row_count+27}}, {8{sub_area2_row_count+51}}};
+				else rd_address_all <= {{24{sub_area2_row_count+51}}, {8{sub_area2_row_count-21}}};
+				shift_value <= 8;
+				if (read_stall == 0) begin
+					read_stall <= 1'b1;
+				end
+				else begin
+					read_stall <= 1'b0;
+					sub_area2_row_count <= sub_area2_row_count + 1;
+				end
+			end
+			else if (sub_area2_row_count >= 38 && sub_area2_row_count < 45) begin
+				rd8R_en <= 0;
+				rdR_sel <= sub_area2_row_count[3:0] - 36;
+				sub_area2_row_count <= sub_area2_row_count + 1;
+				if (CB12or34 == 1'b0) rd_address_all <= {{24{7'b1000000}}, {8{7'b1011000}}}; // 64 88
+				else rd_address_all <= {{24{7'b1011000}}, {8{7'b0010000}}}; // 88 16
+				shift_value <= 8;
+			end
+			else if (sub_area2_row_count >= 45 && sub_area2_row_count < 49) begin
+				rd8R_en <= 0;
+				rdR_sel <= 4'b0;
+				if (CB12or34 == 1'b0) rd_address_all <= {{24{sub_area2_row_count+20}}, {8{sub_area2_row_count+44}}};
+				else rd_address_all <= {{24{sub_area2_row_count + 44}}, {8{sub_area2_row_count-28}}};
+				shift_value <= 8;
+				if (read_stall == 0) begin
+					read_stall <= 1'b1;
+				end
+				else begin
+					read_stall <= 1'b0;
+					sub_area2_row_count <= sub_area2_row_count + 1;
+				end
+			end
+			else if (sub_area2_row_count >= 49 && sub_area2_row_count < 52) begin
+				rd8R_en <= 0;
+				rdR_sel <= 4'b0;
+				if (CB12or34 == 1'b0) rd_address_all <= {{24{sub_area2_row_count+20}}, {8{sub_area2_row_count+44}}};
+				else rd_address_all <= {{24{sub_area2_row_count + 44}}, {8{sub_area2_row_count-28}}};
+				shift_value <= 8;
+				sub_area2_row_count <= sub_area2_row_count + 1;
+			end
+			else begin
+				if (CB12or34 == 1'b0) begin
+					CB12or34 <= 1'b1;
+					sub_area2_row_count <= 0;
+				end
+				else begin
+					CB12or34 <= 1'b0;	
+					sub_area2_row_count <= 0;
+					search_column_count <= search_column_count + 1;
+				end
+			end
 		end
 		endcase
 	end

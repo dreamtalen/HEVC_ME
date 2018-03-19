@@ -61,7 +61,7 @@ begin
 		write_address_all <= 224'b0;
 		rd8R_en <= 1'b1;
 		rdR_sel <= 4'b0;
-		pre_count <= 10'd0;
+		pre_count <= 10'b0;
 		pre_rd_count <= 7'b0;
 		pre_line_count <= 7'b0;
 		// sub_area1_column_count <= 3'b0;
@@ -1798,7 +1798,7 @@ begin
 end
 
 // 状态转换
-always @(current_state or begin_prepare or pre_count)
+always @(current_state or begin_prepare or pre_count or search_column_count)
 begin
 	case(current_state)
 	IDLE: if (begin_prepare)

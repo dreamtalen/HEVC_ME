@@ -17,8 +17,8 @@ reg [`BAND_WIDTH_X*8-1:0] ref_8R_32;
 reg change_ref;
 reg ref_input_Control;
 wire [`ARRAY_PIXELS-1:0] abs_outs;
-	reg [3:0] A = 4'b0001;
-	reg [3:0] B = 4'b0010;
+reg [3:0] A = 4'b0001;
+reg [3:0] B = 4'b0010;
 
 PE_array pe_array(.clk(clk), .rst_n(rst_n), .current_64pixels(current_64pixels), .in_curr_enable(in_curr_enable),
 	.CB_select(CB_select), .abs_Control(abs_Control), .ref_8R_32(ref_8R_32), .change_ref(change_ref),

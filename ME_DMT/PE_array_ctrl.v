@@ -130,7 +130,8 @@ begin
 			search_column_count <= search_column_count + 1;
 		end
 	end
-
+	endcase
+end
 // 状态转换
 always @(current_state or begin_prepare or pre_count or search_column_count)
 begin

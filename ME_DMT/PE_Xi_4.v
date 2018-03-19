@@ -19,7 +19,7 @@ input	[`PIXEL-1:0]	down_ref_adajecent_8,
 // input	[`PIXEL-1:0]	down_ref_adajecent_1,
 // input	[`PIXEL-1:0]	down_ref_adajecent_8,
 input                   change_ref,      //change reference PE;norm 1
-input					ref_input_Control,   //改为1bit，因为把down删了
+input					ref_input_control,   //改为1bit，因为把down删了
     //差值输出
 output	[`PIXEL-1:0]	abs_out,
     //当前帧输出
@@ -54,7 +54,7 @@ begin
 	begin 
 	  if(change_ref)
 	  begin
-	    case(ref_input_Control)
+	    case(ref_input_control)
 		  1'b0: ref_pix<= down_ref_adajecent_1;
 		  1'b1: ref_pix<= down_ref_adajecent_8;			
 	    endcase

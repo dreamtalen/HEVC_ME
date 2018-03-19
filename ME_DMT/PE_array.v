@@ -27,7 +27,7 @@ module PE_array(            //need to remove the horizontal connections
   input [`BAND_WIDTH_X*8-1:0] ref_8R_32,
   // input [`BAND_WIDTH_X*8-1:0] down_ref_adajecent_8,
   input change_ref,        //current PE  reference PIXEL change
-  input ref_input_Control,   //this control signal decide the input of PE of reference frame values:0~3
+  input ref_input_control,   //this control signal decide the input of PE of reference frame values:0~3
   output [`ARRAY_PIXELS-1:0] abs_outs
 );
 
@@ -58,7 +58,7 @@ generate for(i=0;i<`X;i=i+1)
             .down_ref_adajecent_8(ref_8R_32[ (32*(i-24)+j+1)*`PIXEL-1:(32*(i-24)+j)*`PIXEL]), // ref_8R_32的第八行
             // .down_ref_adajecent_8(ref_8R_32[8*(j+1)*`PIXEL-1:(8*j+7)*`PIXEL]), 
             .change_ref(change_ref), 
-            .ref_input_Control(ref_input_Control),
+            .ref_input_control(ref_input_control),
             .abs_out(abs_outs[(32*i+j+1)*`PIXEL-1:(32*i+j)*`PIXEL]), 
             .next_pix1(next_pix1s[(32*i+j+1)*`PIXEL-1:(32*i+j)*`PIXEL]),
             .next_pix2(next_pix2s[(32*i+j+1)*`PIXEL-1:(32*i+j)*`PIXEL]), 
@@ -78,7 +78,7 @@ generate for(i=0;i<`X;i=i+1)
             .down_ref_adajecent_8(ref_8R_32[(32*(i-24)+j+1)*`PIXEL-1:(32*(i-24)+j)*`PIXEL]),
             // .down_ref_adajecent_8(ref_8R_32[8*(j+1)*`PIXEL-1:(8*j+7)*`PIXEL]), 
             .change_ref(change_ref), 
-            .ref_input_Control(ref_input_Control),
+            .ref_input_control(ref_input_control),
             .abs_out(abs_outs[(32*i+j+1)*`PIXEL-1:(32*i+j)*`PIXEL]), 
             .next_pix1(next_pix1s[(32*i+j+1)*`PIXEL-1:(32*i+j)*`PIXEL]),
             .next_pix2(next_pix2s[(32*i+j+1)*`PIXEL-1:(32*i+j)*`PIXEL]), 
@@ -98,7 +98,7 @@ generate for(i=0;i<`X;i=i+1)
             .down_ref_adajecent_8(ref_pixs[(32*(i+8)+j+1)*`PIXEL-1:(32*(i+8)+j)*`PIXEL]),
             // .down_ref_adajecent_8(ref_8R_32[8*(j+1)*`PIXEL-1:(8*j+7)*`PIXEL]), 
             .change_ref(change_ref), 
-            .ref_input_Control(ref_input_Control),
+            .ref_input_control(ref_input_control),
             .abs_out(abs_outs[(32*i+j+1)*`PIXEL-1:(32*i+j)*`PIXEL]), 
             .next_pix1(next_pix1s[(32*i+j+1)*`PIXEL-1:(32*i+j)*`PIXEL]),
             .next_pix2(next_pix2s[(32*i+j+1)*`PIXEL-1:(32*i+j)*`PIXEL]), 

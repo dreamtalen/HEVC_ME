@@ -23,6 +23,7 @@ reg [6:0] sub_area1_row_count;
 reg [6:0] sub_area2_row_count;
 reg [6:0] sub_area3_row_count;
 reg CB12or34; //标志位，记录在降采样区间当前计算的是子块12还是子块34
+reg [1:0] CB1or2or3or4; //标志位，记录在全采样区间当前计算的子块是1或2或3或4
 
 always@(posedge clk or negedge rst_n)
 begin
@@ -40,6 +41,7 @@ if(!rst_n)
 		sub_area3_row_count <= 7'b0;
 		pre_count <= 6'b0;
 		CB12or34 <= 1'b0;
+		CB1or2or3or4 <= 2'b00;
 
 	end
 else
@@ -63,7 +65,7 @@ begin
 		sub_area3_row_count <= 7'b0;
 		pre_count <= 6'b0;
 		CB12or34 <= 1'b0;
-
+		CB1or2or3or4 <= 2'b00;
 	end
 	DATA_PRE: begin
 		pre_count <= pre_count + 1'd1;
@@ -312,16 +314,39 @@ begin
 			end
 		end
 		if (sub_area2_row_count == 65 && CB12or34 == 1'b0) begin
-			CB12or34 <= 1'b0;
+			CB12or34 <= 1'b1;
 			sub_area2_row_count <= 0;
 		end
 		else if (sub_area2_row_count == 65 && CB12or34 == 1'b1) begin
-			CB12or34 <= 1'b1;	
+			CB12or34 <= 1'b0;	
 			sub_area2_row_count <= 0;
 			search_column_count <= search_column_count + 1;
 		end
 		else sub_area2_row_count <= sub_area2_row_count + 1;
-
+	end
+	SUB_AERA3: begin
+		in_curr_enable <= 0;
+		CB_select <= 0;
+		change_ref <= 1;
+		abs_Control <= CB1or2or3or4;
+		if (sub_area3_row_count < 4) begin
+			ref_input_control <= 1;
+			sub_area3_row_count <= sub_area3_row_count + 1;
+		end
+		else if (sub_area3_row_count < 20) begin
+			ref_input_control <= 0;
+			sub_area3_row_count <= sub_area3_row_count + 1;
+		end
+		else begin
+			sub_area3_row_count <= 0;
+			if (CB1or2or3or4 < 3) begin
+				CB1or2or3or4 <= CB1or2or3or4 + 1;
+			end
+			else begin
+				CB1or2or3or4 <= 0;
+				search_column_count <= search_column_count + 1;
+			end
+		end
 	end
 	endcase
 end

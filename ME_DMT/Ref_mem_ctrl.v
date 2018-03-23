@@ -127,505 +127,515 @@ begin
 		1: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			// sub_area1_row_count <= sub_area1_row_count + 1'd1;
-			if (CB12or34 == 0) begin
-				rd_address_all <= {32{sub_area1_row_count+4}};
-				if (sub_area1_row_count >= 3 && sub_area1_row_count <= 15 && read_stall == 0) begin
-					// sub_area1_row_count <= sub_area1_row_count - 1'd1;
-					read_stall <= 1'b1;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
-			else begin
-				rd_address_all <= {32{sub_area1_row_count+24}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					// sub_area1_row_count <= sub_area1_row_count - 1'd1;
-					read_stall <= 1'b1;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-
-			end
-			if (sub_area1_row_count == 19 && CB12or34 == 1'b0) begin
+			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
-				// sub_area1_column_count <= sub_area1_column_count + 1;
 				search_column_count <= search_column_count + 1;
+			end
+			else begin
+				if (CB12or34 == 0) begin
+					rd_address_all <= {32{sub_area1_row_count+4}};
+					if (sub_area1_row_count >= 3 && sub_area1_row_count <= 15 && read_stall == 0) begin
+						read_stall <= 1'b1;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
+				else begin
+					rd_address_all <= {32{sub_area1_row_count+24}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
 			end
 			end
 		2: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (CB12or34 == 0) begin
-				rd_address_all <= {{24{sub_area1_row_count}}, {8{sub_area1_row_count+24}}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 8;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
-			else begin
-				rd_address_all <= {{24{sub_area1_row_count+24}}, {8{sub_area1_row_count+48}}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 8;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
 			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
-				// sub_area1_column_count <= sub_area1_column_count + 1;
 				search_column_count <= search_column_count + 1;
+			end
+			else begin
+				if (CB12or34 == 0) begin
+					rd_address_all <= {{24{sub_area1_row_count}}, {8{sub_area1_row_count+24}}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 8;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
+				else begin
+					rd_address_all <= {{24{sub_area1_row_count+24}}, {8{sub_area1_row_count+48}}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 8;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
 			end
 		end
 		3: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (CB12or34 == 0) begin
-				rd_address_all <= {{16{sub_area1_row_count}}, {16{sub_area1_row_count+24}}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 16;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
-			else begin
-				rd_address_all <= {{16{sub_area1_row_count+24}}, {16{sub_area1_row_count+48}}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 16;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
 			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
-				// sub_area1_column_count <= sub_area1_column_count + 1;
 				search_column_count <= search_column_count + 1;
+			end
+			else begin
+				if (CB12or34 == 0) begin
+					rd_address_all <= {{16{sub_area1_row_count}}, {16{sub_area1_row_count+24}}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 16;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
+				else begin
+					rd_address_all <= {{16{sub_area1_row_count+24}}, {16{sub_area1_row_count+48}}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 16;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
 			end
 			end
 		4: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (CB12or34 == 0) begin
-				rd_address_all <= {{8{sub_area1_row_count}}, {24{sub_area1_row_count+24}}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 24;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
-			else begin
-				rd_address_all <= {{8{sub_area1_row_count+24}}, {24{sub_area1_row_count+48}}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 24;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
 			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
-				// sub_area1_column_count <= sub_area1_column_count + 1;
 				search_column_count <= search_column_count + 1;
+			end
+			else begin
+				if (CB12or34 == 0) begin
+					rd_address_all <= {{8{sub_area1_row_count}}, {24{sub_area1_row_count+24}}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 24;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
+				else begin
+					rd_address_all <= {{8{sub_area1_row_count+24}}, {24{sub_area1_row_count+48}}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 24;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end			
 			end
 			end
 		5: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (CB12or34 == 0) begin
-				rd_address_all <= {32{sub_area1_row_count+24}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
-			else begin
-				rd_address_all <= {32{sub_area1_row_count+48}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
 			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
-				// sub_area1_column_count <= sub_area1_column_count + 1;
 				search_column_count <= search_column_count + 1;
+			end
+			else begin
+				if (CB12or34 == 0) begin
+					rd_address_all <= {32{sub_area1_row_count+24}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
+				else begin
+					rd_address_all <= {32{sub_area1_row_count+48}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
 			end
 			end
 		6: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (CB12or34 == 0) begin
-				rd_address_all <= {{24{sub_area1_row_count+24}}, {8{sub_area1_row_count+48}}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 8;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
-			else begin
-				rd_address_all <= {{24{sub_area1_row_count+48}}, {8{sub_area1_row_count+72}}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 8;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
 			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
-				// sub_area1_column_count <= sub_area1_column_count + 1;
 				search_column_count <= search_column_count + 1;
+			end
+			else begin
+				if (CB12or34 == 0) begin
+					rd_address_all <= {{24{sub_area1_row_count+24}}, {8{sub_area1_row_count+48}}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 8;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
+				else begin
+					rd_address_all <= {{24{sub_area1_row_count+48}}, {8{sub_area1_row_count+72}}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 8;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
 			end
 			end
 		7: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (CB12or34 == 0) begin
-				rd_address_all <= {{16{sub_area1_row_count+24}}, {16{sub_area1_row_count+48}}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 16;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
-			else begin
-				rd_address_all <= {{16{sub_area1_row_count+48}}, {16{sub_area1_row_count+72}}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 16;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
 			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
-				// sub_area1_column_count <= sub_area1_column_count + 1;
 				search_column_count <= search_column_count + 1;
+			end
+			else begin
+				if (CB12or34 == 0) begin
+					rd_address_all <= {{16{sub_area1_row_count+24}}, {16{sub_area1_row_count+48}}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 16;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
+				else begin
+					rd_address_all <= {{16{sub_area1_row_count+48}}, {16{sub_area1_row_count+72}}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 16;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end	
 			end
 			end
 		25: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (CB12or34 == 0) begin
-				rd_address_all <= {{16{sub_area1_row_count+48}}, {16{sub_area1_row_count+72}}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 16;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
-			else begin
-				rd_address_all <= {{16{sub_area1_row_count+72}}, {16{sub_area1_row_count}}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 16;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
 			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
-				// sub_area1_column_count <= sub_area1_column_count + 1;
 				search_column_count <= search_column_count + 1;
+			end
+			else begin
+				if (CB12or34 == 0) begin
+					rd_address_all <= {{16{sub_area1_row_count+48}}, {16{sub_area1_row_count+72}}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 16;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
+				else begin
+					rd_address_all <= {{16{sub_area1_row_count+72}}, {16{sub_area1_row_count}}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 16;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
 			end
 			end
 		26: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (CB12or34 == 0) begin
-				rd_address_all <= {{8{sub_area1_row_count+48}}, {24{sub_area1_row_count+72}}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 24;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
-			else begin
-				rd_address_all <= {{8{sub_area1_row_count+72}}, {24{sub_area1_row_count}}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 24;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
 			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
-				// sub_area1_column_count <= sub_area1_column_count + 1;
 				search_column_count <= search_column_count + 1;
+			end
+			else begin
+				if (CB12or34 == 0) begin
+					rd_address_all <= {{8{sub_area1_row_count+48}}, {24{sub_area1_row_count+72}}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 24;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
+				else begin
+					rd_address_all <= {{8{sub_area1_row_count+72}}, {24{sub_area1_row_count}}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 24;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
 			end
 			end
 		27: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (CB12or34 == 0) begin
-				rd_address_all <= {32{sub_area1_row_count+72}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 0;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
-			else begin
-				rd_address_all <= {32{sub_area1_row_count}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 0;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
 			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
-				// sub_area1_column_count <= sub_area1_column_count + 1;
 				search_column_count <= search_column_count + 1;
+			end
+			else begin
+				if (CB12or34 == 0) begin
+					rd_address_all <= {32{sub_area1_row_count+72}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 0;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
+				else begin
+					rd_address_all <= {32{sub_area1_row_count}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 0;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
 			end
 			end
 		28: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (CB12or34 == 0) begin
-				rd_address_all <= {{24{sub_area1_row_count+72}}, {8{sub_area1_row_count}}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 8;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
-			else begin
-				rd_address_all <= {{24{sub_area1_row_count}}, {8{sub_area1_row_count+24}}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 8;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
 			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
-				// sub_area1_column_count <= sub_area1_column_count + 1;
 				search_column_count <= search_column_count + 1;
+			end
+			else begin
+				if (CB12or34 == 0) begin
+					rd_address_all <= {{24{sub_area1_row_count+72}}, {8{sub_area1_row_count}}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 8;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
+				else begin
+					rd_address_all <= {{24{sub_area1_row_count}}, {8{sub_area1_row_count+24}}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 8;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
 			end
 			end
 		29: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (CB12or34 == 0) begin
-				rd_address_all <= {{16{sub_area1_row_count+72}}, {16{sub_area1_row_count}}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 16;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
-			else begin
-				rd_address_all <= {{16{sub_area1_row_count}}, {16{sub_area1_row_count+24}}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 16;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
 			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
-				// sub_area1_column_count <= sub_area1_column_count + 1;
 				search_column_count <= search_column_count + 1;
+			end
+			else begin
+				if (CB12or34 == 0) begin
+					rd_address_all <= {{16{sub_area1_row_count+72}}, {16{sub_area1_row_count}}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 16;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
+				else begin
+					rd_address_all <= {{16{sub_area1_row_count}}, {16{sub_area1_row_count+24}}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 16;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end				
 			end
 			end
 		30: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (CB12or34 == 0) begin
-				rd_address_all <= {{8{sub_area1_row_count+72}}, {24{sub_area1_row_count}}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 24;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
-			else begin
-				rd_address_all <= {{8{sub_area1_row_count}}, {24{sub_area1_row_count+24}}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 24;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
 			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
-				// sub_area1_column_count <= sub_area1_column_count + 1;
 				search_column_count <= search_column_count + 1;
+			end
+			else begin
+				if (CB12or34 == 0) begin
+					rd_address_all <= {{8{sub_area1_row_count+72}}, {24{sub_area1_row_count}}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 24;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
+				else begin
+					rd_address_all <= {{8{sub_area1_row_count}}, {24{sub_area1_row_count+24}}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 24;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
 			end
 			end
 		31: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (CB12or34 == 0) begin
-				rd_address_all <= {32{sub_area1_row_count}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 0;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
-			else begin
-				rd_address_all <= {32{sub_area1_row_count+24}};
-				if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
-					read_stall <= 1'b1;
-					shift_value <= 0;
-				end
-				else begin
-					sub_area1_row_count <= sub_area1_row_count + 1'd1;
-					read_stall <= 1'b0;
-				end
-			end
 			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
-				// sub_area1_column_count <= sub_area1_column_count + 1;
 				search_column_count <= search_column_count + 1;
+			end
+			else begin
+				if (CB12or34 == 0) begin
+					rd_address_all <= {32{sub_area1_row_count}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 0;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
+				else begin
+					rd_address_all <= {32{sub_area1_row_count+24}};
+					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
+						read_stall <= 1'b1;
+						shift_value <= 0;
+					end
+					else begin
+						sub_area1_row_count <= sub_area1_row_count + 1'd1;
+						read_stall <= 1'b0;
+					end
+				end
 			end
 			end
 		endcase

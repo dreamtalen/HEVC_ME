@@ -1125,9 +1125,9 @@ begin
 		case (search_column_count)
 		9: begin
 		 	rd8R_en <= 0;
-			sub_area3_row_count <= sub_area3_row_count + 1;
 			shift_value <= 25;
 			if (sub_area3_row_count < 4) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{7{sub_area3_row_count+31}}, {25{sub_area3_row_count+55}}};
@@ -1138,6 +1138,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{7{7'b0100011}}, {25{7'b0111011}}};
@@ -1148,6 +1149,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{7{7'b0100100}}, {25{7'b0111100}}};
@@ -1173,9 +1175,9 @@ begin
 		end
 		10: begin
 		 	rd8R_en <= 0;
-			sub_area3_row_count <= sub_area3_row_count + 1;
 			shift_value <= 26;
 			if (sub_area3_row_count < 4) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{6{sub_area3_row_count+31}}, {26{sub_area3_row_count+55}}};
@@ -1186,6 +1188,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{6{7'b0100011}}, {26{7'b0111011}}};
@@ -1196,6 +1199,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{6{7'b0100100}}, {26{7'b0111100}}};
@@ -1221,9 +1225,9 @@ begin
 		end
 		11: begin
 		 	rd8R_en <= 0;
-			sub_area3_row_count <= sub_area3_row_count + 1;
 			shift_value <= 27;
 			if (sub_area3_row_count < 4) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{5{sub_area3_row_count+31}}, {27{sub_area3_row_count+55}}};
@@ -1234,6 +1238,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{5{7'b0100011}}, {27{7'b0111011}}};
@@ -1244,6 +1249,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{5{7'b0100100}}, {27{7'b0111100}}};
@@ -1269,9 +1275,9 @@ begin
 		end
 		12: begin
 		 	rd8R_en <= 0;
-			sub_area3_row_count <= sub_area3_row_count + 1;
 			shift_value <= 28;
 			if (sub_area3_row_count < 4) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{4{sub_area3_row_count+31}}, {28{sub_area3_row_count+55}}};
@@ -1282,6 +1288,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{4{7'b0100011}}, {28{7'b0111011}}};
@@ -1292,6 +1299,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{4{7'b0100100}}, {28{7'b0111100}}};
@@ -1317,9 +1325,9 @@ begin
 		end
 		13: begin
 		 	rd8R_en <= 0;
-			sub_area3_row_count <= sub_area3_row_count + 1;
 			shift_value <= 29;
 			if (sub_area3_row_count < 4) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{3{sub_area3_row_count+31}}, {29{sub_area3_row_count+55}}};
@@ -1330,6 +1338,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{3{7'b0100011}}, {29{7'b0111011}}};
@@ -1340,6 +1349,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{3{7'b0100100}}, {29{7'b0111100}}};
@@ -1365,9 +1375,9 @@ begin
 		end
 		14: begin
 		 	rd8R_en <= 0;
-			sub_area3_row_count <= sub_area3_row_count + 1;
 			shift_value <= 30;
 			if (sub_area3_row_count < 4) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{2{sub_area3_row_count+31}}, {30{sub_area3_row_count+55}}};
@@ -1378,6 +1388,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{2{7'b0100011}}, {30{7'b0111011}}};
@@ -1388,6 +1399,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{2{7'b0100100}}, {30{7'b0111100}}};
@@ -1413,9 +1425,9 @@ begin
 		end
 		15: begin
 		 	rd8R_en <= 0;
-			sub_area3_row_count <= sub_area3_row_count + 1;
 			shift_value <= 31;
 			if (sub_area3_row_count < 4) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{sub_area3_row_count+31}, {31{sub_area3_row_count+55}}};
@@ -1426,6 +1438,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{7'b0100011}, {31{7'b0111011}}};
@@ -1436,6 +1449,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{7'b0100100}, {31{7'b0111100}}};
@@ -1461,9 +1475,9 @@ begin
 		end
 		17: begin
 		 	rd8R_en <= 0;
-			sub_area3_row_count <= sub_area3_row_count + 1;
 			shift_value <= 1;
 			if (sub_area3_row_count < 4) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{31{sub_area3_row_count+55}}, {sub_area3_row_count+79}};
@@ -1474,6 +1488,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{31{7'b0111011}}, {7'b1010011}};
@@ -1484,6 +1499,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{31{7'b0111100}}, {7'b1010100}};
@@ -1509,9 +1525,9 @@ begin
 		end
 		18: begin
 		 	rd8R_en <= 0;
-			sub_area3_row_count <= sub_area3_row_count + 1;
 			shift_value <= 2;
 			if (sub_area3_row_count < 4) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{30{sub_area3_row_count+55}}, {2{sub_area3_row_count+79}}};
@@ -1522,6 +1538,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{30{7'b0111011}}, {2{7'b1010011}}};
@@ -1532,6 +1549,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{30{7'b0111100}}, {2{7'b1010100}}};
@@ -1557,9 +1575,9 @@ begin
 		end
 		19: begin
 		 	rd8R_en <= 0;
-			sub_area3_row_count <= sub_area3_row_count + 1;
 			shift_value <= 3;
 			if (sub_area3_row_count < 4) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{29{sub_area3_row_count+55}}, {3{sub_area3_row_count+79}}};
@@ -1570,6 +1588,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{29{7'b0111011}}, {3{7'b1010011}}};
@@ -1580,6 +1599,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{29{7'b0111100}}, {3{7'b1010100}}};
@@ -1605,9 +1625,9 @@ begin
 		end
 		20: begin
 		 	rd8R_en <= 0;
-			sub_area3_row_count <= sub_area3_row_count + 1;
 			shift_value <= 4;
 			if (sub_area3_row_count < 4) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{28{sub_area3_row_count+55}}, {4{sub_area3_row_count+79}}};
@@ -1618,6 +1638,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{28{7'b0111011}}, {4{7'b1010011}}};
@@ -1628,6 +1649,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{28{7'b0111100}}, {4{7'b1010100}}};
@@ -1653,9 +1675,9 @@ begin
 		end
 		21: begin
 		 	rd8R_en <= 0;
-			sub_area3_row_count <= sub_area3_row_count + 1;
 			shift_value <= 5;
 			if (sub_area3_row_count < 4) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{27{sub_area3_row_count+55}}, {5{sub_area3_row_count+79}}};
@@ -1666,6 +1688,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{27{7'b0111011}}, {5{7'b1010011}}};
@@ -1676,6 +1699,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{27{7'b0111100}}, {5{7'b1010100}}};
@@ -1701,9 +1725,9 @@ begin
 		end
 		22: begin
 		 	rd8R_en <= 0;
-			sub_area3_row_count <= sub_area3_row_count + 1;
 			shift_value <= 6;
 			if (sub_area3_row_count < 4) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{26{sub_area3_row_count+55}}, {6{sub_area3_row_count+79}}};
@@ -1714,6 +1738,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{26{7'b0111011}}, {6{7'b1010011}}};
@@ -1724,6 +1749,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{26{7'b0111100}}, {6{7'b1010100}}};
@@ -1749,9 +1775,9 @@ begin
 		end
 		23: begin
 		 	rd8R_en <= 0;
-			sub_area3_row_count <= sub_area3_row_count + 1;
 			shift_value <= 7;
 			if (sub_area3_row_count < 4) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= 4'b0;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{25{sub_area3_row_count+55}}, {7{sub_area3_row_count+79}}};
@@ -1762,6 +1788,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 12) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 3;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{25{7'b0111011}}, {7{7'b1010011}}};
@@ -1772,6 +1799,7 @@ begin
 				endcase
 			end
 			else if (sub_area3_row_count < 20) begin
+				sub_area3_row_count <= sub_area3_row_count + 1;
 				rdR_sel <= sub_area3_row_count[3:0] - 11;
 				case (CB1or2or3or4)
 				2'b00: rd_address_all <= {{25{7'b0111100}}, {7{7'b1010100}}};

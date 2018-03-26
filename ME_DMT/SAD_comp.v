@@ -43,13 +43,16 @@ generate
 	genvar j;
 	for (j = 0; j < 16; j = j + 1)
 	begin: cal_min_64
+	always @(posedge clk) begin
 		if (min_SAD8x8[(j*14+13):(j*14)] > SAD8x8[(j*14+13):(j*14)]) begin
 			min_SAD8x8[(j*14+13):(j*14)] <= SAD8x8[(j*14+13):(j*14)];
 		end
 	end
+	end
 	genvar k;
 	for (k = 0; k < 8; k = k + 1)
 	begin: cal_min_128
+	always @(posedge clk) begin
 		if (min_SAD8x16[(i*15+14):(i*15)] > SAD8x16[(i*15+14):(i*15)]) begin
 			min_SAD8x16[(i*15+14):(i*15)] <= SAD8x16[(i*15+14):(i*15)];
 		end
@@ -57,12 +60,15 @@ generate
 			min_SAD16x8[(i*15+14):(i*15)] <= SAD16x8[(i*15+14):(i*15)];
 		end
 	end
+	end
 	genvar l;
 	for (l = 0; l < 4; l = l + 1)
 	begin: cal_min_256
+	always @(posedge clk) begin
 		if (min_SAD16x16[(l*16+15):(l*16)] > SAD16x16[(l*16+15):(l*16)]) begin
 			min_SAD16x16[(l*16+15):(l*16)] <= SAD16x16[(l*16+15):(l*16)];
 		end
+	end
 	end
 endgenerate
 

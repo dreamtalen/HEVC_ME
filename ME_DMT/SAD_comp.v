@@ -20,11 +20,11 @@ begin
 if(!rst_n)
 	begin
 		min_SAD4x8 <= -1;
-		min_SAD8x4 <= 416'b1;
-		min_SAD8x8 <= 224'b1;
-		min_SAD8x16 <= 120'b1;
-		min_SAD16x8 <= 120'b1;
-		min_SAD16x16 <= 64'b1;
+		min_SAD8x4 <= -1;
+		min_SAD8x8 <= -1;
+		min_SAD8x16 <= -1;
+		min_SAD16x8 <= -1;
+		min_SAD16x16 <= -1;
 	end
 end
 

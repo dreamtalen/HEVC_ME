@@ -19,7 +19,7 @@ always@(posedge clk or negedge rst_n)
 begin
 if(!rst_n)
 	begin
-		min_SAD4x8 <= 416'b1;
+		min_SAD4x8 <= -1;
 		min_SAD8x4 <= 416'b1;
 		min_SAD8x8 <= 224'b1;
 		min_SAD8x16 <= 120'b1;

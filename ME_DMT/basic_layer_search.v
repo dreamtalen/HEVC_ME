@@ -1,9 +1,10 @@
 module Basic_layer_search(
-input clk,
-input rst_n,
-input [255:0] ref_input,
-input [511:0] current_64pixels,
+	input clk,
+	input rst_n,
+	input [255:0] ref_input,
+	input [511:0] current_64pixels,
 );
+
 wire [31:0] Bank_sel;
 wire [6:0] rd_address;
 wire [7*32-1:0] write_address_all;
@@ -15,8 +16,12 @@ wire CB_select;
 wire [1:0] abs_Control;
 wire [`BAND_WIDTH_X*8-1:0] ref_8R_32;
 wire change_ref;
-wire ref_input_Control;
 wire [8191:0] abs_outs;
+wire in_curr_enable;
+wire CB_select;
+wire [1:0] abs_Control;
+wire change_ref;
+wire ref_input_control;
 
 Ref_mem_ctrl ref_mem_ctrl(
 	//input 待添加来自global的控制信号
@@ -46,6 +51,19 @@ Ref_mem ref_mem(
 	.da1R_va()
 );
 
+PE_array_ctrl pe_array_ctrl(
+	//input
+	.clk(clk),
+	.rst_n(rst_n),
+	.begin_prepare(begin_prepare), // 待添加的来自global的开始信号
+	//output
+	.in_curr_enable(in_curr_enable),
+	.CB_select(CB_select),
+	.abs_Control(abs_Control),
+	.change_ref(change_ref),
+	.ref_input_control(ref_input_control)
+);
+
 PE_array pe_array(
 	//input
 	.clk(clk),
@@ -56,11 +74,45 @@ PE_array pe_array(
 	.abs_Control(abs_Control), 
 	.ref_8R_32(ref_8R_32), 
 	.change_ref(change_ref),
-	.ref_input_Control(ref_input_Control), 
+	.ref_input_control(ref_input_control), 
 	//output
 	.abs_outs(abs_outs)
 );
 
-// SAD_Tree SAD_tree();
+SAD_Tree SAD_tree(
+	//input
+	.clk(clk),
+	.rst_n(rst_n),
+	.abs_outs(abs_outs),
+	//output
+	.SAD4x8(SAD4x8),
+	.SAD8x4(SAD8x4),
+	.SAD8x8(SAD8x8),
+	.SAD8x16(SAD8x16),
+	.SAD16x8(SAD16x8),
+	.SAD16x16(SAD16x16),
+	.SAD32x32(SAD32x32)
+);
+
+SAD_comp SAD_comp(
+	//input
+	.clk(clk),
+	.rst_n(rst_n),
+	.SAD4x8(SAD4x8),
+	.SAD8x4(SAD8x4),
+	.SAD8x8(SAD8x8),
+	.SAD8x16(SAD8x16),
+	.SAD16x8(SAD16x8),
+	.SAD16x16(SAD16x16),
+	.SAD32x32(SAD32x32),
+	//output
+	.min_SAD4x8(min_SAD4x8),
+	.min_SAD8x4(min_SAD8x4),
+	.min_SAD8x8(min_SAD8x8),
+	.min_SAD8x16(min_SAD8x16),
+	.min_SAD16x8(min_SAD16x8),
+	.min_SAD16x16(min_SAD16x16),
+	.min_SAD32x32(min_SAD32x32)
+);
 
 endmodule

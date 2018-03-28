@@ -7,12 +7,14 @@ module SAD_comp(
 	input [119:0] SAD8x16,
 	input [119:0] SAD16x8,
 	input [63:0] SAD16x16,
+	input [17:0] SAD32x32,
 	output reg [415:0] min_SAD4x8,
 	output reg [415:0] min_SAD8x4,
 	output reg [223:0] min_SAD8x8,
 	output reg [119:0] min_SAD8x16,
 	output reg [119:0] min_SAD16x8,
-	output reg [63:0] min_SAD16x16
+	output reg [63:0] min_SAD16x16,
+	output reg [17:0] min_SAD32x32
 );
 
 always@(posedge clk or negedge rst_n)
@@ -25,6 +27,7 @@ if(!rst_n)
 		min_SAD8x16 <= -1;
 		min_SAD16x8 <= -1;
 		min_SAD16x16 <= -1;
+		min_SAD32x32 <= -1;
 	end
 end
 
@@ -72,5 +75,11 @@ generate
 	end
 	end
 endgenerate
+
+always @(posedge clk) begin
+	if (min_SAD32x32 > SAD32x32) begin
+		min_SAD32x32 <= SAD32x32;
+	end
+end
 
 endmodule

@@ -2,7 +2,7 @@ module Basic_layer_search(
 	input clk,
 	input rst_n,
 	input [255:0] ref_input,
-	input [511:0] current_64pixels,
+	input [511:0] current_64pixels
 );
 
 wire [31:0] Bank_sel;
@@ -14,13 +14,8 @@ wire [2047:0] ref_8R_32;
 wire in_curr_enable;
 wire CB_select;
 wire [1:0] abs_Control;
-wire [`BAND_WIDTH_X*8-1:0] ref_8R_32;
 wire change_ref;
 wire [8191:0] abs_outs;
-wire in_curr_enable;
-wire CB_select;
-wire [1:0] abs_Control;
-wire change_ref;
 wire ref_input_control;
 
 Ref_mem_ctrl ref_mem_ctrl(

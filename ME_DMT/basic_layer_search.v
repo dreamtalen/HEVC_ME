@@ -11,6 +11,8 @@ module Basic_layer_search(
 	output [119:0] SAD8x16,
 	output [119:0] SAD16x8,
 	output [63:0] SAD16x16,
+	output [33:0] SAD16x32,
+    output [33:0] SAD32x16,
 	output [17:0] SAD32x32,
 	output [4:0] search_column_count,
 	output [6:0] search_row_count
@@ -112,6 +114,8 @@ SAD_Tree SAD_tree(
 	.SAD8x16(SAD8x16),
 	.SAD16x8(SAD16x8),
 	.SAD16x16(SAD16x16),
+	.SAD16x32(SAD16x32),
+  	.SAD32x16(SAD32x16),
 	.SAD32x32(SAD32x32)
 );
 

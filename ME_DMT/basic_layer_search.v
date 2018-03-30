@@ -56,7 +56,9 @@ PE_array_ctrl pe_array_ctrl(
 	.CB_select(CB_select),
 	.abs_Control(abs_Control),
 	.change_ref(change_ref),
-	.ref_input_control(ref_input_control)
+	.ref_input_control(ref_input_control),
+	.search_column_count(search_column_count),
+	.search_row_count(search_row_count)
 );
 
 PE_array pe_array(
@@ -87,27 +89,6 @@ SAD_Tree SAD_tree(
 	.SAD16x8(SAD16x8),
 	.SAD16x16(SAD16x16),
 	.SAD32x32(SAD32x32)
-);
-
-SAD_comp SAD_comp(
-	//input
-	.clk(clk),
-	.rst_n(rst_n),
-	.SAD4x8(SAD4x8),
-	.SAD8x4(SAD8x4),
-	.SAD8x8(SAD8x8),
-	.SAD8x16(SAD8x16),
-	.SAD16x8(SAD16x8),
-	.SAD16x16(SAD16x16),
-	.SAD32x32(SAD32x32),
-	//output
-	.min_SAD4x8(min_SAD4x8),
-	.min_SAD8x4(min_SAD8x4),
-	.min_SAD8x8(min_SAD8x8),
-	.min_SAD8x16(min_SAD8x16),
-	.min_SAD16x8(min_SAD16x8),
-	.min_SAD16x16(min_SAD16x16),
-	.min_SAD32x32(min_SAD32x32)
 );
 
 endmodule

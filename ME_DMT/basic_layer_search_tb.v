@@ -17,7 +17,7 @@ module basic_layer_search_tb;
 	wire search_column_count;
 	wire search_row_count;
 
-basic_layer_search basic_layer_search(
+Basic_layer_search basic_layer_search(
 	.clk(clk), .rst_n(rst_n), .ref_input(ref_input), .current_64pixels(current_64pixels),
 	.ref_begin_prepare(ref_begin_prepare), .pe_begin_prepare(pe_begin_prepare),
 	.SAD4x8(SAD4x8), .SAD8x4(SAD8x4), .SAD8x8(SAD8x8), .SAD8x16(SAD8x16), .SAD16x8(SAD16x8),

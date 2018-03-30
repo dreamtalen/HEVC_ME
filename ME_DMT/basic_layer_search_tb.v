@@ -7,15 +7,15 @@ module basic_layer_search_tb;
 	reg [511:0] current_64pixels;
 	reg ref_begin_prepare;
 	reg pe_begin_prepare;
-	wire SAD4x8;
-	wire SAD8x4;
-	wire SAD8x8;
-	wire SAD8x16;
-	wire SAD16x8;
-	wire SAD16x16;
-	wire SAD32x32;
-	wire search_column_count;
-	wire search_row_count;
+	wire [415:0] SAD4x8;
+	wire [415:0] SAD8x4;
+	wire [223:0] SAD8x8;
+	wire [119:0] SAD8x16;
+	wire [119:0] SAD16x8;
+	wire [63:0] SAD16x16;
+	wire [17:0] SAD32x32;
+	wire [4:0] search_column_count;
+	wire [6:0] search_row_count;
 
 Basic_layer_search basic_layer_search(
 	.clk(clk), .rst_n(rst_n), .ref_input(ref_input), .current_64pixels(current_64pixels),

@@ -6,7 +6,9 @@ module PE_array_ctrl(
 	output reg CB_select,
 	output reg [1:0] abs_Control,
 	output reg change_ref,
-	output reg ref_input_control
+	output reg ref_input_control,
+	output reg [4:0] search_column_count,
+	output reg [6:0] search_row_count
 );
 
 parameter [2:0]
@@ -18,7 +20,6 @@ SUB_AERA3 = 3'b100;
 
 reg [3:0] current_state, next_state;
 reg [5:0] pre_count;
-reg [4:0] search_column_count;
 reg [6:0] sub_area1_row_count;
 reg [6:0] sub_area2_row_count;
 reg [6:0] sub_area3_row_count;
@@ -36,6 +37,7 @@ if(!rst_n)
 		change_ref <= 1'b0;
 		ref_input_control <= 1'b0;
 		search_column_count <= 5'b0;
+		search_row_count <= 7'b0;
 		sub_area1_row_count <= 7'b0;
 		sub_area2_row_count <= 7'b0;
 		sub_area3_row_count <= 7'b0;
@@ -80,6 +82,7 @@ begin
 	SUB_AERA1: begin
 		in_curr_enable <= 0;
 		ref_input_control <= 1;
+		search_row_count <= sub_area1_row_count;
 		if (CB12or34 == 0) begin
 			CB_select <= 1;
 			if (sub_area1_row_count < 8) begin
@@ -135,6 +138,7 @@ begin
 	end
 	SUB_AERA2: begin
 		in_curr_enable <= 0;
+		search_row_count <= sub_area2_row_count;
 		if (CB12or34 == 0) begin
 			CB_select <= 1;
 			if (sub_area2_row_count < 8) begin
@@ -329,6 +333,7 @@ begin
 		CB_select <= 0;
 		change_ref <= 1;
 		abs_Control <= CB1or2or3or4;
+		search_row_count <= sub_area3_row_count;
 		if (sub_area3_row_count < 4) begin
 			ref_input_control <= 1;
 			sub_area3_row_count <= sub_area3_row_count + 1;

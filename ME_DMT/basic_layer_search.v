@@ -17,11 +17,14 @@ module Basic_layer_search(
 );
 
 wire [31:0] Bank_sel;
-wire [6:0] rd_address;
+wire [7*32-1:0] rd_address_all;
 wire [7*32-1:0] write_address_all;
 wire rd8R_en;
 wire [3:0] rdR_sel;
+wire [4:0] shift_value;
+
 wire [2047:0] ref_8R_32;
+wire [2047:0] ref_8R_32_shifted;
 wire in_curr_enable;
 wire CB_select;
 wire [1:0] abs_Control;
@@ -36,10 +39,11 @@ Ref_mem_ctrl ref_mem_ctrl(
 	.begin_prepare(ref_begin_prepare),
 	//output
 	.Bank_sel(Bank_sel),
-	.rd_address(rd_address),
+	.rd_address_all(rd_address_all),
 	.write_address_all(write_address_all),
 	.rd8R_en(rd8R_en),
-	.rdR_sel(rdR_sel)
+	.rdR_sel(rdR_sel),
+	.shift_value(shift_value)
 );
 
 Ref_mem ref_mem(
@@ -48,7 +52,7 @@ Ref_mem ref_mem(
 	.rst_n(rst_n), 
 	.ref_input(ref_input), 
 	.Bank_sel(Bank_sel), 
-	.rd_address(rd_address),
+	.rd_address_all(rd_address_all),
 	.write_address_all(write_address_all), 
 	.rd8R_en(rd8R_en), 
 	.rdR_sel(rdR_sel),
@@ -56,6 +60,14 @@ Ref_mem ref_mem(
 	.ref_8R_32(ref_8R_32), 
 	.Oda8R_va(), 
 	.da1R_va()
+);
+
+Ref_mem_shift ref_mem_shift(
+	//input
+	.ref_input(ref_8R_32),
+	.shift_value(shift_value),
+	//output
+	.ref_output(ref_8R_32_shifted)
 );
 
 PE_array_ctrl pe_array_ctrl(
@@ -81,7 +93,7 @@ PE_array pe_array(
 	.in_curr_enable(in_curr_enable),
 	.CB_select(CB_select), 
 	.abs_Control(abs_Control), 
-	.ref_8R_32(ref_8R_32), 
+	.ref_8R_32(ref_8R_32_shifted), 
 	.change_ref(change_ref),
 	.ref_input_control(ref_input_control), 
 	//output

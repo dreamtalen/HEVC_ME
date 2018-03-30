@@ -2,7 +2,18 @@ module Basic_layer_search(
 	input clk,
 	input rst_n,
 	input [255:0] ref_input,
-	input [511:0] current_64pixels
+	input [511:0] current_64pixels,
+	input ref_begin_prepare,
+	input pe_begin_prepare,
+	output [415:0] SAD4x8,
+	output [415:0] SAD8x4,
+	output [223:0] SAD8x8,
+	output [119:0] SAD8x16,
+	output [119:0] SAD16x8,
+	output [63:0] SAD16x16,
+	output [17:0] SAD32x32,
+	output [4:0] search_column_count,
+	output [6:0] search_row_count
 );
 
 wire [31:0] Bank_sel;
@@ -22,6 +33,7 @@ Ref_mem_ctrl ref_mem_ctrl(
 	//input 待添加来自global的控制信号
 	.clk(clk),
 	.rst_n(rst_n),
+	.begin_prepare(ref_begin_prepare),
 	//output
 	.Bank_sel(Bank_sel),
 	.rd_address(rd_address),
@@ -50,7 +62,7 @@ PE_array_ctrl pe_array_ctrl(
 	//input
 	.clk(clk),
 	.rst_n(rst_n),
-	.begin_prepare(begin_prepare), // 待添加的来自global的开始信号
+	.begin_prepare(pe_begin_prepare), // 待添加的来自global的开始信号
 	//output
 	.in_curr_enable(in_curr_enable),
 	.CB_select(CB_select),

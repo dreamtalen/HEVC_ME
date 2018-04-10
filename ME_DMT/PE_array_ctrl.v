@@ -132,9 +132,9 @@ begin
 		else if (sub_area1_row_count == 37 && CB12or34 == 1'b1) begin
 			CB12or34 <= 1'b1;	
 			sub_area1_row_count <= 0;
-			search_column_count <= search_column_count + 1;
+			search_column_count <= search_column_count + 5'd1;
 		end
-		else sub_area1_row_count <= sub_area1_row_count + 1;
+		else sub_area1_row_count <= sub_area1_row_count + 1'd1;
 	end
 	SUB_AERA2: begin
 		in_curr_enable <= 0;
@@ -324,9 +324,9 @@ begin
 		else if (sub_area2_row_count == 65 && CB12or34 == 1'b1) begin
 			CB12or34 <= 1'b0;	
 			sub_area2_row_count <= 0;
-			search_column_count <= search_column_count + 1;
+			search_column_count <= search_column_count + 5'd1;
 		end
-		else sub_area2_row_count <= sub_area2_row_count + 1;
+		else sub_area2_row_count <= sub_area2_row_count + 1'd1;
 	end
 	SUB_AERA3: begin
 		in_curr_enable <= 0;
@@ -336,20 +336,20 @@ begin
 		search_row_count <= sub_area3_row_count;
 		if (sub_area3_row_count < 4) begin
 			ref_input_control <= 1;
-			sub_area3_row_count <= sub_area3_row_count + 1;
+			sub_area3_row_count <= sub_area3_row_count + 1'd1;
 		end
 		else if (sub_area3_row_count < 20) begin
 			ref_input_control <= 0;
-			sub_area3_row_count <= sub_area3_row_count + 1;
+			sub_area3_row_count <= sub_area3_row_count + 1'd1;
 		end
 		else begin
 			sub_area3_row_count <= 0;
 			if (CB1or2or3or4 < 3) begin
-				CB1or2or3or4 <= CB1or2or3or4 + 1;
+				CB1or2or3or4 <= CB1or2or3or4 + 2'd1;
 			end
 			else begin
 				CB1or2or3or4 <= 0;
-				search_column_count <= search_column_count + 1;
+				search_column_count <= search_column_count + 5'd1;
 			end
 		end
 	end

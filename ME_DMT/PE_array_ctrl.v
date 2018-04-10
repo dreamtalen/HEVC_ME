@@ -364,7 +364,7 @@ begin
 		else
 		next_state = IDLE;
 	// 准备当前帧数据，共需64个周期 32*32*4 / 32*2 = 64
-	DATA_PRE: if (pre_count < 64)
+	DATA_PRE: if (pre_count < 63)
 		next_state = DATA_PRE;
 		else begin
 		next_state = SUB_AERA1;

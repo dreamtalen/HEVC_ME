@@ -126,11 +126,11 @@ begin
 			end
 		end
 		if (sub_area1_row_count == 37 && CB12or34 == 1'b0) begin
-			CB12or34 <= 1'b0;
+			CB12or34 <= 1'b1;
 			sub_area1_row_count <= 1'b0;
 		end
 		else if (sub_area1_row_count == 37 && CB12or34 == 1'b1) begin
-			CB12or34 <= 1'b1;	
+			CB12or34 <= 1'b0;	
 			sub_area1_row_count <= 1'b0;
 			search_column_count <= search_column_count + 1'b1;
 		end

@@ -71,285 +71,285 @@ begin
 	end
 	DATA_PRE: begin
 		pre_count <= pre_count + 1'd1;
-		in_curr_enable <= 1;
+		in_curr_enable <= 1'b1;
 		if (pre_count < 32) begin
-			CB_select <= 1;
+			CB_select <= 1'b1;
 		end 
 		else begin
-			CB_select <= 0;
+			CB_select <= 1'b0;
 		end
 	end
 	SUB_AERA1: begin
-		in_curr_enable <= 0;
-		ref_input_control <= 1;
+		in_curr_enable <= 1'b0;
+		ref_input_control <= 1'b1;
 		search_row_count <= sub_area1_row_count;
-		if (CB12or34 == 0) begin
-			CB_select <= 1;
+		if (CB12or34 == 1'b0) begin
+			CB_select <= 1'b1;
 			if (sub_area1_row_count < 8) begin
-				abs_Control <= 0;
-				change_ref <= 1;
+				abs_Control <= 1'b0;
+				change_ref <= 1'b1;
 			end
 			else if (sub_area1_row_count < 34) begin
 				if (sub_area1_row_count % 2 == 0) begin
-					abs_Control <= 1;
-					change_ref <= 0;
+					abs_Control <= 1'b1;
+					change_ref <= 1'b0;
 				end
 				else begin
-					abs_Control <= 0;
-					change_ref <= 1;
+					abs_Control <= 1'b0;
+					change_ref <= 1'b1;
 				end
 			end
 			else begin
-				abs_Control <= 1;
-				change_ref <= 1;
+				abs_Control <= 1'b1;
+				change_ref <= 1'b1;
 			end
 		end
 		else begin
-			CB_select <= 0;
+			CB_select <= 1'b0;
 			if (sub_area1_row_count < 8) begin
 				abs_Control <= 2;
-				change_ref <= 1;
+				change_ref <= 1'b1;
 			end
 			else if (sub_area1_row_count < 34) begin
 				if (sub_area1_row_count % 2 == 0) begin
 					abs_Control <= 3;
-					change_ref <= 0;
+					change_ref <= 1'b0;
 				end
 				else begin
 					abs_Control <= 2;
-					change_ref <= 1;
+					change_ref <= 1'b1;
 				end
 			end
 			else begin
 				abs_Control <= 3;
-				change_ref <= 1;
+				change_ref <= 1'b1;
 			end
 		end
 		if (sub_area1_row_count == 37 && CB12or34 == 1'b0) begin
-			CB12or34 <= 1'b0;
-			sub_area1_row_count <= 0;
+			CB12or34 <= 1'b1;
+			sub_area1_row_count <= 1'b0;
 		end
 		else if (sub_area1_row_count == 37 && CB12or34 == 1'b1) begin
-			CB12or34 <= 1'b1;	
-			sub_area1_row_count <= 0;
-			search_column_count <= search_column_count + 1;
+			CB12or34 <= 1'b0;	
+			sub_area1_row_count <= 1'b0;
+			search_column_count <= search_column_count + 1'b1;
 		end
-		else sub_area1_row_count <= sub_area1_row_count + 1;
+		else sub_area1_row_count <= sub_area1_row_count + 1'b1;
 	end
 	SUB_AERA2: begin
-		in_curr_enable <= 0;
+		in_curr_enable <= 1'b0;
 		search_row_count <= sub_area2_row_count;
-		if (CB12or34 == 0) begin
-			CB_select <= 1;
+		if (CB12or34 == 1'b0) begin
+			CB_select <= 1'b1;
 			if (sub_area2_row_count < 8) begin
-				abs_Control <= 0;
-				change_ref <= 1;
-				ref_input_control <= 1;
+				abs_Control <= 1'b0;
+				change_ref <= 1'b1;
+				ref_input_control <= 1'b1;
 			end
 			else if (sub_area2_row_count < 15) begin
 				if (sub_area2_row_count % 2 == 0) begin
-					abs_Control <= 1;
-					change_ref <= 0;
-					ref_input_control <= 1;
+					abs_Control <= 1'b1;
+					change_ref <= 1'b0;
+					ref_input_control <= 1'b1;
 				end
 				else begin
-					abs_Control <= 0;
-					change_ref <= 1;
+					abs_Control <= 1'b0;
+					change_ref <= 1'b1;
 					ref_input_control <= 1;
 				end
 			end
 			else if (sub_area2_row_count < 23) begin
-				abs_Control <= 0;
-				change_ref <= 1;
-				ref_input_control <= 0;
+				abs_Control <= 1'b0;
+				change_ref <= 1'b1;
+				ref_input_control <= 1'b0;
 			end
 			else if (sub_area2_row_count == 23) begin
-				abs_Control <= 1;
-				change_ref <= 0;
-				ref_input_control <= 0;
+				abs_Control <= 1'b1;
+				change_ref <= 1'b0;
+				ref_input_control <= 1'b0;
 			end
 			else if (sub_area2_row_count < 32) begin
-				abs_Control <= 0;
-				change_ref <= 1;
-				ref_input_control <= 0;
+				abs_Control <= 1'b0;
+				change_ref <= 1'b1;
+				ref_input_control <= 1'b0;
 			end
 			else if (sub_area2_row_count < 37) begin
 				if (sub_area2_row_count % 2 == 0) begin
-					abs_Control <= 1;
-					change_ref <= 0;
-					ref_input_control <= 1;
+					abs_Control <= 1'b1;
+					change_ref <= 1'b0;
+					ref_input_control <= 1'b1;
 				end
 				else begin
-					abs_Control <= 0;
-					change_ref <= 1;
-					ref_input_control <= 1;
+					abs_Control <= 1'b0;
+					change_ref <= 1'b1;
+					ref_input_control <= 1'b1;
 				end
 			end
 			else if (sub_area2_row_count < 44) begin
-				abs_Control <= 1;
-				change_ref <= 1;
-				ref_input_control <= 0;
+				abs_Control <= 1'b1;
+				change_ref <= 1'b1;
+				ref_input_control <= 1'b0;
 			end
 			else if (sub_area2_row_count == 44) begin
-				abs_Control <= 0;
-				change_ref <= 1;
-				ref_input_control <= 0;
+				abs_Control <= 1'b0;
+				change_ref <= 1'b1;
+				ref_input_control <= 1'b0;
 			end
 			else if (sub_area2_row_count == 45) begin
-				abs_Control <= 1;
-				change_ref <= 0;
-				ref_input_control <= 0;
+				abs_Control <= 1'b1;
+				change_ref <= 1'b0;
+				ref_input_control <= 1'b0;
 			end
 			else if (sub_area2_row_count < 53) begin
-				abs_Control <= 1;
-				change_ref <= 1;
-				ref_input_control <= 0;
+				abs_Control <= 1'b1;
+				change_ref <= 1'b1;
+				ref_input_control <= 1'b0;
 			end
 			else if (sub_area2_row_count == 53) begin
-				abs_Control <= 0;
-				change_ref <= 1;
-				ref_input_control <= 0;
+				abs_Control <= 1'b0;
+				change_ref <= 1'b1;
+				ref_input_control <= 1'b0;
 			end
 			else if (sub_area2_row_count < 61) begin
-				if (sub_area2_row_count % 2 == 0) begin
-					abs_Control <= 1;
-					change_ref <= 0;
-					ref_input_control <= 1;
+				if (sub_area2_row_count % 2 == 1'b0) begin
+					abs_Control <= 1'b1;
+					change_ref <= 1'b0;
+					ref_input_control <= 1'b1;
 				end
 				else begin
-					abs_Control <= 0;
-					change_ref <= 1;
-					ref_input_control <= 1;
+					abs_Control <= 1'b0;
+					change_ref <= 1'b1;
+					ref_input_control <= 1'b1;
 				end
 			end
 			else begin
-				abs_Control <= 1;
-				change_ref <= 1;
-				ref_input_control <= 1;
+				abs_Control <= 1'b1;
+				change_ref <= 1'b1;
+				ref_input_control <= 1'b1;
 			end
 		end 
 		else begin
-			CB_select <= 0;
+			CB_select <= 1'b0;
 			if (sub_area2_row_count < 8) begin
 				abs_Control <= 2;
-				change_ref <= 1;
-				ref_input_control <= 1;
+				change_ref <= 1'b1;
+				ref_input_control <= 1'b1;
 			end
 			else if (sub_area2_row_count < 15) begin
 				if (sub_area2_row_count % 2 == 0) begin
 					abs_Control <= 3;
-					change_ref <= 0;
-					ref_input_control <= 1;
+					change_ref <= 1'b0;
+					ref_input_control <= 1'b1;
 				end
 				else begin
 					abs_Control <= 2;
-					change_ref <= 1;
-					ref_input_control <= 1;
+					change_ref <= 1'b1;
+					ref_input_control <= 1'b1;
 				end
 			end
 			else if (sub_area2_row_count < 23) begin
 				abs_Control <= 2;
-				change_ref <= 1;
-				ref_input_control <= 0;
+				change_ref <= 1'b1;
+				ref_input_control <= 1'b0;
 			end
 			else if (sub_area2_row_count == 23) begin
 				abs_Control <= 3;
-				change_ref <= 0;
-				ref_input_control <= 0;
+				change_ref <= 1'b0;
+				ref_input_control <= 1'b0;
 			end
 			else if (sub_area2_row_count < 32) begin
 				abs_Control <= 2;
-				change_ref <= 1;
-				ref_input_control <= 0;
+				change_ref <= 1'b1;
+				ref_input_control <= 1'b0;
 			end
 			else if (sub_area2_row_count < 37) begin
 				if (sub_area2_row_count % 2 == 0) begin
 					abs_Control <= 3;
-					change_ref <= 0;
-					ref_input_control <= 1;
+					change_ref <= 1'b0;
+					ref_input_control <= 1'b1;
 				end
 				else begin
 					abs_Control <= 2;
-					change_ref <= 1;
-					ref_input_control <= 1;
+					change_ref <= 1'b1;
+					ref_input_control <= 1'b1;
 				end
 			end
 			else if (sub_area2_row_count < 44) begin
 				abs_Control <= 3;
-				change_ref <= 1;
-				ref_input_control <= 0;
+				change_ref <= 1'b1;
+				ref_input_control <= 1'b0;
 			end
 			else if (sub_area2_row_count == 44) begin
 				abs_Control <= 2;
-				change_ref <= 1;
-				ref_input_control <= 0;
+				change_ref <= 1'b1;
+				ref_input_control <= 1'b0;
 			end
 			else if (sub_area2_row_count == 45) begin
 				abs_Control <= 3;
-				change_ref <= 0;
-				ref_input_control <= 0;
+				change_ref <= 1'b0;
+				ref_input_control <= 1'b0;
 			end
 			else if (sub_area2_row_count < 53) begin
 				abs_Control <= 3;
-				change_ref <= 1;
-				ref_input_control <= 0;
+				change_ref <= 1'b1;
+				ref_input_control <= 1'b0;
 			end
 			else if (sub_area2_row_count == 53) begin
 				abs_Control <= 2;
-				change_ref <= 1;
-				ref_input_control <= 0;
+				change_ref <= 1'b1;
+				ref_input_control <= 1'b0;
 			end
 			else if (sub_area2_row_count < 61) begin
 				if (sub_area2_row_count % 2 == 0) begin
 					abs_Control <= 3;
-					change_ref <= 0;
-					ref_input_control <= 1;
+					change_ref <= 1'b0;
+					ref_input_control <= 1'b1;
 				end
 				else begin
 					abs_Control <= 2;
-					change_ref <= 1;
-					ref_input_control <= 1;
+					change_ref <= 1'b1;
+					ref_input_control <= 1'b1;
 				end
 			end
 			else begin
 				abs_Control <= 3;
-				change_ref <= 1;
-				ref_input_control <= 1;
+				change_ref <= 1'b1;
+				ref_input_control <= 1'b1;
 			end
 		end
 		if (sub_area2_row_count == 65 && CB12or34 == 1'b0) begin
 			CB12or34 <= 1'b1;
-			sub_area2_row_count <= 0;
+			sub_area2_row_count <= 1'b0;
 		end
 		else if (sub_area2_row_count == 65 && CB12or34 == 1'b1) begin
 			CB12or34 <= 1'b0;	
-			sub_area2_row_count <= 0;
-			search_column_count <= search_column_count + 1;
+			sub_area2_row_count <= 1'b0;
+			search_column_count <= search_column_count + 1'b1;
 		end
-		else sub_area2_row_count <= sub_area2_row_count + 1;
+		else sub_area2_row_count <= sub_area2_row_count + 1'b1;
 	end
 	SUB_AERA3: begin
-		in_curr_enable <= 0;
-		CB_select <= 0;
-		change_ref <= 1;
+		in_curr_enable <= 1'b0;
+		CB_select <= 1'b0;
+		change_ref <= 1'b1;
 		abs_Control <= CB1or2or3or4;
 		search_row_count <= sub_area3_row_count;
 		if (sub_area3_row_count < 4) begin
-			ref_input_control <= 1;
-			sub_area3_row_count <= sub_area3_row_count + 1;
+			ref_input_control <= 1'b1;
+			sub_area3_row_count <= sub_area3_row_count + 1'b1;
 		end
 		else if (sub_area3_row_count < 20) begin
-			ref_input_control <= 0;
-			sub_area3_row_count <= sub_area3_row_count + 1;
+			ref_input_control <= 1'b0;
+			sub_area3_row_count <= sub_area3_row_count + 1'b1;
 		end
 		else begin
-			sub_area3_row_count <= 0;
+			sub_area3_row_count <= 1'b0;
 			if (CB1or2or3or4 < 3) begin
-				CB1or2or3or4 <= CB1or2or3or4 + 1;
+				CB1or2or3or4 <= CB1or2or3or4 + 1'b1;
 			end
 			else begin
-				CB1or2or3or4 <= 0;
-				search_column_count <= search_column_count + 1;
+				CB1or2or3or4 <= 1'b0;
+				search_column_count <= search_column_count + 1'b1;
 			end
 		end
 	end
@@ -364,11 +364,11 @@ begin
 		else
 		next_state = IDLE;
 	// 准备当前帧数据，共需64个周期 32*32*4 / 32*2 = 64
-	DATA_PRE: if (pre_count < 64)
+	DATA_PRE: if (pre_count < 63)
 		next_state = DATA_PRE;
 		else begin
 		next_state = SUB_AERA1;
-		search_column_count = 1;
+		search_column_count = 1'b1;
 		end
 	SUB_AERA1: if (search_column_count == 7)
 		next_state = SUB_AERA2;

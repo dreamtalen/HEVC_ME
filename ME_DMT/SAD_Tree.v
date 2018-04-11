@@ -95,13 +95,13 @@ module SAD_Tree(            //
  
  always@(posedge clk or negedge rst_n)
   begin
-  if(!rst_n)
+  if(rst_n)
   SAD4x8 <= SAD_2_middle4x8;
   end
 
  always@(posedge clk or negedge rst_n)
   begin
-  if(!rst_n)
+  if(rst_n)
   SAD8x4 <= SAD_2_middle8x4;
   end
 //8x8
@@ -115,7 +115,7 @@ module SAD_Tree(            //
 
  always@(posedge clk or negedge rst_n)
   begin
-  if(!rst_n)
+  if(rst_n)
   SAD8x8 <= SAD_middle8x8;
   end
 //8x16
@@ -129,7 +129,7 @@ module SAD_Tree(            //
 
  always@(posedge clk or negedge rst_n)
   begin
-  if(!rst_n)
+  if(rst_n)
   SAD8x16 <= SAD_middle8x16;
   end
 //16x8
@@ -146,7 +146,7 @@ module SAD_Tree(            //
 
  always@(posedge clk or negedge rst_n)
   begin
-  if(!rst_n)
+  if(rst_n)
   SAD16x8 <= SAD_middle16x8;
   end
 //16x16
@@ -160,7 +160,7 @@ module SAD_Tree(            //
 
  always@(posedge clk or negedge rst_n)
   begin
-  if(!rst_n)
+  if(rst_n)
   SAD16x16 <= SAD_middle16x16;
   end
 //16x32
@@ -169,7 +169,7 @@ module SAD_Tree(            //
 
  always@(posedge clk or negedge rst_n)
   begin
-  if(!rst_n)
+  if(rst_n)
   SAD16x32 <= SAD_middle16x32;
   end
 //32x16
@@ -178,7 +178,7 @@ module SAD_Tree(            //
 
  always@(posedge clk or negedge rst_n)
   begin
-  if(!rst_n)
+  if(rst_n)
   SAD32x16 <= SAD_middle32x16;
   end
 //32x32
@@ -186,7 +186,7 @@ module SAD_Tree(            //
 
  always@(posedge clk or negedge rst_n)
   begin
-  if(!rst_n)
+  if(rst_n)
   SAD32x32 <= SAD_middle32x32;
   end
 

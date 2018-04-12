@@ -127,11 +127,11 @@ begin
 		1: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
+			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
@@ -162,11 +162,11 @@ begin
 		2: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
+			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
@@ -199,11 +199,11 @@ begin
 		3: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
+			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
@@ -236,11 +236,11 @@ begin
 		4: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
+			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
@@ -273,11 +273,11 @@ begin
 		5: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
+			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
@@ -308,11 +308,11 @@ begin
 		6: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
+			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
@@ -345,11 +345,11 @@ begin
 		7: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
+			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
@@ -382,11 +382,11 @@ begin
 		25: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
+			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
@@ -419,11 +419,11 @@ begin
 		26: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
+			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
@@ -456,11 +456,11 @@ begin
 		27: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
+			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
@@ -493,11 +493,11 @@ begin
 		28: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
+			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
@@ -530,11 +530,11 @@ begin
 		29: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
+			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
@@ -567,11 +567,11 @@ begin
 		30: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
+			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
@@ -604,11 +604,11 @@ begin
 		31: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (sub_area1_row_count == 23 && CB12or34 == 1'b0) begin
+			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 			end
-			else if (sub_area1_row_count == 23 && CB12or34 == 1'b1) begin
+			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;

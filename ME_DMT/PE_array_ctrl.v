@@ -378,9 +378,9 @@ begin
 		search_column_count = 1'b1;
 		end
 	SUB_AERA1: if (column_finish) begin
-			if (search_column_count == 7)
+			if (search_column_count == 8)
 				next_state = SUB_AERA2;
-			else if (search_column_count == 31)
+			else if (search_column_count == 32)
 				next_state = IDLE;
 			else
 				next_state = SUB_AERA1;

@@ -38,7 +38,7 @@ begin
 	#10 rst_n = 1'b1;
 	ref_begin_prepare = 1;
 	ref_input = { 32{8'b01010101} };
-	#100
+	#7050
 	pe_begin_prepare = 1;
 	current_64pixels = { 64{8'b00110101} };
 end

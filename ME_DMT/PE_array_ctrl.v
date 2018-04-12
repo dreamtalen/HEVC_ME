@@ -327,13 +327,18 @@ begin
 		if (sub_area2_row_count == 65 && CB12or34 == 1'b0) begin
 			CB12or34 <= 1'b1;
 			sub_area2_row_count <= 1'b0;
+			column_finish <= 1'b0;
 		end
 		else if (sub_area2_row_count == 65 && CB12or34 == 1'b1) begin
 			CB12or34 <= 1'b0;	
 			sub_area2_row_count <= 1'b0;
+			column_finish <= 1'b1;
 			search_column_count <= search_column_count + 1'b1;
 		end
-		else sub_area2_row_count <= sub_area2_row_count + 1'b1;
+		else begin
+			sub_area2_row_count <= sub_area2_row_count + 1'b1;
+			column_finish <= 1'b0;
+		end
 	end
 	SUB_AERA3: begin
 		in_curr_enable <= 1'b0;
@@ -387,10 +392,14 @@ begin
 		end
 		else 
 		next_state = SUB_AERA1;
-	SUB_AERA2: if (search_column_count == 8 | search_column_count == 16)
-		next_state = SUB_AERA3;
-		else 
-		next_state = SUB_AERA1;
+	SUB_AERA2: if (column_finish) begin
+			if (search_column_count == 9 | search_column_count == 17)
+				next_state = SUB_AERA3;
+			else 
+				next_state = SUB_AERA1;
+		end
+		else
+		next_state = SUB_AERA2;
 	SUB_AERA3: if (search_column_count == 15 | search_column_count == 23)
 		next_state = SUB_AERA2;
 		else 

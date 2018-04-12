@@ -349,19 +349,23 @@ begin
 		if (sub_area3_row_count < 4) begin
 			ref_input_control <= 1'b1;
 			sub_area3_row_count <= sub_area3_row_count + 1'b1;
+			column_finish <= 1'b0;
 		end
 		else if (sub_area3_row_count < 20) begin
 			ref_input_control <= 1'b0;
 			sub_area3_row_count <= sub_area3_row_count + 1'b1;
+			column_finish <= 1'b0;
 		end
 		else begin
 			sub_area3_row_count <= 1'b0;
 			if (CB1or2or3or4 < 3) begin
 				CB1or2or3or4 <= CB1or2or3or4 + 1'b1;
+				column_finish <= 1'b0;
 			end
 			else begin
 				CB1or2or3or4 <= 1'b0;
 				search_column_count <= search_column_count + 1'b1;
+				column_finish <= 1'b1;
 			end
 		end
 	end
@@ -400,9 +404,13 @@ begin
 		end
 		else
 		next_state = SUB_AERA2;
-	SUB_AERA3: if (search_column_count == 15 | search_column_count == 23)
-		next_state = SUB_AERA2;
-		else 
+	SUB_AERA3: if (column_finish) begin
+			if (search_column_count == 16 | search_column_count == 24)
+				next_state = SUB_AERA2;
+			else 
+				next_state = SUB_AERA3;
+		end
+		else
 		next_state = SUB_AERA3;
 	default: next_state = IDLE;
 	endcase

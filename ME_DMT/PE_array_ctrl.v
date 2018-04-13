@@ -25,6 +25,7 @@ reg [6:0] sub_area2_row_count;
 reg [6:0] sub_area3_row_count;
 reg CB12or34; //标志位，记录在降采样区间当前计算的是子块12还是子块34
 reg [1:0] CB1or2or3or4; //标志位，记录在全采样区间当前计算的子块是1或2或3或4
+reg column_finish; //标志位，记录当前列是否计算完毕
 
 always@(posedge clk or negedge rst_n)
 begin
@@ -44,7 +45,7 @@ if(!rst_n)
 		pre_count <= 6'b0;
 		CB12or34 <= 1'b0;
 		CB1or2or3or4 <= 2'b00;
-
+		column_finish <= 1'b0;
 	end
 else
 	begin
@@ -68,6 +69,7 @@ begin
 		pre_count <= 6'b0;
 		CB12or34 <= 1'b0;
 		CB1or2or3or4 <= 2'b00;
+		column_finish <= 1'b0;
 	end
 	DATA_PRE: begin
 		pre_count <= pre_count + 1'd1;
@@ -128,13 +130,18 @@ begin
 		if (sub_area1_row_count == 37 && CB12or34 == 1'b0) begin
 			CB12or34 <= 1'b1;
 			sub_area1_row_count <= 1'b0;
+			column_finish <= 1'b0;
 		end
 		else if (sub_area1_row_count == 37 && CB12or34 == 1'b1) begin
 			CB12or34 <= 1'b0;	
 			sub_area1_row_count <= 1'b0;
 			search_column_count <= search_column_count + 1'b1;
+			column_finish <= 1'b1;
 		end
-		else sub_area1_row_count <= sub_area1_row_count + 1'b1;
+		else begin
+			sub_area1_row_count <= sub_area1_row_count + 1'b1;
+			column_finish <= 1'b0;
+		end
 	end
 	SUB_AERA2: begin
 		in_curr_enable <= 1'b0;
@@ -320,13 +327,18 @@ begin
 		if (sub_area2_row_count == 65 && CB12or34 == 1'b0) begin
 			CB12or34 <= 1'b1;
 			sub_area2_row_count <= 1'b0;
+			column_finish <= 1'b0;
 		end
 		else if (sub_area2_row_count == 65 && CB12or34 == 1'b1) begin
 			CB12or34 <= 1'b0;	
 			sub_area2_row_count <= 1'b0;
+			column_finish <= 1'b1;
 			search_column_count <= search_column_count + 1'b1;
 		end
-		else sub_area2_row_count <= sub_area2_row_count + 1'b1;
+		else begin
+			sub_area2_row_count <= sub_area2_row_count + 1'b1;
+			column_finish <= 1'b0;
+		end
 	end
 	SUB_AERA3: begin
 		in_curr_enable <= 1'b0;
@@ -337,54 +349,70 @@ begin
 		if (sub_area3_row_count < 4) begin
 			ref_input_control <= 1'b1;
 			sub_area3_row_count <= sub_area3_row_count + 1'b1;
+			column_finish <= 1'b0;
 		end
 		else if (sub_area3_row_count < 20) begin
 			ref_input_control <= 1'b0;
 			sub_area3_row_count <= sub_area3_row_count + 1'b1;
+			column_finish <= 1'b0;
 		end
 		else begin
 			sub_area3_row_count <= 1'b0;
 			if (CB1or2or3or4 < 3) begin
 				CB1or2or3or4 <= CB1or2or3or4 + 1'b1;
+				column_finish <= 1'b0;
 			end
 			else begin
 				CB1or2or3or4 <= 1'b0;
 				search_column_count <= search_column_count + 1'b1;
+				column_finish <= 1'b1;
 			end
 		end
 	end
 	endcase
 end
 // 状态转换
-always @(current_state or begin_prepare or pre_count or search_column_count)
+always @(current_state or begin_prepare or pre_count or search_column_count or column_finish)
 begin
 	case(current_state)
 	IDLE: if (begin_prepare)
-		next_state = DATA_PRE;
+		next_state <= DATA_PRE;
 		else
-		next_state = IDLE;
+		next_state <= IDLE;
 	// 准备当前帧数据，共需64个周期 32*32*4 / 32*2 = 64
 	DATA_PRE: if (pre_count < 63)
-		next_state = DATA_PRE;
+		next_state <= DATA_PRE;
 		else begin
-		next_state = SUB_AERA1;
-		search_column_count = 1'b1;
+		next_state <= SUB_AERA1;
+		search_column_count <= 1'b1;
 		end
-	SUB_AERA1: if (search_column_count == 7)
-		next_state = SUB_AERA2;
-		else if (search_column_count == 31)
-		next_state = IDLE;	
+	SUB_AERA1: if (column_finish) begin
+			if (search_column_count == 8)
+				next_state <= SUB_AERA2;
+			else if (search_column_count == 0)
+				next_state <= IDLE;
+			else
+				next_state <= SUB_AERA1;
+		end
 		else 
-		next_state = SUB_AERA1;
-	SUB_AERA2: if (search_column_count == 8 | search_column_count == 16)
-		next_state = SUB_AERA3;
-		else 
-		next_state = SUB_AERA1;
-	SUB_AERA3: if (search_column_count == 15 | search_column_count == 23)
-		next_state = SUB_AERA2;
-		else 
-		next_state = SUB_AERA3;
-	default: next_state = IDLE;
+		next_state <= SUB_AERA1;
+	SUB_AERA2: if (column_finish) begin
+			if (search_column_count == 9 | search_column_count == 17)
+				next_state <= SUB_AERA3;
+			else 
+				next_state <= SUB_AERA1;
+		end
+		else
+		next_state <= SUB_AERA2;
+	SUB_AERA3: if (column_finish) begin
+			if (search_column_count == 16 | search_column_count == 24)
+				next_state <= SUB_AERA2;
+			else 
+				next_state <= SUB_AERA3;
+		end
+		else
+		next_state <= SUB_AERA3;
+	default: next_state <= IDLE;
 	endcase
 end
 

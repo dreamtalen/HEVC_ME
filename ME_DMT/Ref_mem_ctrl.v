@@ -1902,14 +1902,27 @@ begin
 			else 
 				next_state = SUB_AERA1;
 		end
-	SUB_AERA2: if (search_column_count == 8 | search_column_count == 16)
-		next_state = SUB_AERA3;
-		else 
-		next_state = SUB_AERA1;
-	SUB_AERA3: if (search_column_count == 15 | search_column_count == 23)
-		next_state = SUB_AERA2;
-		else 
-		next_state = SUB_AERA3;
+		else begin
+			next_state = SUB_AERA1;
+		end
+	SUB_AERA2: if (column_finish) begin
+			if (search_column_count == 9 | search_column_count == 17)
+				next_state = SUB_AERA3;
+			else 
+				next_state = SUB_AERA1;
+		end
+		else begin
+			next_state = SUB_AERA2;
+		end
+	SUB_AERA3: if (column_finish) begin
+			if (search_column_count == 16 | search_column_count == 24)
+				next_state = SUB_AERA2;
+			else 
+				next_state = SUB_AERA3;
+		end
+		else begin
+			next_state = SUB_AERA3;
+		end
 	default: next_state = IDLE;
 	endcase
 end

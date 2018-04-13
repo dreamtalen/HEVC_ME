@@ -31,6 +31,7 @@ reg read_stall; //标志位，用来控制参考帧复用时输出地址停止+1
 reg CB12or34; //标志位，记录在降采样区间当前计算的是子块12还是子块34
 reg [1:0] CB1or2or3or4; //标志位，记录在全采样区间当前计算的子块是1或2或3或4
 reg [4:0] search_column_count;
+reg column_finish; //标志位，记录当前列是否计算完毕
 
 always@(posedge clk or negedge rst_n)
 begin
@@ -44,6 +45,7 @@ if(!rst_n)
 		rdR_sel <= 4'b0;
 		shift_value <= 5'b0;
 		search_column_count <= 5'b0;
+		column_finish <= 1'b0;
 	end
 else
 	begin
@@ -71,6 +73,7 @@ begin
 		CB12or34 <= 1'b0;
 		search_column_count <= 5'b0;
 		CB1or2or3or4 <= 2'b00;
+		column_finish <= 1'b0;
 	end
 	DATA_PRE: begin
 		// 初始化，缓存好初始数据
@@ -130,13 +133,16 @@ begin
 			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
+				column_finish <= 1'b0;
 			end
 			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
+				column_finish <= 1'b1;
 			end
 			else begin
+				column_finish <= 1'b0;
 				if (CB12or34 == 0) begin
 					rd_address_all <= {32{sub_area1_row_count+7'd4}};
 					if (sub_area1_row_count >= 3 && sub_area1_row_count <= 15 && read_stall == 0) begin
@@ -165,13 +171,16 @@ begin
 			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
+				column_finish <= 1'b0;
 			end
 			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
+				column_finish <= 1'b1;
 			end
 			else begin
+				column_finish <= 1'b0;
 				if (CB12or34 == 0) begin
 					rd_address_all <= {{24{sub_area1_row_count}}, {8{sub_area1_row_count+7'd24}}};
 					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
@@ -202,13 +211,16 @@ begin
 			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
+				column_finish <= 1'b0;
 			end
 			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
+				column_finish <= 1'b1;
 			end
 			else begin
+				column_finish <= 1'b0;
 				if (CB12or34 == 0) begin
 					rd_address_all <= {{16{sub_area1_row_count}}, {16{sub_area1_row_count+7'd24}}};
 					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
@@ -239,13 +251,16 @@ begin
 			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
+				column_finish <= 1'b0;
 			end
 			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
+				column_finish <= 1'b1;
 			end
 			else begin
+				column_finish <= 1'b0;
 				if (CB12or34 == 0) begin
 					rd_address_all <= {{8{sub_area1_row_count}}, {24{sub_area1_row_count+7'd24}}};
 					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
@@ -276,13 +291,16 @@ begin
 			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
+				column_finish <= 1'b0;
 			end
 			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
+				column_finish <= 1'b1;
 			end
 			else begin
+				column_finish <= 1'b0;
 				if (CB12or34 == 0) begin
 					rd_address_all <= {32{sub_area1_row_count+7'd24}};
 					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
@@ -311,13 +329,16 @@ begin
 			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
+				column_finish <= 1'b0;
 			end
 			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
+				column_finish <= 1'b1;
 			end
 			else begin
+				column_finish <= 1'b0;
 				if (CB12or34 == 0) begin
 					rd_address_all <= {{24{sub_area1_row_count+7'd24}}, {8{sub_area1_row_count+7'd48}}};
 					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
@@ -348,13 +369,16 @@ begin
 			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
+				column_finish <= 1'b0;
 			end
 			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
+				column_finish <= 1'b1;
 			end
 			else begin
+				column_finish <= 1'b0;
 				if (CB12or34 == 0) begin
 					rd_address_all <= {{16{sub_area1_row_count+7'd24}}, {16{sub_area1_row_count+7'd48}}};
 					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
@@ -385,13 +409,16 @@ begin
 			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
+				column_finish <= 1'b0;
 			end
 			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
+				column_finish <= 1'b1;
 			end
 			else begin
+				column_finish <= 1'b0;
 				if (CB12or34 == 0) begin
 					rd_address_all <= {{16{sub_area1_row_count+7'd48}}, {16{sub_area1_row_count+7'd72}}};
 					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
@@ -422,13 +449,16 @@ begin
 			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
+				column_finish <= 1'b0;
 			end
 			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
+				column_finish <= 1'b1;
 			end
 			else begin
+				column_finish <= 1'b0;
 				if (CB12or34 == 0) begin
 					rd_address_all <= {{8{sub_area1_row_count+7'd48}}, {24{sub_area1_row_count+7'd72}}};
 					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
@@ -459,13 +489,16 @@ begin
 			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
+				column_finish <= 1'b0;
 			end
 			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
+				column_finish <= 1'b1;
 			end
 			else begin
+				column_finish <= 1'b0;
 				if (CB12or34 == 0) begin
 					rd_address_all <= {32{sub_area1_row_count+7'd72}};
 					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
@@ -496,13 +529,16 @@ begin
 			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
+				column_finish <= 1'b0;
 			end
 			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
+				column_finish <= 1'b1;
 			end
 			else begin
+				column_finish <= 1'b0;
 				if (CB12or34 == 0) begin
 					rd_address_all <= {{24{sub_area1_row_count+7'd72}}, {8{sub_area1_row_count}}};
 					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
@@ -533,13 +569,16 @@ begin
 			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
+				column_finish <= 1'b0;
 			end
 			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
+				column_finish <= 1'b1;
 			end
 			else begin
+				column_finish <= 1'b0;
 				if (CB12or34 == 0) begin
 					rd_address_all <= {{16{sub_area1_row_count+7'd72}}, {16{sub_area1_row_count}}};
 					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
@@ -570,13 +609,16 @@ begin
 			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
+				column_finish <= 1'b0;
 			end
 			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
+				column_finish <= 1'b1;
 			end
 			else begin
+				column_finish <= 1'b0;
 				if (CB12or34 == 0) begin
 					rd_address_all <= {{8{sub_area1_row_count+7'd72}}, {24{sub_area1_row_count}}};
 					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
@@ -607,13 +649,16 @@ begin
 			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
+				column_finish <= 1'b0;
 			end
 			else if (sub_area1_row_count == 24 && CB12or34 == 1'b1) begin
 				CB12or34 <= 1'b0;	
 				sub_area1_row_count <= 0;
 				search_column_count <= search_column_count + 1'd1;
+				column_finish <= 1'b1;
 			end
 			else begin
+				column_finish <= 1'b0;
 				if (CB12or34 == 0) begin
 					rd_address_all <= {32{sub_area1_row_count}};
 					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
@@ -1849,12 +1894,14 @@ begin
 		next_state = SUB_AERA1;
 		search_column_count = 1;
 		end
-	SUB_AERA1: if (search_column_count == 7)
-		next_state = SUB_AERA2;
-		else if (search_column_count == 31)
-		next_state = IDLE;	
-		else 
-		next_state = SUB_AERA1;
+	SUB_AERA1: if (column_finish) begin
+			if (search_column_count == 8)
+				next_state = SUB_AERA2;
+			else if (search_column_count == 0)
+				next_state = IDLE;	
+			else 
+				next_state = SUB_AERA1;
+		end
 	SUB_AERA2: if (search_column_count == 8 | search_column_count == 16)
 		next_state = SUB_AERA3;
 		else 

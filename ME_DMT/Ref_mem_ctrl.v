@@ -1881,7 +1881,7 @@ begin
 end
 
 // 状态转换
-always @(current_state or begin_prepare or pre_count or search_column_count)
+always @(current_state or begin_prepare or pre_count or search_column_count or column_finish)
 begin
 	case(current_state)
 	IDLE: if (begin_prepare)

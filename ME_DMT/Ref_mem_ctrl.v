@@ -1992,45 +1992,45 @@ always @(current_state or begin_prepare or pre_count or search_column_count or c
 begin
 	case(current_state)
 	IDLE: if (begin_prepare)
-		next_state = DATA_PRE;
+		next_state <= DATA_PRE;
 		else
-		next_state = IDLE;
+		next_state <= IDLE;
 	DATA_PRE: if (pre_count < 768)
-		next_state = DATA_PRE;
+		next_state <= DATA_PRE;
 		else begin
-		next_state = SUB_AERA1;
-		search_column_count = 1;
+		next_state <= SUB_AERA1;
+		search_column_count <= 1;
 		end
 	SUB_AERA1: if (column_finish) begin
 			if (search_column_count == 8)
-				next_state = SUB_AERA2;
+				next_state <= SUB_AERA2;
 			else if (search_column_count == 0)
-				next_state = IDLE;	
+				next_state <= IDLE;	
 			else 
-				next_state = SUB_AERA1;
+				next_state <= SUB_AERA1;
 		end
 		else begin
-			next_state = SUB_AERA1;
+			next_state <= SUB_AERA1;
 		end
 	SUB_AERA2: if (column_finish) begin
 			if (search_column_count == 9 | search_column_count == 17)
-				next_state = SUB_AERA3;
+				next_state <= SUB_AERA3;
 			else 
-				next_state = SUB_AERA1;
+				next_state <= SUB_AERA1;
 		end
 		else begin
-			next_state = SUB_AERA2;
+			next_state <= SUB_AERA2;
 		end
 	SUB_AERA3: if (column_finish) begin
 			if (search_column_count == 16 | search_column_count == 24)
-				next_state = SUB_AERA2;
+				next_state <= SUB_AERA2;
 			else 
-				next_state = SUB_AERA3;
+				next_state <= SUB_AERA3;
 		end
 		else begin
-			next_state = SUB_AERA3;
+			next_state <= SUB_AERA3;
 		end
-	default: next_state = IDLE;
+	default: next_state <= IDLE;
 	endcase
 end
 

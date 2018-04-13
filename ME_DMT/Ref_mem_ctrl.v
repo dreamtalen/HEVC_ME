@@ -686,6 +686,12 @@ begin
 		endcase
 	end
 	SUB_AERA2: begin
+		if (sub_area2_row_count == 52 && CB12or34 == 1'b1) begin
+			column_finish <= 1'b1;
+		end
+		else begin
+			column_finish <= 1'b0;
+		end
 		case(search_column_count)
 		8: begin
 			if (sub_area2_row_count < 8) begin
@@ -695,7 +701,7 @@ begin
 				else rd_address_all <= {{8{sub_area2_row_count+7'd48}}, {24{sub_area2_row_count+7'd72}}};
 				shift_value <= 24;
 				sub_area2_row_count <= sub_area2_row_count + 7'd1;
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 8 && sub_area2_row_count < 11) begin
 				rd8R_en <= 0;
@@ -710,7 +716,7 @@ begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count == 11) begin
 				rd8R_en <= 0;
@@ -725,7 +731,7 @@ begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 12 && sub_area2_row_count < 19) begin
 				rd8R_en <= 0;
@@ -734,7 +740,7 @@ begin
 				if (CB12or34 == 1'b0) rd_address_all <= {{8{7'b100011}}, {24{7'b0111011}}};
 				else rd_address_all <= {{8{7'b100011 + 7'd24}}, {24{7'b0111011 + 7'd24}}};
 				shift_value <= 24;
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count == 19) begin
 				rd8R_en <= 0;
@@ -749,7 +755,7 @@ begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 20 && sub_area2_row_count < 27) begin
 				rd8R_en <= 0;
@@ -758,7 +764,7 @@ begin
 				if (CB12or34 == 1'b0) rd_address_all <= {{8{7'b0100100}}, {24{7'b0111100}}};
 				else rd_address_all <= {{8{7'b0100100+7'd24}}, {24{7'b0111100+7'd24}}};
 				shift_value <= 24;
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 27 && sub_area2_row_count < 29) begin
 				rd8R_en <= 0;
@@ -773,7 +779,7 @@ begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count == 29) begin
 				rd8R_en <= 0;
@@ -788,7 +794,7 @@ begin
 					else rd_address_all <= {{8{sub_area2_row_count+7'd34}}, {24{sub_area2_row_count+7'd58}}};
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 30 && sub_area2_row_count < 37) begin
 				rd8R_en <= 0;
@@ -797,7 +803,7 @@ begin
 				if (CB12or34 == 1'b0) rd_address_all <= {{8{7'b0100111}}, {24{7'b0111111}}};
 				else rd_address_all <= {{8{7'b0100111+7'd24}}, {24{7'b0111111+7'd24}}};
 				shift_value <= 24;
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count == 37) begin
 				rd8R_en <= 0;
@@ -812,7 +818,7 @@ begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 38 && sub_area2_row_count < 45) begin
 				rd8R_en <= 0;
@@ -821,7 +827,7 @@ begin
 				if (CB12or34 == 1'b0) rd_address_all <= {{8{7'b0101000}}, {24{7'b1000000}}};
 				else rd_address_all <= {{8{7'b0101000+7'd24}}, {24{7'b1000000+7'd24}}};
 				shift_value <= 24;
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 45 && sub_area2_row_count < 49) begin
 				rd8R_en <= 0;
@@ -836,7 +842,7 @@ begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 49 && sub_area2_row_count < 52) begin
 				rd8R_en <= 0;
@@ -845,19 +851,19 @@ begin
 				else rd_address_all <= {{8{sub_area2_row_count + 7'd20}}, {24{sub_area2_row_count+7'd44}}};
 				shift_value <= 24;
 				sub_area2_row_count <= sub_area2_row_count + 7'd1;
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else begin
 				if (CB12or34 == 1'b0) begin
 					CB12or34 <= 1'b1;
 					sub_area2_row_count <= 0;
-					column_finish <= 1'b0;
+					// column_finish <= 1'b0;
 				end
 				else begin
 					CB12or34 <= 1'b0;	
 					sub_area2_row_count <= 0;
 					search_column_count <= search_column_count + 1'd1;
-					column_finish <= 1'b1;
+					// column_finish <= 1'b1;
 				end
 			end
 		end
@@ -869,7 +875,7 @@ begin
 				else rd_address_all <= {32{sub_area2_row_count+7'd72}};
 				shift_value <= 0;
 				sub_area2_row_count <= sub_area2_row_count + 7'd1;
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 8 && sub_area2_row_count < 11) begin
 				rd8R_en <= 0;
@@ -884,7 +890,7 @@ begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count == 11) begin
 				rd8R_en <= 0;
@@ -899,7 +905,7 @@ begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 12 && sub_area2_row_count < 19) begin
 				rd8R_en <= 0;
@@ -908,7 +914,7 @@ begin
 				if (CB12or34 == 1'b0) rd_address_all <= {32{7'b0111011}};
 				else rd_address_all <= {32{7'b0111011 + 7'd24}};
 				shift_value <= 0;
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count == 19) begin
 				rd8R_en <= 0;
@@ -923,7 +929,7 @@ begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 20 && sub_area2_row_count < 27) begin
 				rd8R_en <= 0;
@@ -932,7 +938,7 @@ begin
 				if (CB12or34 == 1'b0) rd_address_all <= {32{7'b0111100}};
 				else rd_address_all <= {32{7'b0111100+7'd24}};
 				shift_value <= 0;
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 27 && sub_area2_row_count < 29) begin
 				rd8R_en <= 0;
@@ -947,7 +953,7 @@ begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count == 29) begin
 				rd8R_en <= 0;
@@ -962,7 +968,7 @@ begin
 					else rd_address_all <= {32{sub_area2_row_count+7'd58}};
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 30 && sub_area2_row_count < 37) begin
 				rd8R_en <= 0;
@@ -971,7 +977,7 @@ begin
 				if (CB12or34 == 1'b0) rd_address_all <= {32{7'b0111111}};
 				else rd_address_all <= {32{7'b0111111+7'd24}};
 				shift_value <= 0;
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count == 37) begin
 				rd8R_en <= 0;
@@ -986,7 +992,7 @@ begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 38 && sub_area2_row_count < 45) begin
 				rd8R_en <= 0;
@@ -995,7 +1001,7 @@ begin
 				if (CB12or34 == 1'b0) rd_address_all <= {32{7'b1000000}};
 				else rd_address_all <= {32{7'b1000000+7'd24}};
 				shift_value <= 0;
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 45 && sub_area2_row_count < 49) begin
 				rd8R_en <= 0;
@@ -1010,7 +1016,7 @@ begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 49 && sub_area2_row_count < 52) begin
 				rd8R_en <= 0;
@@ -1019,19 +1025,19 @@ begin
 				else rd_address_all <= {32{sub_area2_row_count+7'd44}};
 				shift_value <= 0;
 				sub_area2_row_count <= sub_area2_row_count + 7'd1;
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else begin
 				if (CB12or34 == 1'b0) begin
 					CB12or34 <= 1'b1;
 					sub_area2_row_count <= 0;
-					column_finish <= 1'b0;
+					// column_finish <= 1'b0;
 				end
 				else begin
 					CB12or34 <= 1'b0;	
 					sub_area2_row_count <= 0;
 					search_column_count <= search_column_count + 1'd1;
-					column_finish <= 1'b1;
+					// column_finish <= 1'b1;
 				end
 			end
 		end
@@ -1043,7 +1049,7 @@ begin
 				else rd_address_all <= {{24{sub_area2_row_count+7'd72}}, {8{sub_area2_row_count}}};
 				shift_value <= 8;
 				sub_area2_row_count <= sub_area2_row_count + 7'd1;
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 8 && sub_area2_row_count < 11) begin
 				rd8R_en <= 0;
@@ -1058,7 +1064,7 @@ begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count == 11) begin
 				rd8R_en <= 0;
@@ -1073,7 +1079,7 @@ begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 12 && sub_area2_row_count < 19) begin
 				rd8R_en <= 0;
@@ -1082,7 +1088,7 @@ begin
 				if (CB12or34 == 1'b0) rd_address_all <= {{24{7'b0111011}}, {8{7'b1010011}}}; //59, 83
 				else rd_address_all <= {{24{7'b0111011 + 7'd24}}, {8{7'b0001011}}}; // 83, 11
 				shift_value <= 8;
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count == 19) begin
 				rd8R_en <= 0;
@@ -1097,7 +1103,7 @@ begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 20 && sub_area2_row_count < 27) begin
 				rd8R_en <= 0;
@@ -1106,7 +1112,7 @@ begin
 				if (CB12or34 == 1'b0) rd_address_all <= {{24{7'b0111100}}, {8{7'b1010100}}};
 				else rd_address_all <= {{24{7'b1010100}}, {8{7'b0001100}}};
 				shift_value <= 8;
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 27 && sub_area2_row_count < 29) begin
 				rd8R_en <= 0;
@@ -1121,7 +1127,7 @@ begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count == 29) begin
 				rd8R_en <= 0;
@@ -1136,7 +1142,7 @@ begin
 					else rd_address_all <= {{24{sub_area2_row_count+7'd58}}, {8{sub_area2_row_count-7'd14}}};
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 30 && sub_area2_row_count < 37) begin
 				rd8R_en <= 0;
@@ -1145,7 +1151,7 @@ begin
 				if (CB12or34 == 1'b0) rd_address_all <= {{24{7'b0111111}}, {8{7'b1010111}}}; //63, 87
 				else rd_address_all <= {{24{7'b1010111}}, {8{7'b0001111}}}; //87, 15
 				shift_value <= 8;
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count == 37) begin
 				rd8R_en <= 0;
@@ -1160,7 +1166,7 @@ begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 38 && sub_area2_row_count < 45) begin
 				rd8R_en <= 0;
@@ -1169,7 +1175,7 @@ begin
 				if (CB12or34 == 1'b0) rd_address_all <= {{24{7'b1000000}}, {8{7'b1011000}}}; // 64 88
 				else rd_address_all <= {{24{7'b1011000}}, {8{7'b0010000}}}; // 88 16
 				shift_value <= 8;
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 45 && sub_area2_row_count < 49) begin
 				rd8R_en <= 0;
@@ -1184,7 +1190,7 @@ begin
 					read_stall <= 1'b0;
 					sub_area2_row_count <= sub_area2_row_count + 7'd1;
 				end
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else if (sub_area2_row_count >= 49 && sub_area2_row_count < 52) begin
 				rd8R_en <= 0;
@@ -1193,19 +1199,19 @@ begin
 				else rd_address_all <= {{24{sub_area2_row_count + 7'd44}}, {8{sub_area2_row_count-7'd28}}};
 				shift_value <= 8;
 				sub_area2_row_count <= sub_area2_row_count + 7'd1;
-				column_finish <= 1'b0;
+				// column_finish <= 1'b0;
 			end
 			else begin
 				if (CB12or34 == 1'b0) begin
 					CB12or34 <= 1'b1;
 					sub_area2_row_count <= 0;
-					column_finish <= 1'b0;
+					// column_finish <= 1'b0;
 				end
 				else begin
 					CB12or34 <= 1'b0;	
 					sub_area2_row_count <= 0;
 					search_column_count <= search_column_count + 1'd1;
-					column_finish <= 1'b1;
+					// column_finish <= 1'b1;
 				end
 			end
 		end

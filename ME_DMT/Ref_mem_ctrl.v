@@ -683,6 +683,7 @@ begin
 				end
 			end
 			end
+		default: begin column_finish <= 1'b0; end
 		endcase
 	end
 	SUB_AERA2: begin

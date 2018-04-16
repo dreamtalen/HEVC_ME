@@ -85,6 +85,8 @@ begin
 		in_curr_enable <= 1'b0;
 		ref_input_control <= 1'b1;
 		search_row_count <= sub_area1_row_count;
+		sub_area2_row_count <= 0;
+		sub_area3_row_count <= 0;
 		if (CB12or34 == 1'b0) begin
 			CB_select <= 1'b1;
 			if (sub_area1_row_count < 8) begin
@@ -146,6 +148,8 @@ begin
 	SUB_AERA2: begin
 		in_curr_enable <= 1'b0;
 		search_row_count <= sub_area2_row_count;
+		sub_area1_row_count <= 0;
+		sub_area3_row_count <= 0;
 		if (CB12or34 == 1'b0) begin
 			CB_select <= 1'b1;
 			if (sub_area2_row_count < 8) begin
@@ -346,6 +350,8 @@ begin
 		change_ref <= 1'b1;
 		abs_Control <= CB1or2or3or4;
 		search_row_count <= sub_area3_row_count;
+		sub_area1_row_count <= 0;
+		sub_area2_row_count <= 0;
 		if (sub_area3_row_count < 4) begin
 			ref_input_control <= 1'b1;
 			sub_area3_row_count <= sub_area3_row_count + 1'b1;

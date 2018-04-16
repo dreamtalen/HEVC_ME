@@ -1977,6 +1977,7 @@ begin
 				endcase
 			end
 		end
+		default: begin column_finish <= 1'b0; end
 		endcase
 	end
 	default: begin

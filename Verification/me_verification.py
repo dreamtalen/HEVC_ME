@@ -47,11 +47,11 @@ def main():
 	elif search_column in (8, 16, 24):
 		# search area 2
 		if search_row < 8:
-			calculate_abs(8*(search_column-1), 8*(search_row-1), sub_area)
+			calculate_abs(8*(search_column/8+6), 8*(search_row-1), sub_area)
 		elif 8 <= search_row <= 24:
-			calculate_abs(8*(search_column-1), 56+search_row-8, sub_area)
+			calculate_abs(8*(search_column/8+6), 56+search_row-8, sub_area)
 		else:
-			calculate_abs(8*(search_column-1), 72+8*(search_row-24), sub_area)
+			calculate_abs(8*(search_column/8+6), 72+8*(search_row-24), sub_area)
 	elif 8 < search_column < 24:
 		# search area 3
 		calculate_abs(48+search_column, 55+search_row, sub_area)

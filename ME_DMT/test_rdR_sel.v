@@ -14,5 +14,8 @@ always @(posedge clk) begin
 	sub_area2_row_count <= 7'd12;
 	#10 rdR_sel <= sub_area2_row_count[3:0] - 4'd10;
 	#10 rdR_sel <= sub_area2_row_count - 4'd10;
+	#10 sub_area2_row_count <= 7'd18;
+	#10 rdR_sel <= sub_area2_row_count[3:0] - 4'd10;
+	#10 rdR_sel <= sub_area2_row_count - 4'd10;
 end
 endmodule

@@ -74,21 +74,33 @@ begin
 	DATA_PRE: begin
 		pre_count <= pre_count + 1'd1;
 		in_curr_enable <= 1'b1;
-		if (pre_count < 32) begin
-			CB_select <= 1'b1;
-		end 
-		else begin
-			CB_select <= 1'b0;
-		end
+		CB_select <= 1'b1;
+		// if (pre_count < 32) begin
+		// 	CB_select <= 1'b1;
+		// end 
+		// else begin
+		// 	CB_select <= 1'b0;
+		// end
 	end
 	SUB_AERA1: begin
-		in_curr_enable <= 1'b0;
+		// in_curr_enable <= 1'b0;
+		if (search_column_count == 1 && CB12or34 == 1'b0) begin
+			in_curr_enable <= 1'b1;
+			CB_select <= 1'b0;
+		end
+		else if (search_column_count == 31 && CB12or34 == 1'b1) begin
+			in_curr_enable <= 1'b1;
+			CB_select <= 1'b1;
+		end
+		else begin
+			in_curr_enable <= 1'b0;
+		end
 		ref_input_control <= 1'b1;
 		search_row_count <= sub_area1_row_count;
 		sub_area2_row_count <= 0;
 		sub_area3_row_count <= 0;
 		if (CB12or34 == 1'b0) begin
-			CB_select <= 1'b1;
+			// CB_select <= 1'b1;
 			if (sub_area1_row_count < 8) begin
 				abs_Control <= 1'b0;
 				change_ref <= 1'b1;
@@ -109,7 +121,7 @@ begin
 			end
 		end
 		else begin
-			CB_select <= 1'b0;
+			// CB_select <= 1'b0;
 			if (sub_area1_row_count < 8) begin
 				abs_Control <= 2;
 				change_ref <= 1'b1;
@@ -386,7 +398,8 @@ begin
 		else
 		next_state <= IDLE;
 	// 准备当前帧数据，共需64个周期 32*32*4 / 32*2 = 64
-	DATA_PRE: if (pre_count < 63)
+	// 修改为只需准备子块12的数据，共32周期，子块34留在计算子块12第一列时修改
+	DATA_PRE: if (pre_count < 31)
 		next_state <= DATA_PRE;
 		else begin
 		next_state <= SUB_AERA1;

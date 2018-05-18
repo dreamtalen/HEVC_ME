@@ -21,7 +21,7 @@ input	[`PIXEL-1:0]	down_ref_adajecent_8,
 input                   change_ref,      //change reference PE;norm 1
 input					ref_input_control,   //改为1bit，因为把down删了
     //差值输出
-output	[`PIXEL-1:0]	abs_out,
+output reg[`PIXEL-1:0]	abs_out,
     //当前帧输出
 output	[`PIXEL-1:0] 	next_pix1,
 output	[`PIXEL-1:0] 	next_pix2,
@@ -97,17 +97,8 @@ begin
 				reg_next_pix_CB1_3 <= in_curr1;
 				reg_next_pix_CB1_4 <= in_curr2;
 			end
-
-		// case(CB_select)
-		//    1'b0:reg_next_pix_CB1_1 <=in_curr;  
-  //          2'b01:reg_next_pix_CB1_2 <=in_curr;
-		//    2'b10:reg_next_pix_CB1_3 <=in_curr;  
-  //          2'b11:reg_next_pix_CB1_4 <=in_curr;
-		   // 3'b100:reg_next_pix_CB2_1 <=in_curr;  
-     //       3'b101:reg_next_pix_CB2_2 <=in_curr;
-		   // 3'b110:reg_next_pix_CB2_3 <=in_curr;  
-     //       3'b111:reg_next_pix_CB2_4 <=in_curr;
-        end			
+        end
+        abs_out <= (curr_pix > ref_pix)?(curr_pix-ref_pix):(ref_pix-curr_pix);
 	end                                            
 end                                              //
                                                   
@@ -117,22 +108,13 @@ assign curr_pix = (
                 (abs_Control==2'b01)?(reg_next_pix_CB1_2):(
 				(abs_Control==2'b10)?(reg_next_pix_CB1_3):(
 				(abs_Control==2'b11)?(reg_next_pix_CB1_4):0
-				// (abs_Control==3'b100)?(reg_next_pix_CB2_1):(
-				// (abs_Control==3'b101)?(reg_next_pix_CB2_2):(
-				// (abs_Control==3'b110)?(reg_next_pix_CB2_3):(
-				// (abs_Control==3'b111)?(reg_next_pix_CB2_4):0
 )))
 );
 
-//selcet one CB block to decrease ref_pix
-assign abs_out=(curr_pix > ref_pix)?(curr_pix-ref_pix):(ref_pix-curr_pix);
 
 assign next_pix1=(CB_select)?(reg_next_pix_CB1_1):(reg_next_pix_CB1_3);
 assign next_pix2=(CB_select)?(reg_next_pix_CB1_2):(reg_next_pix_CB1_4);
-				 // (CB_select==3'b100)?reg_next_pix_CB2_1:(
-				 // (CB_select==3'b101)?reg_next_pix_CB2_2:(
-				 // (CB_select==3'b110)?reg_next_pix_CB2_3:(
-				 // (CB_select==3'b111)?reg_next_pix_CB2_4:0			 
+	 
 
 endmodule
 

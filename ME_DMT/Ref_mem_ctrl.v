@@ -91,7 +91,7 @@ begin
 		1: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
+			if (sub_area1_row_count == 20 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 				column_finish <= 1'b0;

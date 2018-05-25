@@ -14,7 +14,8 @@ output reg [4:0] shift_value
 
 parameter [3:0]
 IDLE=4'b0000, SUB_AERA1=4'b0001, SUB_AERA2=4'b0010, SUB_AERA3=4'b0011,
-W_IDLE=4'b1000, W_PRE96=4'b1001, W_UP24=4'b1010, W_RELAX=4'b1011, W_UPm24=4'b1100;
+W_IDLE=4'b1000, W_PRE96=4'b1001, W_IDLE_1=4'b1010, W_UP24=4'b1011,
+W_IDLE_2=4'b1100, W_UPm24=4'b1101, W_IDLE_3=4'b1110;
 
 reg [3:0] current_state, next_state;
 reg [9:0] pre_count;
@@ -38,9 +39,7 @@ begin
 if(!rst_n)
 	begin
 		current_state <= IDLE;
-		Bank_sel <= 32'b0;
 		rd_address_all <= 224'b0;
-		write_address_all <= 224'b0;
 		rd8R_en <= 1'b1;
 		rdR_sel <= 4'b0;
 		shift_value <= 5'b0;
@@ -59,6 +58,10 @@ begin
 if(!rst_n)
 	begin
 		write_current_state <= W_IDLE;
+		Bank_sel <= 32'b0;
+		write_address_all <= 224'b0;
+		pre_count <= 10'b0;
+		pre_line_count <= 7'b0;
 		clean_up24 <= 1'b0;
 		clean_upm24 <= 1'b0;
 	end
@@ -91,7 +94,7 @@ begin
 		1: begin
 			rd8R_en <= 0;
 			rdR_sel <= 4'b0;
-			if (sub_area1_row_count == 20 && CB12or34 == 1'b0) begin
+			if (sub_area1_row_count == 24 && CB12or34 == 1'b0) begin
 				CB12or34 <= 1'b1;
 				sub_area1_row_count <= 0;
 				column_finish <= 1'b0;
@@ -105,7 +108,7 @@ begin
 			else begin
 				column_finish <= 1'b0;
 				if (CB12or34 == 0) begin
-					rd_address_all <= {32{sub_area1_row_count+7'd4}};
+					rd_address_all <= {32{sub_area1_row_count}};
 					if (sub_area1_row_count >= 7 && sub_area1_row_count <= 19 && read_stall == 0) begin
 						read_stall <= 1'b1;
 					end
@@ -1951,6 +1954,7 @@ begin
 	endcase
 end
 
+
 //write out
 always@(posedge clk)
 begin
@@ -1960,6 +1964,8 @@ begin
 		write_address_all <= 224'b0;
 		pre_count <= 10'b0;
 		pre_line_count <= 7'b0;
+		clean_up24 <= 1'b0;
+		clean_upm24 <= 1'b0;
 	end
 	W_PRE96: begin
 		pre_count <= pre_count + 1'd1;
@@ -2035,7 +2041,7 @@ begin
 		end
 		else if (pre_count == 191) begin
 			Bank_sel <= 32'b11110000000000000000000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd24;
 			write_address_all <= { 32{pre_line_count} };
 		end
 
@@ -2047,7 +2053,7 @@ begin
 		end
 		else if (pre_count == 215) begin
 			Bank_sel <= 32'b00000000000000000000000000001111;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd24;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 216 && pre_count < 239) begin
@@ -2057,7 +2063,7 @@ begin
 		end
 		else if (pre_count == 239) begin
 			Bank_sel <= 32'b00000000000000000000000011110000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd24;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 240 && pre_count < 263) begin
@@ -2067,7 +2073,7 @@ begin
 		end
 		else if (pre_count == 263) begin
 			Bank_sel <= 32'b00000000000000000000111100000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd24;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 264 && pre_count < 287) begin
@@ -2077,7 +2083,7 @@ begin
 		end
 		else if (pre_count == 287) begin
 			Bank_sel <= 32'b00000000000000001111000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd24;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 288 && pre_count < 311) begin
@@ -2087,7 +2093,7 @@ begin
 		end
 		else if (pre_count == 311) begin
 			Bank_sel <= 32'b00000000000011110000000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd24;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 312 && pre_count < 335) begin
@@ -2097,7 +2103,7 @@ begin
 		end
 		else if (pre_count == 335) begin
 			Bank_sel <= 32'b00000000111100000000000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd24;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 336 && pre_count < 359) begin
@@ -2107,7 +2113,7 @@ begin
 		end
 		else if (pre_count == 359) begin
 			Bank_sel <= 32'b00001111000000000000000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd24;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 360 && pre_count < 383) begin
@@ -2117,7 +2123,7 @@ begin
 		end
 		else if (pre_count == 383) begin
 			Bank_sel <= 32'b11110000000000000000000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd48;
 			write_address_all <= { 32{pre_line_count} };
 		end
 
@@ -2129,7 +2135,7 @@ begin
 		end
 		else if (pre_count == 407) begin
 			Bank_sel <= 32'b00000000000000000000000000001111;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd48;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 408 && pre_count < 431) begin
@@ -2139,7 +2145,7 @@ begin
 		end
 		else if (pre_count == 431) begin
 			Bank_sel <= 32'b00000000000000000000000011110000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd48;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 432 && pre_count < 455) begin
@@ -2149,7 +2155,7 @@ begin
 		end
 		else if (pre_count == 455) begin
 			Bank_sel <= 32'b00000000000000000000111100000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd48;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 456 && pre_count < 479) begin
@@ -2159,7 +2165,7 @@ begin
 		end
 		else if (pre_count == 479) begin
 			Bank_sel <= 32'b00000000000000001111000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd48;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 480 && pre_count < 503) begin
@@ -2169,7 +2175,7 @@ begin
 		end
 		else if (pre_count == 503) begin
 			Bank_sel <= 32'b00000000000011110000000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd48;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 504 && pre_count < 527) begin
@@ -2179,7 +2185,7 @@ begin
 		end
 		else if (pre_count == 527) begin
 			Bank_sel <= 32'b00000000111100000000000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd48;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 528 && pre_count < 551) begin
@@ -2189,7 +2195,7 @@ begin
 		end
 		else if (pre_count == 551) begin
 			Bank_sel <= 32'b00001111000000000000000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd48;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 552 && pre_count < 575) begin
@@ -2199,7 +2205,7 @@ begin
 		end
 		else if (pre_count == 575) begin
 			Bank_sel <= 32'b11110000000000000000000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd72;
 			write_address_all <= { 32{pre_line_count} };
 		end
 
@@ -2211,7 +2217,7 @@ begin
 		end
 		else if (pre_count == 599) begin
 			Bank_sel <= 32'b00000000000000000000000000001111;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd72;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 600 && pre_count < 623) begin
@@ -2221,7 +2227,7 @@ begin
 		end
 		else if (pre_count == 623) begin
 			Bank_sel <= 32'b00000000000000000000000011110000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd72;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 624 && pre_count < 647) begin
@@ -2231,7 +2237,7 @@ begin
 		end
 		else if (pre_count == 647) begin
 			Bank_sel <= 32'b00000000000000000000111100000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd72;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 648 && pre_count < 671) begin
@@ -2241,7 +2247,7 @@ begin
 		end
 		else if (pre_count == 671) begin
 			Bank_sel <= 32'b00000000000000001111000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd72;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 672 && pre_count < 695) begin
@@ -2251,7 +2257,7 @@ begin
 		end
 		else if (pre_count == 695) begin
 			Bank_sel <= 32'b00000000000011110000000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd72;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 696 && pre_count < 719) begin
@@ -2261,7 +2267,7 @@ begin
 		end
 		else if (pre_count == 719) begin
 			Bank_sel <= 32'b00000000111100000000000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd72;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 720 && pre_count < 743) begin
@@ -2271,7 +2277,7 @@ begin
 		end
 		else if (pre_count == 743) begin
 			Bank_sel <= 32'b00001111000000000000000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd72;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 744 && pre_count < 767) begin
@@ -2285,7 +2291,14 @@ begin
 			write_address_all <= { 32{pre_line_count} };
 		end
 	end
+	W_IDLE_1: begin
+		Bank_sel <= 32'b0;
+		write_address_all <= 224'b0;
+		pre_count <= 10'b0;
+		pre_line_count <= 7'b0;
+	end
 	W_UP24: begin
+		clean_up24 <= 1'b1;
 		pre_count <= pre_count + 1'd1;
 		if (pre_count < 24) begin
 			Bank_sel <= 32'b00000000000000000000000000001111;
@@ -2359,17 +2372,18 @@ begin
 		end
 		else if (pre_count == 191) begin
 			Bank_sel <= 32'b11110000000000000000000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd24;
 			write_address_all <= { 32{pre_line_count} };
 		end
 	end
-	W_RELAX: begin
+	W_IDLE_2: begin
 		Bank_sel <= 32'b0;
 		write_address_all <= 224'b0;
 		pre_count <= 192;
-		pre_line_count <= 7'b0;
+		pre_line_count <= 7'd24;
 	end
 	W_UPm24: begin
+		clean_upm24 <= 1'b1;
 		pre_count <= pre_count + 1'd1;
 		if (pre_count >= 192 && pre_count < 215) begin
 			Bank_sel <= 32'b00000000000000000000000000001111;
@@ -2378,7 +2392,7 @@ begin
 		end
 		else if (pre_count == 215) begin
 			Bank_sel <= 32'b00000000000000000000000000001111;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd24;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 216 && pre_count < 239) begin
@@ -2388,7 +2402,7 @@ begin
 		end
 		else if (pre_count == 239) begin
 			Bank_sel <= 32'b00000000000000000000000011110000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd24;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 240 && pre_count < 263) begin
@@ -2398,7 +2412,7 @@ begin
 		end
 		else if (pre_count == 263) begin
 			Bank_sel <= 32'b00000000000000000000111100000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd24;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 264 && pre_count < 287) begin
@@ -2408,7 +2422,7 @@ begin
 		end
 		else if (pre_count == 287) begin
 			Bank_sel <= 32'b00000000000000001111000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd24;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 288 && pre_count < 311) begin
@@ -2418,7 +2432,7 @@ begin
 		end
 		else if (pre_count == 311) begin
 			Bank_sel <= 32'b00000000000011110000000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd24;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 312 && pre_count < 335) begin
@@ -2428,7 +2442,7 @@ begin
 		end
 		else if (pre_count == 335) begin
 			Bank_sel <= 32'b00000000111100000000000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd24;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 336 && pre_count < 359) begin
@@ -2438,7 +2452,7 @@ begin
 		end
 		else if (pre_count == 359) begin
 			Bank_sel <= 32'b00001111000000000000000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd24;
 			write_address_all <= { 32{pre_line_count} };
 		end
 		else if (pre_count >= 360 && pre_count < 383) begin
@@ -2448,9 +2462,15 @@ begin
 		end
 		else if (pre_count == 383) begin
 			Bank_sel <= 32'b11110000000000000000000000000000;
-			pre_line_count <= 7'd0;
+			pre_line_count <= 7'd48;
 			write_address_all <= { 32{pre_line_count} };
 		end
+	end
+	W_IDLE_3:begin
+		Bank_sel <= 32'b0;
+		write_address_all <= 224'b0;
+		pre_count <= 10'b0;
+		pre_line_count <= 7'b0;
 	end
 	default:begin
 		Bank_sel <= 32'b0;
@@ -2461,11 +2481,12 @@ begin
 	endcase
 end
 
+
 //read update
-always @(current_state or begin_prepare or pre96_complete or column_finish)
+always @(current_state or begin_prepare or column_finish or pre_count)
 begin
 	case(current_state)
-	IDLE: if (begin_prepare && pre96_complete)
+	IDLE: if (begin_prepare && (pre_count == 762))
 		next_state <= SUB_AERA1;
 		//search_column_count <= 1;
 		else
@@ -2503,22 +2524,25 @@ begin
 	endcase
 end
 
+
 //write update
-always @(write_current_state or begin_prepare or pre_count)
+always @(write_current_state or begin_prepare or pre_count or clean_up24 or clean_upm24)
 begin
 	case(write_current_state)
 	W_IDLE: if (begin_prepare) write_next_state <= W_PRE96;
-			else if (clean_up24 == 1'b1) write_next_state <= W_UP24;
 			else write_next_state <= W_IDLE;
-	W_PRE96:if (pre_count < 768) write_next_state <= W_PRE96;
-			else write_next_state <= W_IDLE;
+	W_PRE96: if (pre_count < 768) write_next_state <= W_PRE96;
+			else write_next_state <= W_IDLE_1;
+	W_IDLE_1: if (clean_up24 == 1'b1) write_next_state <= W_UP24;
+			else write_next_state <= W_IDLE_1;
 	W_UP24: if (pre_count < 192) write_next_state <= W_UP24;
-			else write_next_state <= W_RELAX;
-	W_RELAX:if (clean_upm24 == 1'b1) write_next_state <= W_UPm24;
-			else write_next_state <= W_RELAX;
-	W_UPm24:if (pre_count < 384) write_next_state <= W_UPm24;
-			else write_next_state <= W_IDLE;
-	default:
+			else write_next_state <= W_IDLE_2;
+	W_IDLE_2: if (clean_upm24 == 1'b1) write_next_state <= W_UPm24;
+			else write_next_state <= W_IDLE_2;
+	W_UPm24: if (pre_count < 384) write_next_state <= W_UPm24;
+			else write_next_state <= W_IDLE_3;
+	W_IDLE_3: write_next_state <= W_IDLE_3;
+	default: write_next_state <= W_IDLE;
 	endcase
 end
 
